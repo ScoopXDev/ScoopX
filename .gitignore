@@ -1,0 +1,288 @@
+
+# ==================================================
+# ScoopX - .gitignore
+# WinUI 3 / C# / .NET / Visual Studio / JetBrains
+# ==================================================
+
+
+# ==================================================
+# 1. Visual Studio
+# ==================================================
+
+.vs/
+.vscode/
+
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.userprefs
+
+*.VC.db
+*.VC.VC.opendb
+*.VC.db-shm
+*.VC.db-wal
+*.VC.opendb
+
+ipch/
+*.opensdf
+*.sdf
+
+
+# ==================================================
+# 2. JetBrains IDEA / Rider / WebStorm
+# ==================================================
+
+.idea/
+.idea_modules/
+
+*.iml
+*.ipr
+*.iws
+*.sln.iml
+
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+out/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/shelf/
+
+
+# ==================================================
+# 3. .NET / C# 编译产物
+# ==================================================
+
+**/bin/
+**/obj/
+
+**/Debug/
+**/Release/
+
+artifacts/
+[Bb]uild/
+[Bb]uilds/
+
+*.dll
+*.exe
+*.pdb
+*.mdb
+
+*.cache
+*.tmp
+*.temp
+
+
+# ==================================================
+# 4. WinUI 3 / Windows App SDK
+# ==================================================
+
+AppPackages/
+**/AppPackages/
+
+BundleArtifacts/
+**/BundleArtifacts/
+
+Generated Files/
+**/Generated Files/
+
+*.appx
+*.appxbundle
+*.appxupload
+
+*.msix
+*.msixbundle
+*.msixupload
+
+*.appinstaller
+*.appxsym
+
+*.msixvc
+*.msixvcbundle
+
+# 本地打包证书
+*.pfx
+*.p12
+*.cer
+*.key
+
+
+# ==================================================
+# 5. NuGet
+# ==================================================
+
+packages/
+
+*.nupkg
+*.snupkg
+
+.nuget/packages/
+
+# NuGet 缓存
+.nuget/NuGetScratch/
+
+# 保留 NuGet 配置和依赖锁文件
+!NuGet.Config
+!packages.lock.json
+
+
+# ==================================================
+# 6. 测试 / 代码覆盖率
+# ==================================================
+
+TestResults/
+**/TestResults/
+
+coverage/
+**/coverage/
+
+.coverage
+*.coverage
+*.coveragexml
+
+*.trx
+
+BenchmarkDotNet.Artifacts/
+
+
+# ==================================================
+# 7. 日志 / 临时文件
+# ==================================================
+
+logs/
+**/logs/
+
+*.log
+*.log.*
+
+*.bak
+*.old
+*.backup
+
+*.swp
+*.swo
+
+*.orig
+*.rej
+
+*~
+
+
+# ==================================================
+# 8. 本地配置 / 敏感信息
+# ==================================================
+
+.env
+.env.*
+!.env.example
+
+appsettings.Development.json
+appsettings.Local.json
+
+secrets.json
+
+*.secret
+*.secrets
+
+# 用户本地配置
+*.local.json
+*.local.config
+
+
+# ==================================================
+# 9. Node.js / 前端工具（如有）
+# ==================================================
+
+node_modules/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+.pnpm-store/
+
+dist/
+.next/
+.nuxt/
+
+# 保留依赖锁文件
+!package-lock.json
+!pnpm-lock.yaml
+!yarn.lock
+
+
+# ==================================================
+# 10. Windows 系统文件
+# ==================================================
+
+Thumbs.db
+Thumbs.db:encryptable
+
+ehthumbs.db
+ehthumbs_vista.db
+
+[Dd]esktop.ini
+
+$RECYCLE.BIN/
+
+
+# ==================================================
+# 11. macOS / Linux 系统文件
+# ==================================================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+._*
+
+.Spotlight-V100
+.Trashes
+
+*~
+
+
+# ==================================================
+# 12. 发布 / 安装包 / 本地输出
+# ==================================================
+
+publish/
+**/publish/
+
+publish-output/
+
+installer-output/
+
+*.msi
+*.msp
+
+*.zip
+*.7z
+*.rar
+
+
+# ==================================================
+# 13. 保留项目核心文件
+# ==================================================
+
+!.gitignore
+!README.md
+!LICENSE
+
+!*.sln
+!*.slnx
+!*.csproj
+!*.props
+!*.targets
+
+!*.cs
+!*.xaml
+!*.resw
+
+!global.json
+!Directory.Build.props
+!Directory.Build.targets
+!Directory.Packages.props

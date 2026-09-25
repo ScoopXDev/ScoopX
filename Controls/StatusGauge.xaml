@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<UserControl
+    x:Class="ScoopX.Controls.StatusGauge"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="180"
+    d:DesignWidth="140">
+
+    <StackPanel HorizontalAlignment="Center" Spacing="10">
+        <Grid
+            x:Name="RingHost"
+            Width="108"
+            Height="108"
+            HorizontalAlignment="Center"
+            SizeChanged="RingHost_SizeChanged">
+            <Ellipse
+                x:Name="TrackEllipse"
+                Stroke="#E5E7EB"
+                StrokeThickness="7"
+                Fill="Transparent" />
+            <Path
+                x:Name="ProgressPath"
+                Stroke="{StaticResource ScoopAccentBrush}"
+                StrokeThickness="7"
+                StrokeStartLineCap="Round"
+                StrokeEndLineCap="Round"
+                Fill="Transparent" />
+            <TextBlock
+                x:Name="PercentText"
+                Text="0%"
+                FontSize="26"
+                FontWeight="SemiBold"
+                Foreground="{StaticResource ScoopAccentBrush}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center" />
+        </Grid>
+
+        <StackPanel Spacing="2" HorizontalAlignment="Center">
+            <TextBlock
+                x:Name="DetailText"
+                Text="—"
+                FontSize="14"
+                Foreground="#374151"
+                HorizontalAlignment="Center" />
+            <StackPanel
+                x:Name="UsagePanel"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                Visibility="Collapsed"
+                Spacing="0">
+                <TextBlock x:Name="UsedText" FontSize="14" FontWeight="SemiBold" />
+                <TextBlock Text=" / " FontSize="14" Foreground="#6B7280" />
+                <TextBlock x:Name="TotalText" FontSize="14" Foreground="#6B7280" />
+            </StackPanel>
+            <TextBlock
+                x:Name="LabelText"
+                Text=""
+                FontSize="13"
+                Foreground="#9CA3AF"
+                HorizontalAlignment="Center"
+                Margin="0,2,0,0" />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ScoopX.Pages.WebsitesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ScoopX.Pages"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Grid Background="Transparent">
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto"
+            HorizontalScrollBarVisibility="Disabled"
+            Background="Transparent">
+            <Grid Padding="20,16,24,24" RowSpacing="16" VerticalAlignment="Top" Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+            <Grid ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                    <Button x:Name="AddSiteButton" Content="添加站点" Style="{StaticResource AccentButtonStyle}" Click="AddSiteButton_Click" />
+
+                    <DropDownButton Content="高级设置">
+                        <DropDownButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <MenuFlyoutItem Text="修改默认页面" />
+                                <MenuFlyoutItem Text="PHP命令行版本" />
+                            </MenuFlyout>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center">
+                    <ComboBox
+                        x:Name="CategoryFilterComboBox"
+                        MinWidth="120"
+                        SelectedIndex="0"
+                        SelectionChanged="CategoryFilterComboBox_SelectionChanged">
+                        <ComboBoxItem Content="全部分类" Tag="all" />
+                        <ComboBoxItem Content="运行中" Tag="running" />
+                        <ComboBoxItem Content="已停止" Tag="stopped" />
+                    </ComboBox>
+
+                    <AutoSuggestBox
+                        x:Name="SearchBox"
+                        Width="220"
+                        PlaceholderText="请输入域名或备注"
+                        QueryIcon="Find"
+                        TextChanged="SearchBox_TextChanged"
+                        QuerySubmitted="SearchBox_QuerySubmitted" />
+                </StackPanel>
+            </Grid>
+
+            <Border
+                Grid.Row="1"
+                VerticalAlignment="Top"
+                Style="{StaticResource ScoopGlassCardStyle}"
+                CornerRadius="14"
+                Background="{StaticResource ScoopGlassStrongAcrylicBrush}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid
+                        Padding="16,12"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="0,0,0,1"
+                        ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="1.2*" />
+                            <ColumnDefinition Width="1.1*" />
+                            <ColumnDefinition Width="1.8*" />
+                            <ColumnDefinition Width="1.1*" />
+                            <ColumnDefinition Width="0.8*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox
+                            x:Name="HeaderSelectAllCheckBox"
+                            MinWidth="0"
+                            VerticalAlignment="Center"
+                            Click="SelectAllCheckBox_Click" />
+                        <TextBlock Grid.Column="1" Text="网站名称" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="2" Text="状态" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="3" Text="根目录" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="4" Text="备注信息" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="5" Text="PHP版本" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="6" Text="操作" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <ItemsControl
+                        x:Name="WebsiteList"
+                        Grid.Row="1">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="local:WebsiteItem">
+                                <Grid
+                                    Padding="16,10"
+                                    MinHeight="48"
+                                    ColumnSpacing="12"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="0,0,0,1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="1.2*" />
+                                        <ColumnDefinition Width="1.1*" />
+                                        <ColumnDefinition Width="1.8*" />
+                                        <ColumnDefinition Width="1.1*" />
+                                        <ColumnDefinition Width="0.8*" />
+                                        <ColumnDefinition Width="1*" />
+                                    </Grid.ColumnDefinitions>
+                                    <CheckBox
+                                        MinWidth="0"
+                                        VerticalAlignment="Center"
+                                        IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                                        Checked="ItemCheckBox_Changed"
+                                        Unchecked="ItemCheckBox_Changed" />
+                                    <HyperlinkButton
+                                        Grid.Column="1"
+                                        Style="{StaticResource TableLinkButtonStyle}"
+                                        Tag="{x:Bind}"
+                                        Click="SiteName_Click"
+                                        ToolTipService.ToolTip="点击编辑站点">
+                                        <TextBlock
+                                            Text="{x:Bind Name}"
+                                            TextWrapping="NoWrap"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </HyperlinkButton>
+                                    <ToggleSwitch
+                                        Grid.Column="2"
+                                        MinWidth="0"
+                                        VerticalAlignment="Center"
+                                        OnContent=""
+                                        OffContent=""
+                                        IsOn="{x:Bind IsRunning, Mode=TwoWay}"
+                                        Tag="{x:Bind}"
+                                        Toggled="StatusToggle_Toggled"
+                                        ToolTipService.ToolTip="点击启停站点" />
+                                    <HyperlinkButton
+                                        Grid.Column="3"
+                                        Style="{StaticResource TableLinkButtonStyle}"
+                                        Tag="{x:Bind RootPath}"
+                                        Click="RootPath_Click"
+                                        ToolTipService.ToolTip="{x:Bind RootPath}">
+                                        <TextBlock
+                                            Text="{x:Bind RootPath}"
+                                            TextWrapping="NoWrap"
+                                            TextTrimming="CharacterEllipsis" />
+                                    </HyperlinkButton>
+                                    <TextBlock Grid.Column="4" Text="{x:Bind Remark}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="5" Text="{x:Bind PhpVersion}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                                    <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                        <HyperlinkButton
+                                            Content="设置"
+                                            Padding="0"
+                                            Tag="{x:Bind}"
+                                            Click="SiteName_Click" />
+                                        <Border
+                                            Width="1"
+                                            Height="12"
+                                            VerticalAlignment="Center"
+                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                        <HyperlinkButton Content="删除" Padding="0" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Grid
+                        Grid.Row="2"
+                        Padding="16,12"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="0,1,0,0"
+                        ColumnSpacing="16">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                            <CheckBox
+                                x:Name="SelectAllCheckBox"
+                                MinWidth="0"
+                                VerticalAlignment="Center"
+                                Click="SelectAllCheckBox_Click" />
+                            <ComboBox
+                                x:Name="BatchActionComboBox"
+                                Width="180"
+                                PlaceholderText="请选择批量操作"
+                                VerticalAlignment="Center"
+                                SelectionChanged="BatchActionComboBox_SelectionChanged">
+                                <ComboBoxItem Content="启动站点" Tag="start" />
+                                <ComboBoxItem Content="停用站点" Tag="stop" />
+                                <ComboBoxItem Content="设置PHP版本 7.4" Tag="php:7.4" />
+                                <ComboBoxItem Content="设置PHP版本 8.0" Tag="php:8.0" />
+                                <ComboBoxItem Content="设置PHP版本 8.1" Tag="php:8.1" />
+                                <ComboBoxItem Content="设置PHP版本 8.2" Tag="php:8.2" />
+                                <ComboBoxItem Content="设置PHP版本 8.3" Tag="php:8.3" />
+                                <ComboBoxItem Content="删除站点" Tag="delete" />
+                            </ComboBox>
+                            <Button
+                                x:Name="BatchActionButton"
+                                Content="批量操作 (已选中0项)"
+                                Style="{StaticResource AccentButtonStyle}"
+                                IsEnabled="False"
+                                Click="BatchActionButton_Click" />
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="8"
+                            VerticalAlignment="Center">
+                            <Button
+                                x:Name="PrevPageButton"
+                                MinWidth="32"
+                                Padding="8,4"
+                                Click="PrevPageButton_Click"
+                                ToolTipService.ToolTip="上一页">
+                                <FontIcon Glyph="&#xE76B;" FontSize="12" />
+                            </Button>
+                            <StackPanel x:Name="PageNumbersPanel" Orientation="Horizontal" Spacing="4" />
+                            <Button
+                                x:Name="NextPageButton"
+                                MinWidth="32"
+                                Padding="8,4"
+                                Click="NextPageButton_Click"
+                                ToolTipService.ToolTip="下一页">
+                                <FontIcon Glyph="&#xE76C;" FontSize="12" />
+                            </Button>
+                            <ComboBox
+                                x:Name="PageSizeComboBox"
+                                MinWidth="100"
+                                VerticalAlignment="Center"
+                                SelectionChanged="PageSizeComboBox_SelectionChanged">
+                                <ComboBoxItem Content="5条/页" Tag="5" />
+                                <ComboBoxItem Content="10条/页" Tag="10" IsSelected="True" />
+                                <ComboBoxItem Content="20条/页" Tag="20" />
+                                <ComboBoxItem Content="50条/页" Tag="50" />
+                            </ComboBox>
+                            <TextBlock
+                                x:Name="TotalCountText"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBlock Text="前往" VerticalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBox
+                                x:Name="JumpPageTextBox"
+                                Width="48"
+                                TextAlignment="Center"
+                                VerticalAlignment="Center"
+                                KeyDown="JumpPageTextBox_KeyDown" />
+                            <TextBlock Text="页" VerticalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+        </ScrollViewer>
+
+        <InfoBar
+            x:Name="StatusFeedbackBar"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Margin="0,12,24,0"
+            MaxWidth="360"
+            IsOpen="False"
+            IsClosable="True"
+            Severity="Success" />
+    </Grid>
+</Page>

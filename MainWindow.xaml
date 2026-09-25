@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="ScoopX.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ScoopX"
+    xmlns:controls="using:ScoopX.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tb="using:H.NotifyIcon"
+    mc:Ignorable="d"
+    Title="ScoopX">
+
+    <!-- 自绘氛围渐变，不再用 Mica 实底 -->
+    <Grid>
+        <!-- 底层：Logo 蓝紫粉柔和渐变 + 光斑 -->
+        <Grid IsHitTestVisible="False">
+            <Grid.Background>
+                <StaticResource ResourceKey="ScoopAmbientGradient" />
+            </Grid.Background>
+
+            <Ellipse
+                Width="520"
+                Height="520"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,-160,-120,0"
+                Opacity="0.85">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#B3BFDBFE" Offset="0" />
+                        <GradientStop Color="#00BFDBFE" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <Ellipse
+                Width="460"
+                Height="460"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Margin="-160,0,0,-120"
+                Opacity="0.8">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#A6FBCFE8" Offset="0" />
+                        <GradientStop Color="#00FBCFE8" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <Ellipse
+                Width="380"
+                Height="380"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="-40,80,180,0"
+                Opacity="0.7">
+                <Ellipse.Fill>
+                    <RadialGradientBrush>
+                        <GradientStop Color="#99DDD6FE" Offset="0" />
+                        <GradientStop Color="#00DDD6FE" Offset="1" />
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+        </Grid>
+
+        <Grid Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="64" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="68" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- 系统托盘：运行时显示，关闭进托盘 -->
+            <tb:TaskbarIcon
+                x:Name="TrayIcon"
+                ToolTipText="ScoopX Workspace"
+                IconSource="ms-appx:///Assets/ScoopX.ico"
+                MenuActivation="RightClick"
+                NoLeftClickDelay="True"
+                LeftClickCommand="{x:Bind ShowWindowCommand}">
+                <tb:TaskbarIcon.ContextFlyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem Text="显示主窗口" Click="TrayShow_Click" />
+                        <MenuFlyoutSeparator />
+                        <MenuFlyoutItem Text="退出 ScoopX" Click="TrayExit_Click" />
+                    </MenuFlyout>
+                </tb:TaskbarIcon.ContextFlyout>
+            </tb:TaskbarIcon>
+
+            <!-- 自定义标题栏：拖拽区与系统按钮分离，只保留最小化 / 关闭 -->
+            <Grid
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                Background="Transparent">
+                <Grid
+                    x:Name="AppTitleBar"
+                    Padding="14,0,0,0"
+                    Background="Transparent"
+                    Margin="0,0,92,0">
+                    <StackPanel
+                        x:Name="TitleBarBrand"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Spacing="12">
+                        <Border
+                            Width="40"
+                            Height="40"
+                            VerticalAlignment="Center">
+                            <Image
+                                Source="ms-appx:///Assets/ScoopX-icon.png"
+                                Width="32"
+                                Height="32"
+                                Stretch="Uniform"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                        <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <TextBlock
+                                Text="ScoopX Workspace"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                            <TextBlock
+                                Text="为每一位PHP开发者打造高效开发环境，专注每一次创造。"
+                                FontSize="12"
+                                Foreground="#6B7280" />
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel
+                    x:Name="CaptionButtons"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Spacing="0">
+                    <controls:HandCursorButton
+                        x:Name="MinimizeButton"
+                        Style="{StaticResource CaptionButtonStyle}"
+                        Click="MinimizeButton_Click"
+                        ToolTipService.ToolTip="最小化">
+                        <TextBlock
+                            Text="&#xE921;"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </controls:HandCursorButton>
+                    <controls:HandCursorButton
+                        x:Name="CloseButton"
+                        Style="{StaticResource CaptionCloseButtonStyle}"
+                        Click="CloseButton_Click"
+                        ToolTipService.ToolTip="关闭">
+                        <TextBlock
+                            Text="&#xE8BB;"
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="10"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" />
+                    </controls:HandCursorButton>
+                </StackPanel>
+            </Grid>
+
+            <Grid
+                x:Name="RailHost"
+                Grid.Row="1"
+                Grid.Column="0"
+                Background="Transparent"
+                BorderThickness="0"
+                Loaded="RailHost_Loaded"
+                SizeChanged="RailHost_SizeChanged">
+                <!-- 内层无 Padding，选中条与菜单同一坐标系，避免位移算偏 -->
+                <Grid
+                    x:Name="RailContent"
+                    Margin="0,12,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Border
+                        x:Name="SelectionPill"
+                        Grid.RowSpan="2"
+                        Width="3"
+                        Height="40"
+                        CornerRadius="1.5"
+                        Background="{StaticResource ScoopAccentBrush}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        IsHitTestVisible="False">
+                        <Border.RenderTransform>
+                            <TranslateTransform x:Name="SelectionPillTransform" />
+                        </Border.RenderTransform>
+                    </Border>
+
+                    <StackPanel x:Name="NavItemsPanel" Spacing="0">
+                        <controls:HandCursorButton
+                            x:Name="NavHome"
+                            Tag="Home"
+                            Height="56"
+                            Style="{StaticResource SidebarNavButtonStyle}"
+                            Click="NavItem_Click">
+                            <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <FontIcon x:Name="NavHomeIcon" Glyph="&#xE80F;" FontSize="20" Foreground="{StaticResource ScoopAccentBrush}" />
+                                <TextBlock x:Name="NavHomeText" Text="首页" FontSize="11" HorizontalAlignment="Center" Foreground="{StaticResource ScoopAccentBrush}" />
+                            </StackPanel>
+                        </controls:HandCursorButton>
+
+                        <controls:HandCursorButton
+                            x:Name="NavWebsites"
+                            Tag="Websites"
+                            Height="56"
+                            Style="{StaticResource SidebarNavButtonStyle}"
+                            Click="NavItem_Click">
+                            <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <FontIcon x:Name="NavWebsitesIcon" Glyph="&#xE774;" FontSize="20" Foreground="#4B5563" />
+                                <TextBlock x:Name="NavWebsitesText" Text="网站" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                            </StackPanel>
+                        </controls:HandCursorButton>
+
+                        <controls:HandCursorButton
+                            x:Name="NavDatabase"
+                            Tag="Database"
+                            Height="56"
+                            Style="{StaticResource SidebarNavButtonStyle}"
+                            Click="NavItem_Click">
+                            <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <FontIcon x:Name="NavDatabaseIcon" Glyph="&#xEE94;" FontSize="20" Foreground="#4B5563" />
+                                <TextBlock x:Name="NavDatabaseText" Text="数据库" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                            </StackPanel>
+                        </controls:HandCursorButton>
+
+                        <controls:HandCursorButton
+                            x:Name="NavStore"
+                            Tag="Store"
+                            Height="56"
+                            Style="{StaticResource SidebarNavButtonStyle}"
+                            Click="NavItem_Click">
+                            <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <FontIcon x:Name="NavStoreIcon" Glyph="&#xE74C;" FontSize="20" Foreground="#4B5563" />
+                                <TextBlock x:Name="NavStoreText" Text="应用商店" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                            </StackPanel>
+                        </controls:HandCursorButton>
+                    </StackPanel>
+
+                    <controls:HandCursorButton
+                        x:Name="NavSettings"
+                        Grid.Row="1"
+                        Tag="Settings"
+                        Height="56"
+                        Style="{StaticResource SidebarNavButtonStyle}"
+                        Click="NavItem_Click">
+                        <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <FontIcon x:Name="NavSettingsIcon" Glyph="&#xE713;" FontSize="20" Foreground="#4B5563" />
+                            <TextBlock x:Name="NavSettingsText" Text="设置" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                        </StackPanel>
+                    </controls:HandCursorButton>
+                </Grid>
+            </Grid>
+
+            <!-- 内容区：贴右贴底，仅左上圆角；Apple 毛玻璃 -->
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="0"
+                Background="{StaticResource ScoopGlassAcrylicBrush}"
+                BorderBrush="{StaticResource ScoopGlassBorderBrush}"
+                BorderThickness="1,1,0,0"
+                CornerRadius="16,0,0,0">
+                <Frame
+                    x:Name="ContentFrame"
+                    Background="Transparent"
+                    BorderThickness="0" />
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentDialog
+    x:Class="ScoopX.Pages.EditSiteDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="编辑站点"
+    CornerRadius="12"
+    Style="{StaticResource DefaultContentDialogStyle}">
+
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <TextBlock
+                Text="{Binding}"
+                FontSize="18"
+                FontWeight="SemiBold"
+                Foreground="#1F2937" />
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
+
+    <ContentDialog.Resources>
+        <Thickness x:Key="ContentDialogPadding">0,12,0,0</Thickness>
+        <Thickness x:Key="ContentDialogTitleMargin">24,4,24,4</Thickness>
+        <Thickness x:Key="ContentDialogSeparatorThickness">0</Thickness>
+        <Thickness x:Key="ContentDialogCommandSpaceMargin">0</Thickness>
+        <x:Double x:Key="ContentDialogMinWidth">820</x:Double>
+        <x:Double x:Key="ContentDialogMaxWidth">900</x:Double>
+        <SolidColorBrush x:Key="ContentDialogBackground" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="ContentDialogTopOverlay" Color="Transparent" />
+        <SolidColorBrush x:Key="ContentDialogBorderBrush" Color="#0F000000" />
+        <Thickness x:Key="ContentDialogBorderThickness">0</Thickness>
+        <SolidColorBrush x:Key="ContentDialogSmokeFill" Color="#99000000" />
+
+        <Style x:Key="EditNavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="14,0,12,0" />
+            <Setter Property="MinHeight" Value="42" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Foreground" Value="#4B5563" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
+                            <Border
+                                Width="3"
+                                Height="16"
+                                Margin="6,0,0,0"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                CornerRadius="2"
+                                Background="{TemplateBinding BorderBrush}" />
+                            <ContentPresenter
+                                x:Name="ContentPresenter"
+                                Content="{TemplateBinding Content}"
+                                ContentTransitions="{TemplateBinding ContentTransitions}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Padding="{TemplateBinding Padding}"
+                                HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalContentAlignment="Center" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="PointerOver">
+                                        <VisualState.Setters>
+                                            <Setter Target="RootGrid.Background" Value="#DBEAFE" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <VisualState.Setters>
+                                            <Setter Target="RootGrid.Background" Value="#BFDBFE" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled">
+                                        <VisualState.Setters>
+                                            <Setter Target="ContentPresenter.Opacity" Value="0.4" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EditFooterCancelStyle" TargetType="Button" BasedOn="{StaticResource SoftCancelButtonStyle}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="EditFooterConfirmStyle" TargetType="Button" BasedOn="{StaticResource SoftConfirmButtonStyle}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="MinHeight" Value="40" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="EditSectionTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="#111827" />
+            <Setter Property="Margin" Value="0,0,0,18" />
+        </Style>
+
+        <Style x:Key="EditGroupLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="#9CA3AF" />
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+    </ContentDialog.Resources>
+
+    <Grid Width="852">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- 主体：左导航 + 右内容 -->
+        <Grid Height="448">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Padding="16,8,12,8">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <StackPanel x:Name="NavPanel" Spacing="2">
+                        <Button x:Name="NavDomains" Tag="Domains" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE774;" FontSize="16" Foreground="#4B5563" />
+                                <TextBlock Text="域名管理" FontSize="14" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavDirectory" Tag="Directory" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE8B7;" FontSize="16" Foreground="#4B5563" />
+                                <TextBlock Text="网站目录" FontSize="14" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavRewrite" Tag="Rewrite" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE943;" FontSize="16" Foreground="#4B5563" />
+                                <TextBlock Text="伪静态设置" FontSize="14" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavDefaultDoc" Tag="DefaultDoc" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE8A5;" FontSize="16" Foreground="#4B5563" />
+                                <TextBlock Text="默认文档" FontSize="14" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavConfig" Tag="Config" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE713;" FontSize="16" Foreground="#4B5563" />
+                                <TextBlock Text="配置文件" FontSize="14" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavPhp" Tag="Php" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE943;" FontSize="16" Foreground="#4B5563" />
+                                <TextBlock Text="PHP 版本" FontSize="14" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="NavLogs" Tag="Logs" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <FontIcon Glyph="&#xE9D9;" FontSize="16" Foreground="#4B5563" />
+                                <TextBlock Text="网站日志" FontSize="14" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+
+            <Border Grid.Column="1" Padding="8,8,24,8">
+                <Grid>
+                    <ScrollViewer x:Name="PanelDomains" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <TextBlock Text="域名管理" Style="{StaticResource EditSectionTitleStyle}" />
+                            <TextBlock Text="基本信息" Style="{StaticResource EditGroupLabelStyle}" />
+                            <StackPanel Spacing="14" Margin="0,0,0,20">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="网站域名" Style="{StaticResource DialogFieldLabelStyle}" />
+                                    <TextBox
+                                        x:Name="DomainTextBox"
+                                        PlaceholderText="example.com"
+                                        CornerRadius="6"
+                                        MinHeight="96"
+                                        AcceptsReturn="True"
+                                        TextWrapping="Wrap"
+                                        VerticalContentAlignment="Top" />
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="备注" Style="{StaticResource DialogFieldLabelStyle}" />
+                                    <TextBox x:Name="RemarkTextBox" PlaceholderText="可选" CornerRadius="6" />
+                                </StackPanel>
+                            </StackPanel>
+                            <TextBlock Text="运行状态" Style="{StaticResource EditGroupLabelStyle}" />
+                            <ComboBox x:Name="StatusComboBox" HorizontalAlignment="Left" MinWidth="200" CornerRadius="6" SelectedIndex="0">
+                                <ComboBoxItem Content="运行中" />
+                                <ComboBoxItem Content="已停止" />
+                            </ComboBox>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <ScrollViewer x:Name="PanelDirectory" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <TextBlock Text="网站目录" Style="{StaticResource EditSectionTitleStyle}" />
+                            <TextBlock Text="存储" Style="{StaticResource EditGroupLabelStyle}" />
+                            <StackPanel Spacing="14">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="根目录" Style="{StaticResource DialogFieldLabelStyle}" />
+                                    <Grid ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="RootPathTextBox" PlaceholderText="选择网站根目录" CornerRadius="6" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Content="浏览"
+                                            MinWidth="72"
+                                            Style="{StaticResource SoftCancelButtonStyle}"
+                                            Click="BrowseRootButton_Click" />
+                                    </Grid>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="运行目录" Style="{StaticResource DialogFieldLabelStyle}" />
+                                    <Grid ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBox x:Name="RunPathTextBox" PlaceholderText="选择网站运行目录" CornerRadius="6" />
+                                        <Button
+                                            Grid.Column="1"
+                                            Content="浏览"
+                                            MinWidth="72"
+                                            Style="{StaticResource SoftCancelButtonStyle}"
+                                            Click="BrowseRunButton_Click" />
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <ScrollViewer x:Name="PanelRewrite" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <TextBlock Text="伪静态设置" Style="{StaticResource EditSectionTitleStyle}" />
+                            <TextBlock Text="规则" Style="{StaticResource EditGroupLabelStyle}" />
+                            <StackPanel Spacing="14">
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="规则模板" Style="{StaticResource DialogFieldLabelStyle}" />
+                                    <ComboBox
+                                        x:Name="RewriteTemplateComboBox"
+                                        HorizontalAlignment="Left"
+                                        MinWidth="220"
+                                        CornerRadius="6"
+                                        SelectedIndex="0"
+                                        SelectionChanged="RewriteTemplateComboBox_SelectionChanged">
+                                        <ComboBoxItem Content="不使用" Tag="" />
+                                        <ComboBoxItem Content="ThinkPHP" Tag="thinkphp" />
+                                        <ComboBoxItem Content="Laravel" Tag="laravel" />
+                                        <ComboBoxItem Content="WordPress" Tag="wordpress" />
+                                        <ComboBoxItem Content="自定义" Tag="custom" />
+                                    </ComboBox>
+                                </StackPanel>
+                                <StackPanel Spacing="6">
+                                    <TextBlock Text="伪静态规则" Style="{StaticResource DialogFieldLabelStyle}" />
+                                    <TextBox
+                                        x:Name="RewriteRulesTextBox"
+                                        AcceptsReturn="True"
+                                        TextWrapping="Wrap"
+                                        MinHeight="240"
+                                        FontFamily="Consolas"
+                                        PlaceholderText="在此填写伪静态规则"
+                                        CornerRadius="6" />
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <ScrollViewer x:Name="PanelDefaultDoc" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <TextBlock Text="默认文档" Style="{StaticResource EditSectionTitleStyle}" />
+                            <TextBlock Text="文档列表" Style="{StaticResource EditGroupLabelStyle}" />
+                            <TextBlock
+                                Text="每行一个，按优先级从上到下匹配"
+                                Style="{StaticResource DialogFieldHintStyle}"
+                                Margin="0,0,0,8" />
+                            <TextBox
+                                x:Name="DefaultDocsTextBox"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                MinHeight="260"
+                                FontFamily="Consolas"
+                                Text="index.php&#x0a;index.html&#x0a;index.htm&#x0a;default.php"
+                                CornerRadius="6" />
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <ScrollViewer x:Name="PanelConfig" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <TextBlock Text="配置文件" Style="{StaticResource EditSectionTitleStyle}" />
+                            <TextBlock Text="站点配置" Style="{StaticResource EditGroupLabelStyle}" />
+                            <TextBlock
+                                Text="可直接编辑站点虚拟主机配置"
+                                Style="{StaticResource DialogFieldHintStyle}"
+                                Margin="0,0,0,8" />
+                            <TextBox
+                                x:Name="ConfigTextBox"
+                                AcceptsReturn="True"
+                                TextWrapping="Wrap"
+                                MinHeight="300"
+                                FontFamily="Consolas"
+                                CornerRadius="6" />
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <ScrollViewer x:Name="PanelPhp" Visibility="Collapsed" VerticalScrollBarVisibility="Hidden">
+                        <StackPanel>
+                            <TextBlock Text="PHP 版本" Style="{StaticResource EditSectionTitleStyle}" />
+                            <TextBlock Text="运行环境" Style="{StaticResource EditGroupLabelStyle}" />
+                            <StackPanel Spacing="6">
+                                <TextBlock Text="运行版本" Style="{StaticResource DialogFieldLabelStyle}" />
+                                <TextBlock Text="切换后对该站点立即生效" Style="{StaticResource DialogFieldHintStyle}" />
+                                <ComboBox x:Name="PhpVersionComboBox" HorizontalAlignment="Left" MinWidth="200" CornerRadius="6" SelectedIndex="3">
+                                    <ComboBoxItem Content="7.4" />
+                                    <ComboBoxItem Content="8.0" />
+                                    <ComboBoxItem Content="8.1" />
+                                    <ComboBoxItem Content="8.2" />
+                                    <ComboBoxItem Content="8.3" />
+                                </ComboBox>
+                            </StackPanel>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Grid x:Name="PanelLogs" Visibility="Collapsed" RowSpacing="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="网站日志" Style="{StaticResource EditSectionTitleStyle}" />
+                        <StackPanel Grid.Row="1" Spacing="8">
+                            <TextBlock Text="日志类型" Style="{StaticResource EditGroupLabelStyle}" />
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <ComboBox
+                                    x:Name="LogTypeComboBox"
+                                    MinWidth="160"
+                                    CornerRadius="6"
+                                    SelectedIndex="0"
+                                    SelectionChanged="LogTypeComboBox_SelectionChanged">
+                                    <ComboBoxItem Content="访问日志" Tag="access" />
+                                    <ComboBoxItem Content="错误日志" Tag="error" />
+                                </ComboBox>
+                                <Button Content="刷新" Style="{StaticResource SoftCancelButtonStyle}" Click="RefreshLogsButton_Click" />
+                            </StackPanel>
+                        </StackPanel>
+                        <Border
+                            Grid.Row="2"
+                            MinHeight="220"
+                            Background="#000000"
+                            BorderBrush="#1F2937"
+                            BorderThickness="1"
+                            CornerRadius="8">
+                            <Grid>
+                                <ScrollViewer
+                                    VerticalScrollBarVisibility="Auto"
+                                    HorizontalScrollBarVisibility="Auto"
+                                    Padding="12,12,12,48">
+                                    <TextBlock
+                                        x:Name="LogsTextBlock"
+                                        FontFamily="Consolas"
+                                        FontSize="12"
+                                        Foreground="#D1D5DB"
+                                        TextWrapping="Wrap"
+                                        IsTextSelectionEnabled="True" />
+                                </ScrollViewer>
+                                <Button
+                                    Content="全屏展示"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Top"
+                                    Margin="0,10,10,0"
+                                    Padding="12,6"
+                                    CornerRadius="6"
+                                    Background="#22C55E"
+                                    Foreground="#FFFFFF"
+                                    BorderThickness="0"
+                                    FontSize="12"
+                                    Click="LogFullscreenButton_Click" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- 底部：取消 / 确定 左右铺满 -->
+        <Grid Grid.Row="1" Margin="24,16,24,20" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Content="取消"
+                Style="{StaticResource EditFooterCancelStyle}"
+                Click="CancelButton_Click" />
+            <Button
+                Grid.Column="1"
+                Content="确定"
+                Style="{StaticResource EditFooterConfirmStyle}"
+                Click="ConfirmButton_Click" />
+        </Grid>
+
+        <!-- 日志全屏 -->
+        <Grid
+            x:Name="LogFullscreenOverlay"
+            Grid.RowSpan="2"
+            Visibility="Collapsed"
+            Background="#000000">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Padding="16,12" ColumnSpacing="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock
+                    x:Name="LogFullscreenTitle"
+                    Text="网站日志"
+                    FontSize="16"
+                    FontWeight="SemiBold"
+                    Foreground="#F9FAFB"
+                    VerticalAlignment="Center" />
+                <Button
+                    Grid.Column="1"
+                    Content="退出全屏"
+                    Padding="12,6"
+                    CornerRadius="6"
+                    Background="#22C55E"
+                    Foreground="#FFFFFF"
+                    BorderThickness="0"
+                    FontSize="12"
+                    Click="ExitLogFullscreenButton_Click" />
+            </Grid>
+            <ScrollViewer
+                Grid.Row="1"
+                Padding="16,0,16,16"
+                VerticalScrollBarVisibility="Auto"
+                HorizontalScrollBarVisibility="Auto">
+                <TextBlock
+                    x:Name="LogsFullscreenTextBlock"
+                    FontFamily="Consolas"
+                    FontSize="13"
+                    Foreground="#D1D5DB"
+                    TextWrapping="Wrap"
+                    IsTextSelectionEnabled="True" />
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</ContentDialog>
