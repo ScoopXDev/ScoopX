@@ -55,7 +55,3 @@
 ## 开源许可
 
 ScoopX 采用 [MIT License](LICENSE)。Scoop 及其他第三方依赖遵循各自的开源许可证。
-
-<div align="center">
-  <sub>© ScoopX</sub>
-</div>

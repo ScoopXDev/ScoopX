@@ -55,7 +55,3 @@ Bug reports and ideas are welcome via [Issues](../../issues). Pull requests are 
 ## License
 
 ScoopX is released under the [MIT License](LICENSE). Scoop and other third-party dependencies follow their own licenses.
-
-<div align="center">
-  <sub>© ScoopX</sub>
-</div>
