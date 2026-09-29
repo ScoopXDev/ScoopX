@@ -16,6 +16,7 @@ namespace ScoopX.Pages
         public string Charset { get; private set; } = "utf8mb4";
         public string Username { get; private set; } = string.Empty;
         public string Password { get; private set; } = string.Empty;
+        public string Remark { get; private set; } = string.Empty;
         public bool IsConfirmed { get; private set; }
 
         public AddDatabaseDialog()
@@ -113,6 +114,7 @@ namespace ScoopX.Pages
                 ?? "utf8mb4";
             Username = UsernameTextBox.Text?.Trim() ?? string.Empty;
             Password = PasswordBox.Password ?? string.Empty;
+            Remark = RemarkTextBox.Text?.Trim() ?? string.Empty;
             IsConfirmed = true;
         }
     }

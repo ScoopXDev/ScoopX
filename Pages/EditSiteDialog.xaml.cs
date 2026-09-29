@@ -51,6 +51,7 @@ namespace ScoopX.Pages
             Loaded += (_, _) =>
             {
                 ThemeService.Instance.ThemeChanged += OnAppThemeChanged;
+                WireNavHover();
                 SelectNav("Domains");
             };
             Unloaded += (_, _) => ThemeService.Instance.ThemeChanged -= OnAppThemeChanged;
@@ -140,34 +141,83 @@ namespace ScoopX.Pages
             PanelLogs.Visibility = tag == "Logs" ? Visibility.Visible : Visibility.Collapsed;
 
             // 浅色恢复原设计：选中底 #EFF6FF + 指示条/文字 #2563EB；深色用主题刷
+            foreach (var child in NavPanel.Children.OfType<Button>())
+            {
+                var selected = string.Equals(child.Tag?.ToString(), tag, StringComparison.Ordinal);
+                ApplyNavItemVisuals(child, selected, hovered: false);
+            }
+        }
+
+        private void WireNavHover()
+        {
+            foreach (var child in NavPanel.Children.OfType<Button>())
+            {
+                child.PointerEntered -= NavButton_PointerEntered;
+                child.PointerEntered += NavButton_PointerEntered;
+                child.PointerExited -= NavButton_PointerExited;
+                child.PointerExited += NavButton_PointerExited;
+            }
+        }
+
+        private void NavButton_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is not Button button)
+            {
+                return;
+            }
+
+            if (string.Equals(button.Tag?.ToString(), _currentNav, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            ApplyNavItemVisuals(button, selected: false, hovered: true);
+        }
+
+        private void NavButton_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (sender is not Button button)
+            {
+                return;
+            }
+
+            if (string.Equals(button.Tag?.ToString(), _currentNav, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            ApplyNavItemVisuals(button, selected: false, hovered: false);
+        }
+
+        private void ApplyNavItemVisuals(Button child, bool selected, bool hovered)
+        {
             var selectedBg = (SolidColorBrush)GetThemeBrush("ScoopNavSelectedBgBrush");
             var transparent = new SolidColorBrush(Windows.UI.Color.FromArgb(0x00, 0x00, 0x00, 0x00));
             var accent = (SolidColorBrush)Application.Current.Resources["ScoopAccentBrush"];
             var normalFg = (SolidColorBrush)GetThemeBrush("ScoopNavInactiveBrush");
+            var active = selected || hovered;
 
-            foreach (var child in NavPanel.Children.OfType<Button>())
+            child.Background = selected ? selectedBg : transparent;
+            child.BorderBrush = selected ? accent : transparent;
+            child.Foreground = active ? accent : normalFg;
+
+            if (child.Content is not Panel contentPanel)
             {
-                var selected = string.Equals(child.Tag?.ToString(), tag, StringComparison.Ordinal);
-                child.Background = selected ? selectedBg : transparent;
-                child.BorderBrush = selected ? accent : transparent;
-                child.Foreground = selected ? accent : normalFg;
+                return;
+            }
 
-                if (child.Content is Panel contentPanel)
+            foreach (var visual in contentPanel.Children)
+            {
+                if (visual is FontIcon icon)
                 {
-                    foreach (var visual in contentPanel.Children)
-                    {
-                        if (visual is FontIcon icon)
-                        {
-                            icon.Foreground = selected ? accent : normalFg;
-                        }
-                        else if (visual is TextBlock text)
-                        {
-                            text.Foreground = selected ? accent : normalFg;
-                            text.FontWeight = selected
-                                ? Microsoft.UI.Text.FontWeights.SemiBold
-                                : Microsoft.UI.Text.FontWeights.Normal;
-                        }
-                    }
+                    icon.Foreground = active ? accent : normalFg;
+                }
+                else if (visual is TextBlock text)
+                {
+                    text.Foreground = active ? accent : normalFg;
+                    text.FontWeight = selected
+                        ? Microsoft.UI.Text.FontWeights.SemiBold
+                        : Microsoft.UI.Text.FontWeights.Normal;
                 }
             }
         }

@@ -182,7 +182,7 @@ namespace ScoopX.Pages
                 Username = dialog.Username,
                 Password = dialog.Password,
                 Charset = dialog.Charset,
-                Remark = string.Empty,
+                Remark = dialog.Remark,
             });
             _mysqlCurrentPage = 1;
             RefreshMySqlPage();

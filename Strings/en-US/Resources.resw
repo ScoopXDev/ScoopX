@@ -629,6 +629,12 @@
   <data name="AddDatabasePasswordPlaceholder.PlaceholderText" xml:space="preserve">
     <value>Enter password</value>
   </data>
+  <data name="AddDatabaseRemark.Text" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="AddDatabaseRemarkPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Optional</value>
+  </data>
   <data name="DbColName.Text" xml:space="preserve">
     <value>Database</value>
   </data>

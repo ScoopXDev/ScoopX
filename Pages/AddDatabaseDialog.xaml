@@ -80,5 +80,13 @@
                 x:Uid="AddDatabasePasswordPlaceholder"
                 CornerRadius="6" />
         </StackPanel>
+
+        <StackPanel Spacing="8">
+            <TextBlock x:Uid="AddDatabaseRemark" Style="{StaticResource DialogFieldLabelStyle}" />
+            <TextBox
+                x:Name="RemarkTextBox"
+                x:Uid="AddDatabaseRemarkPlaceholder"
+                CornerRadius="6" />
+        </StackPanel>
     </StackPanel>
 </ContentDialog>

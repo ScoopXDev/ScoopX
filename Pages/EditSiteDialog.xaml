@@ -3,6 +3,7 @@
     x:Class="ScoopX.Pages.EditSiteDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:ScoopX.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -30,7 +31,7 @@
         <Thickness x:Key="ContentDialogBorderThickness">0</Thickness>
         <SolidColorBrush x:Key="ContentDialogSmokeFill" Color="#99000000" />
 
-        <Style x:Key="EditNavButtonStyle" TargetType="Button">
+        <Style x:Key="EditNavButtonStyle" TargetType="controls:HandCursorButton">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="BorderBrush" Value="Transparent" />
@@ -40,9 +41,10 @@
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Left" />
             <Setter Property="Foreground" Value="{ThemeResource ScoopNavInactiveBrush}" />
+            <Setter Property="UseSystemFocusVisuals" Value="False" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
+                    <ControlTemplate TargetType="controls:HandCursorButton">
                         <Grid x:Name="RootGrid" Background="{TemplateBinding Background}" CornerRadius="{TemplateBinding CornerRadius}">
                             <Border
                                 Width="3"
@@ -63,16 +65,8 @@
                             <VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup x:Name="CommonStates">
                                     <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="PointerOver">
-                                        <VisualState.Setters>
-                                            <Setter Target="RootGrid.Background" Value="{ThemeResource ScoopNavHoverBrush}" />
-                                        </VisualState.Setters>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <VisualState.Setters>
-                                            <Setter Target="RootGrid.Background" Value="{ThemeResource ScoopNavPressedBrush}" />
-                                        </VisualState.Setters>
-                                    </VisualState>
+                                    <VisualState x:Name="PointerOver" />
+                                    <VisualState x:Name="Pressed" />
                                     <VisualState x:Name="Disabled">
                                         <VisualState.Setters>
                                             <Setter Target="ContentPresenter.Opacity" Value="0.4" />
@@ -130,48 +124,48 @@
             <Border Padding="16,8,12,8">
                 <ScrollViewer VerticalScrollBarVisibility="Hidden">
                     <StackPanel x:Name="NavPanel" Spacing="2">
-                        <Button x:Name="NavDomains" Tag="Domains" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                        <controls:HandCursorButton x:Name="NavDomains" Tag="Domains" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <FontIcon Glyph="&#xE774;" FontSize="16" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                                 <TextBlock x:Uid="EditSiteNavDomains" FontSize="14" VerticalAlignment="Center" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="NavDirectory" Tag="Directory" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                        </controls:HandCursorButton>
+                        <controls:HandCursorButton x:Name="NavDirectory" Tag="Directory" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <FontIcon Glyph="&#xE8B7;" FontSize="16" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                                 <TextBlock x:Uid="EditSiteNavDirectory" FontSize="14" VerticalAlignment="Center" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="NavRewrite" Tag="Rewrite" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                        </controls:HandCursorButton>
+                        <controls:HandCursorButton x:Name="NavRewrite" Tag="Rewrite" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <FontIcon Glyph="&#xE943;" FontSize="16" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                                 <TextBlock x:Uid="EditSiteNavRewrite" FontSize="14" VerticalAlignment="Center" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="NavDefaultDoc" Tag="DefaultDoc" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                        </controls:HandCursorButton>
+                        <controls:HandCursorButton x:Name="NavDefaultDoc" Tag="DefaultDoc" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <FontIcon Glyph="&#xE8A5;" FontSize="16" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                                 <TextBlock x:Uid="EditSiteNavDefaultDoc" FontSize="14" VerticalAlignment="Center" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="NavConfig" Tag="Config" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                        </controls:HandCursorButton>
+                        <controls:HandCursorButton x:Name="NavConfig" Tag="Config" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <FontIcon Glyph="&#xE713;" FontSize="16" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                                 <TextBlock x:Uid="EditSiteNavConfig" FontSize="14" VerticalAlignment="Center" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="NavPhp" Tag="Php" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                        </controls:HandCursorButton>
+                        <controls:HandCursorButton x:Name="NavPhp" Tag="Php" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <FontIcon Glyph="&#xE943;" FontSize="16" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                                 <TextBlock x:Uid="EditSiteNavPhp" FontSize="14" VerticalAlignment="Center" />
                             </StackPanel>
-                        </Button>
-                        <Button x:Name="NavLogs" Tag="Logs" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
+                        </controls:HandCursorButton>
+                        <controls:HandCursorButton x:Name="NavLogs" Tag="Logs" Style="{StaticResource EditNavButtonStyle}" Click="NavButton_Click">
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <FontIcon Glyph="&#xE9D9;" FontSize="16" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                                 <TextBlock x:Uid="EditSiteNavLogs" FontSize="14" VerticalAlignment="Center" />
                             </StackPanel>
-                        </Button>
+                        </controls:HandCursorButton>
                     </StackPanel>
                 </ScrollViewer>
             </Border>

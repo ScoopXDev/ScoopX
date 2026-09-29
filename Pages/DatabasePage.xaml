@@ -42,9 +42,9 @@
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Foreground" Value="{ThemeResource ScoopTextBodyBrush}" />
-            <Setter Property="CornerRadius" Value="6" />
-            <Setter Property="MinHeight" Value="36" />
-            <Setter Property="Padding" Value="20,8" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="MinHeight" Value="32" />
+            <Setter Property="Padding" Value="12,5" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="UseSystemFocusVisuals" Value="False" />
@@ -74,9 +74,9 @@
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Foreground" Value="{ThemeResource ScoopTextBodyBrush}" />
-            <Setter Property="CornerRadius" Value="6" />
-            <Setter Property="MinHeight" Value="36" />
-            <Setter Property="Padding" Value="12,6" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="MinHeight" Value="32" />
+            <Setter Property="Padding" Value="12,5" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="UseSystemFocusVisuals" Value="False" />
@@ -239,10 +239,10 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Top">
-                    <controls:HandCursorButton
+                    <Button
                         x:Name="MySqlAddDatabaseButton"
                         x:Uid="DbMySqlAddDatabase"
-                        Style="{StaticResource DatabaseToolbarButtonStyle}"
+                        Style="{StaticResource AccentButtonStyle}"
                         Click="MySqlAddDatabaseButton_Click" />
                     <controls:HandCursorButton
                         x:Name="MySqlRootPasswordButton"
