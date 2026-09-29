@@ -27,13 +27,13 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
-                    <Button x:Name="AddSiteButton" Content="添加站点" Style="{StaticResource AccentButtonStyle}" Click="AddSiteButton_Click" />
+                    <Button x:Name="AddSiteButton" x:Uid="SitesAdd" Style="{StaticResource AccentButtonStyle}" Click="AddSiteButton_Click" />
 
-                    <DropDownButton Content="高级设置">
+                    <DropDownButton x:Uid="SitesAdvanced">
                         <DropDownButton.Flyout>
                             <MenuFlyout Placement="Bottom">
-                                <MenuFlyoutItem Text="修改默认页面" />
-                                <MenuFlyoutItem Text="PHP命令行版本" />
+                                <MenuFlyoutItem x:Uid="SitesDefaultPage" />
+                                <MenuFlyoutItem x:Uid="SitesPhpCli" />
                             </MenuFlyout>
                         </DropDownButton.Flyout>
                     </DropDownButton>
@@ -50,15 +50,15 @@
                         MinWidth="120"
                         SelectedIndex="0"
                         SelectionChanged="CategoryFilterComboBox_SelectionChanged">
-                        <ComboBoxItem Content="全部分类" Tag="all" />
-                        <ComboBoxItem Content="运行中" Tag="running" />
-                        <ComboBoxItem Content="已停止" Tag="stopped" />
+                        <ComboBoxItem x:Uid="SitesFilterAll" Tag="all" />
+                        <ComboBoxItem x:Uid="SitesFilterRunning" Tag="running" />
+                        <ComboBoxItem x:Uid="SitesFilterStopped" Tag="stopped" />
                     </ComboBox>
 
                     <AutoSuggestBox
                         x:Name="SearchBox"
+                        x:Uid="SitesSearch"
                         Width="220"
-                        PlaceholderText="请输入域名或备注"
                         QueryIcon="Find"
                         TextChanged="SearchBox_TextChanged"
                         QuerySubmitted="SearchBox_QuerySubmitted" />
@@ -70,7 +70,7 @@
                 VerticalAlignment="Top"
                 Style="{StaticResource ScoopGlassCardStyle}"
                 CornerRadius="14"
-                Background="{StaticResource ScoopGlassStrongAcrylicBrush}">
+                Background="{ThemeResource ScoopGlassStrongAcrylicBrush}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -97,12 +97,12 @@
                             MinWidth="0"
                             VerticalAlignment="Center"
                             Click="SelectAllCheckBox_Click" />
-                        <TextBlock Grid.Column="1" Text="网站名称" FontWeight="SemiBold" VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="2" Text="状态" FontWeight="SemiBold" VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="3" Text="根目录" FontWeight="SemiBold" VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="4" Text="备注信息" FontWeight="SemiBold" VerticalAlignment="Center" />
-                        <TextBlock Grid.Column="5" Text="PHP版本" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        <TextBlock Grid.Column="6" Text="操作" FontWeight="SemiBold" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="1" x:Uid="SitesColName" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="2" x:Uid="SitesColStatus" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="3" x:Uid="SitesColRoot" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="4" x:Uid="SitesColRemark" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" />
+                        <TextBlock Grid.Column="5" x:Uid="SitesColPhp" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Grid.Column="6" x:Uid="SitesColActions" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" />
                     </Grid>
 
                     <ItemsControl
@@ -133,42 +133,47 @@
                                         Unchecked="ItemCheckBox_Changed" />
                                     <HyperlinkButton
                                         Grid.Column="1"
+                                        x:Uid="SitesEditTooltip"
                                         Style="{StaticResource TableLinkButtonStyle}"
+                                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                                         Tag="{x:Bind}"
-                                        Click="SiteName_Click"
-                                        ToolTipService.ToolTip="点击编辑站点">
+                                        Click="SiteName_Click">
                                         <TextBlock
                                             Text="{x:Bind Name}"
+                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                                             TextWrapping="NoWrap"
                                             TextTrimming="CharacterEllipsis" />
                                     </HyperlinkButton>
                                     <ToggleSwitch
                                         Grid.Column="2"
+                                        x:Uid="SitesToggleTooltip"
                                         MinWidth="0"
                                         VerticalAlignment="Center"
                                         OnContent=""
                                         OffContent=""
                                         IsOn="{x:Bind IsRunning, Mode=TwoWay}"
                                         Tag="{x:Bind}"
-                                        Toggled="StatusToggle_Toggled"
-                                        ToolTipService.ToolTip="点击启停站点" />
+                                        Toggled="StatusToggle_Toggled" />
                                     <HyperlinkButton
                                         Grid.Column="3"
                                         Style="{StaticResource TableLinkButtonStyle}"
+                                        Foreground="{ThemeResource ScoopTextSecondaryBrush}"
                                         Tag="{x:Bind RootPath}"
                                         Click="RootPath_Click"
                                         ToolTipService.ToolTip="{x:Bind RootPath}">
                                         <TextBlock
                                             Text="{x:Bind RootPath}"
+                                            Foreground="{ThemeResource ScoopTextSecondaryBrush}"
                                             TextWrapping="NoWrap"
                                             TextTrimming="CharacterEllipsis" />
                                     </HyperlinkButton>
-                                    <TextBlock Grid.Column="4" Text="{x:Bind Remark}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
-                                    <TextBlock Grid.Column="5" Text="{x:Bind PhpVersion}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                                    <TextBlock Grid.Column="4" Text="{x:Bind Remark}" Foreground="{ThemeResource ScoopTextPrimaryBrush}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="5" Text="{x:Bind PhpVersion}" Foreground="{ThemeResource ScoopTextPrimaryBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
                                     <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
                                         <HyperlinkButton
-                                            Content="设置"
-                                            Padding="0"
+                                            x:Uid="SitesActionSettings"
+                                            Style="{StaticResource TableLinkButtonStyle}"
+                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
                                             Tag="{x:Bind}"
                                             Click="SiteName_Click" />
                                         <Border
@@ -176,7 +181,10 @@
                                             Height="12"
                                             VerticalAlignment="Center"
                                             Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
-                                        <HyperlinkButton Content="删除" Padding="0" />
+                                        <HyperlinkButton
+                                            x:Uid="SitesActionDelete"
+                                            Style="{StaticResource TableLinkButtonStyle}"
+                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
                                     </StackPanel>
                                 </Grid>
                             </DataTemplate>
@@ -202,22 +210,12 @@
                                 Click="SelectAllCheckBox_Click" />
                             <ComboBox
                                 x:Name="BatchActionComboBox"
+                                x:Uid="SitesBatchPlaceholder"
                                 Width="180"
-                                PlaceholderText="请选择批量操作"
                                 VerticalAlignment="Center"
-                                SelectionChanged="BatchActionComboBox_SelectionChanged">
-                                <ComboBoxItem Content="启动站点" Tag="start" />
-                                <ComboBoxItem Content="停用站点" Tag="stop" />
-                                <ComboBoxItem Content="设置PHP版本 7.4" Tag="php:7.4" />
-                                <ComboBoxItem Content="设置PHP版本 8.0" Tag="php:8.0" />
-                                <ComboBoxItem Content="设置PHP版本 8.1" Tag="php:8.1" />
-                                <ComboBoxItem Content="设置PHP版本 8.2" Tag="php:8.2" />
-                                <ComboBoxItem Content="设置PHP版本 8.3" Tag="php:8.3" />
-                                <ComboBoxItem Content="删除站点" Tag="delete" />
-                            </ComboBox>
+                                SelectionChanged="BatchActionComboBox_SelectionChanged" />
                             <Button
                                 x:Name="BatchActionButton"
-                                Content="批量操作 (已选中0项)"
                                 Style="{StaticResource AccentButtonStyle}"
                                 IsEnabled="False"
                                 Click="BatchActionButton_Click" />
@@ -230,43 +228,38 @@
                             VerticalAlignment="Center">
                             <Button
                                 x:Name="PrevPageButton"
+                                x:Uid="SitesPrevPage"
                                 MinWidth="32"
                                 Padding="8,4"
-                                Click="PrevPageButton_Click"
-                                ToolTipService.ToolTip="上一页">
+                                Click="PrevPageButton_Click">
                                 <FontIcon Glyph="&#xE76B;" FontSize="12" />
                             </Button>
                             <StackPanel x:Name="PageNumbersPanel" Orientation="Horizontal" Spacing="4" />
                             <Button
                                 x:Name="NextPageButton"
+                                x:Uid="SitesNextPage"
                                 MinWidth="32"
                                 Padding="8,4"
-                                Click="NextPageButton_Click"
-                                ToolTipService.ToolTip="下一页">
+                                Click="NextPageButton_Click">
                                 <FontIcon Glyph="&#xE76C;" FontSize="12" />
                             </Button>
                             <ComboBox
                                 x:Name="PageSizeComboBox"
                                 MinWidth="100"
                                 VerticalAlignment="Center"
-                                SelectionChanged="PageSizeComboBox_SelectionChanged">
-                                <ComboBoxItem Content="5条/页" Tag="5" />
-                                <ComboBoxItem Content="10条/页" Tag="10" IsSelected="True" />
-                                <ComboBoxItem Content="20条/页" Tag="20" />
-                                <ComboBoxItem Content="50条/页" Tag="50" />
-                            </ComboBox>
+                                SelectionChanged="PageSizeComboBox_SelectionChanged" />
                             <TextBlock
                                 x:Name="TotalCountText"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}" />
-                            <TextBlock Text="前往" VerticalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBlock x:Uid="SitesGoto" VerticalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" />
                             <TextBox
                                 x:Name="JumpPageTextBox"
                                 Width="48"
                                 TextAlignment="Center"
                                 VerticalAlignment="Center"
                                 KeyDown="JumpPageTextBox_KeyDown" />
-                            <TextBlock Text="页" VerticalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" />
+                            <TextBlock x:Uid="SitesPageUnit" VerticalAlignment="Center" Style="{StaticResource BodyTextBlockStyle}" />
                         </StackPanel>
                     </Grid>
                 </Grid>

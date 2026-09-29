@@ -16,7 +16,7 @@
         <!-- 底层：Logo 蓝紫粉柔和渐变 + 光斑 -->
         <Grid IsHitTestVisible="False">
             <Grid.Background>
-                <StaticResource ResourceKey="ScoopAmbientGradient" />
+                <ThemeResource ResourceKey="ScoopAmbientGradient" />
             </Grid.Background>
 
             <Ellipse
@@ -25,14 +25,8 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Margin="0,-160,-120,0"
-                Opacity="0.85">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#B3BFDBFE" Offset="0" />
-                        <GradientStop Color="#00BFDBFE" Offset="1" />
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
+                Opacity="0.85"
+                Fill="{ThemeResource ScoopOrbBlueBrush}" />
 
             <Ellipse
                 Width="460"
@@ -40,14 +34,8 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Margin="-160,0,0,-120"
-                Opacity="0.8">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#A6FBCFE8" Offset="0" />
-                        <GradientStop Color="#00FBCFE8" Offset="1" />
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
+                Opacity="0.8"
+                Fill="{ThemeResource ScoopOrbPinkBrush}" />
 
             <Ellipse
                 Width="380"
@@ -55,14 +43,8 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Margin="-40,80,180,0"
-                Opacity="0.7">
-                <Ellipse.Fill>
-                    <RadialGradientBrush>
-                        <GradientStop Color="#99DDD6FE" Offset="0" />
-                        <GradientStop Color="#00DDD6FE" Offset="1" />
-                    </RadialGradientBrush>
-                </Ellipse.Fill>
-            </Ellipse>
+                Opacity="0.7"
+                Fill="{ThemeResource ScoopOrbVioletBrush}" />
         </Grid>
 
         <Grid Background="Transparent">
@@ -85,9 +67,9 @@
                 LeftClickCommand="{x:Bind ShowWindowCommand}">
                 <tb:TaskbarIcon.ContextFlyout>
                     <MenuFlyout>
-                        <MenuFlyoutItem Text="显示主窗口" Click="TrayShow_Click" />
+                        <MenuFlyoutItem x:Uid="TrayShow" Click="TrayShow_Click" />
                         <MenuFlyoutSeparator />
-                        <MenuFlyoutItem Text="退出 ScoopX" Click="TrayExit_Click" />
+                        <MenuFlyoutItem x:Uid="TrayExit" Click="TrayExit_Click" />
                     </MenuFlyout>
                 </tb:TaskbarIcon.ContextFlyout>
             </tb:TaskbarIcon>
@@ -125,11 +107,11 @@
                                 Text="ScoopX Workspace"
                                 FontSize="16"
                                 FontWeight="SemiBold"
-                                Foreground="{ThemeResource TextFillColorPrimaryBrush}" />
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
                             <TextBlock
-                                Text="为每一位PHP开发者打造高效开发环境，专注每一次创造。"
+                                x:Uid="TitleSlogan"
                                 FontSize="12"
-                                Foreground="#6B7280" />
+                                Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -142,9 +124,9 @@
                     Spacing="0">
                     <controls:HandCursorButton
                         x:Name="MinimizeButton"
+                        x:Uid="CaptionMinimize"
                         Style="{StaticResource CaptionButtonStyle}"
-                        Click="MinimizeButton_Click"
-                        ToolTipService.ToolTip="最小化">
+                        Click="MinimizeButton_Click">
                         <TextBlock
                             Text="&#xE921;"
                             FontFamily="Segoe Fluent Icons"
@@ -154,9 +136,9 @@
                     </controls:HandCursorButton>
                     <controls:HandCursorButton
                         x:Name="CloseButton"
+                        x:Uid="CaptionClose"
                         Style="{StaticResource CaptionCloseButtonStyle}"
-                        Click="CloseButton_Click"
-                        ToolTipService.ToolTip="关闭">
+                        Click="CloseButton_Click">
                         <TextBlock
                             Text="&#xE8BB;"
                             FontFamily="Segoe Fluent Icons"
@@ -208,7 +190,7 @@
                             Click="NavItem_Click">
                             <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <FontIcon x:Name="NavHomeIcon" Glyph="&#xE80F;" FontSize="20" Foreground="{StaticResource ScoopAccentBrush}" />
-                                <TextBlock x:Name="NavHomeText" Text="首页" FontSize="11" HorizontalAlignment="Center" Foreground="{StaticResource ScoopAccentBrush}" />
+                                <TextBlock x:Name="NavHomeText" x:Uid="NavHome" FontSize="11" HorizontalAlignment="Center" Foreground="{StaticResource ScoopAccentBrush}" />
                             </StackPanel>
                         </controls:HandCursorButton>
 
@@ -219,8 +201,8 @@
                             Style="{StaticResource SidebarNavButtonStyle}"
                             Click="NavItem_Click">
                             <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <FontIcon x:Name="NavWebsitesIcon" Glyph="&#xE774;" FontSize="20" Foreground="#4B5563" />
-                                <TextBlock x:Name="NavWebsitesText" Text="网站" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                                <FontIcon x:Name="NavWebsitesIcon" Glyph="&#xE774;" FontSize="20" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
+                                <TextBlock x:Name="NavWebsitesText" x:Uid="NavWebsites" FontSize="11" HorizontalAlignment="Center" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                             </StackPanel>
                         </controls:HandCursorButton>
 
@@ -231,8 +213,8 @@
                             Style="{StaticResource SidebarNavButtonStyle}"
                             Click="NavItem_Click">
                             <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <FontIcon x:Name="NavDatabaseIcon" Glyph="&#xEE94;" FontSize="20" Foreground="#4B5563" />
-                                <TextBlock x:Name="NavDatabaseText" Text="数据库" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                                <FontIcon x:Name="NavDatabaseIcon" Glyph="&#xEE94;" FontSize="20" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
+                                <TextBlock x:Name="NavDatabaseText" x:Uid="NavDatabase" FontSize="11" HorizontalAlignment="Center" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                             </StackPanel>
                         </controls:HandCursorButton>
 
@@ -243,8 +225,8 @@
                             Style="{StaticResource SidebarNavButtonStyle}"
                             Click="NavItem_Click">
                             <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <FontIcon x:Name="NavStoreIcon" Glyph="&#xE74C;" FontSize="20" Foreground="#4B5563" />
-                                <TextBlock x:Name="NavStoreText" Text="应用商店" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                                <FontIcon x:Name="NavStoreIcon" Glyph="&#xE74C;" FontSize="20" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
+                                <TextBlock x:Name="NavStoreText" x:Uid="NavStore" FontSize="11" HorizontalAlignment="Center" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                             </StackPanel>
                         </controls:HandCursorButton>
                     </StackPanel>
@@ -257,21 +239,20 @@
                         Style="{StaticResource SidebarNavButtonStyle}"
                         Click="NavItem_Click">
                         <StackPanel Spacing="2" HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <FontIcon x:Name="NavSettingsIcon" Glyph="&#xE713;" FontSize="20" Foreground="#4B5563" />
-                            <TextBlock x:Name="NavSettingsText" Text="设置" FontSize="11" HorizontalAlignment="Center" Foreground="#4B5563" />
+                            <FontIcon x:Name="NavSettingsIcon" Glyph="&#xE713;" FontSize="20" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
+                            <TextBlock x:Name="NavSettingsText" x:Uid="NavSettings" FontSize="11" HorizontalAlignment="Center" Foreground="{ThemeResource ScoopNavInactiveBrush}" />
                         </StackPanel>
                     </controls:HandCursorButton>
                 </Grid>
             </Grid>
 
-            <!-- 内容区：贴右贴底，仅左上圆角；Apple 毛玻璃 -->
+            <!-- 内容区：贴右贴底，仅左上圆角；靠底板色差成形，无描边线条 -->
             <Border
                 Grid.Row="1"
                 Grid.Column="1"
                 Margin="0"
-                Background="{StaticResource ScoopGlassAcrylicBrush}"
-                BorderBrush="{StaticResource ScoopGlassBorderBrush}"
-                BorderThickness="1,1,0,0"
+                Background="{ThemeResource ScoopGlassAcrylicBrush}"
+                BorderThickness="0"
                 CornerRadius="16,0,0,0">
                 <Frame
                     x:Name="ContentFrame"

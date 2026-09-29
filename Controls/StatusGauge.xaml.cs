@@ -18,8 +18,6 @@ namespace ScoopX.Controls
         private static readonly Color Accent = Color.FromArgb(255, 37, 99, 235);    // #2563EB 正常
         private static readonly Color Caution = Color.FromArgb(255, 249, 115, 22);  // #F97316 偏高警示
         private static readonly Color Critical = Color.FromArgb(255, 244, 63, 94);  // #F43F5E 超过90%
-        private static readonly Color DetailDark = Color.FromArgb(255, 55, 65, 81);
-
         private double _displayPercent;
         private double _targetPercent;
         private bool _animating;
@@ -40,7 +38,6 @@ namespace ScoopX.Controls
             DetailText.Visibility = Visibility.Visible;
             UsagePanel.Visibility = Visibility.Collapsed;
             DetailText.Text = detail;
-            DetailText.Foreground = new SolidColorBrush(DetailDark);
             LabelText.Text = label;
             AnimateTo(percent);
         }

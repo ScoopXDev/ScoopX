@@ -10,6 +10,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Shapes;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.UI;
 using IOPath = System.IO.Path;
@@ -37,7 +38,7 @@ namespace ScoopX.Pages
 
         private static readonly Color ReadColor = Color.FromArgb(255, 244, 114, 182);  // #F472B6
         private static readonly Color WriteColor = Color.FromArgb(255, 96, 165, 250);   // #60A5FA
-        private static readonly Color GridColor = Color.FromArgb(255, 229, 231, 235);
+        private readonly ResourceLoader _loader = new();
 
         public HomePage()
         {
@@ -70,7 +71,11 @@ namespace ScoopX.Pages
         private void InitDiskFilter()
         {
             DiskFilterComboBox.Items.Clear();
-            DiskFilterComboBox.Items.Add(new ComboBoxItem { Content = "所有", Tag = "*" });
+            DiskFilterComboBox.Items.Add(new ComboBoxItem
+            {
+                Content = _loader.GetString("HomeDiskFilterAll"),
+                Tag = "*"
+            });
 
             foreach (var drive in DriveInfo.GetDrives().Where(d => d.DriveType == DriveType.Fixed && d.IsReady))
             {
@@ -180,7 +185,9 @@ namespace ScoopX.Pages
 
             DiskReadText.Text = FormatRate(sample.ReadBytesPerSec);
             DiskWriteText.Text = FormatRate(sample.WriteBytesPerSec);
-            DiskOpsText.Text = sample.OpsPerSec.ToString("0");
+            DiskOpsText.Text = string.Format(
+                _loader.GetString("HomeDiskOpsFormat"),
+                sample.OpsPerSec.ToString("0"));
             DiskLatencyText.Text = $"{sample.LatencyMs:0} ms";
             DiskLatencyText.Foreground = new SolidColorBrush(
                 sample.LatencyMs >= 20
@@ -232,7 +239,7 @@ namespace ScoopX.Pages
                     Y1 = y,
                     X2 = width,
                     Y2 = y,
-                    Stroke = new SolidColorBrush(GridColor),
+                    Stroke = new SolidColorBrush(GetChartGridColor()),
                     StrokeThickness = 1,
                     StrokeDashArray = new DoubleCollection { 2, 3 },
                 });
@@ -241,7 +248,7 @@ namespace ScoopX.Pages
                 {
                     Text = FormatAxis(value),
                     FontSize = 10,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 156, 163, 175)),
+                    Foreground = new SolidColorBrush(GetChartAxisLabelColor()),
                 };
                 Canvas.SetLeft(label, 0);
                 Canvas.SetTop(label, Math.Max(0, y - 8));
@@ -268,7 +275,7 @@ namespace ScoopX.Pages
                 {
                     Text = text,
                     FontSize = 10,
-                    Foreground = new SolidColorBrush(Color.FromArgb(255, 156, 163, 175)),
+                    Foreground = new SolidColorBrush(GetChartAxisLabelColor()),
                     Margin = new Thickness(0, 0, 12, 0),
                     Width = Math.Max(48, (width - 24) / labelCount),
                 });
@@ -436,12 +443,19 @@ namespace ScoopX.Pages
             var cpu = SampleCpuPercent();
             var cores = Environment.ProcessorCount;
 
-            LoadGauge.SetSimple(cpu, DescribeLoad(cpu), "负载");
-            CpuGauge.SetSimple(cpu, $"{cores}核心", "CPU");
+            LoadGauge.SetSimple(cpu, DescribeLoad(cpu), _loader.GetString("HomeGaugeLoad"));
+            CpuGauge.SetSimple(
+                cpu,
+                string.Format(_loader.GetString("HomeCpuCoresFormat"), cores),
+                "CPU");
 
             if (TryGetMemory(out var memUsed, out var memTotal, out var memPercent))
             {
-                MemoryGauge.SetUsage(memPercent, FormatBytes(memUsed), FormatBytes(memTotal), "内存");
+                MemoryGauge.SetUsage(
+                    memPercent,
+                    FormatBytes(memUsed),
+                    FormatBytes(memTotal),
+                    _loader.GetString("HomeGaugeMemory"));
             }
 
             if (TryGetSystemDrive(out var diskUsed, out var diskTotal, out var diskPercent, out var label))
@@ -450,12 +464,12 @@ namespace ScoopX.Pages
             }
         }
 
-        private static string DescribeLoad(double percent) => percent switch
+        private string DescribeLoad(double percent) => percent switch
         {
-            < 40 => "运行流畅",
-            < 70 => "负载适中",
-            < 90 => "负载偏高",
-            _ => "负载过高",
+            < 40 => _loader.GetString("HomeLoadSmooth"),
+            < 70 => _loader.GetString("HomeLoadModerate"),
+            < 90 => _loader.GetString("HomeLoadHigh"),
+            _ => _loader.GetString("HomeLoadCritical"),
         };
 
         private double SampleCpuPercent()
@@ -557,6 +571,30 @@ namespace ScoopX.Pages
 
             return $"{bytes / mb:0.#}MB";
         }
+
+        private static string GetThemeDictionaryKey(FrameworkElement root)
+        {
+            var theme = root.ActualTheme;
+            if (theme == ElementTheme.Default)
+            {
+                theme = Application.Current.RequestedTheme == ApplicationTheme.Dark
+                    ? ElementTheme.Dark
+                    : ElementTheme.Light;
+            }
+
+            return theme == ElementTheme.Dark ? "Dark" : "Light";
+        }
+
+        private Color GetThemeColor(string key)
+        {
+            var dicts = Application.Current.Resources.ThemeDictionaries;
+            var rd = (ResourceDictionary)dicts[GetThemeDictionaryKey(this)];
+            return ((SolidColorBrush)rd[key]).Color;
+        }
+
+        private Color GetChartGridColor() => GetThemeColor("ScoopGaugeTrackBrush");
+
+        private Color GetChartAxisLabelColor() => GetThemeColor("ScoopTextTertiaryBrush");
 
         private static ulong ToUInt64(FILETIME ft) => ((ulong)ft.dwHighDateTime << 32) | ft.dwLowDateTime;
 

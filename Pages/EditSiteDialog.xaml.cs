@@ -8,6 +8,8 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Windows.Storage.Pickers;
+using Windows.ApplicationModel.Resources;
+using ScoopX.Services;
 using WinRT.Interop;
 
 namespace ScoopX.Pages
@@ -15,6 +17,7 @@ namespace ScoopX.Pages
     public sealed partial class EditSiteDialog : ContentDialog
     {
         private readonly WebsiteItem _site;
+        private readonly ResourceLoader _loader = new();
         private UIElement? _smokeLayer;
         private string _currentNav = "Domains";
 
@@ -43,11 +46,40 @@ namespace ScoopX.Pages
         {
             _site = site;
             InitializeComponent();
-            Title = "编辑站点";
+            RequestedTheme = ThemeService.Instance.CurrentElementTheme;
             LoadSite(site);
             Opened += EditSiteDialog_Opened;
             Closed += EditSiteDialog_Closed;
-            Loaded += (_, _) => SelectNav("Domains");
+            Loaded += (_, _) =>
+            {
+                ThemeService.Instance.ThemeChanged += OnAppThemeChanged;
+                SelectNav("Domains");
+            };
+            Unloaded += (_, _) => ThemeService.Instance.ThemeChanged -= OnAppThemeChanged;
+        }
+
+        private void OnAppThemeChanged(object? sender, EventArgs e)
+        {
+            RequestedTheme = ThemeService.Instance.CurrentElementTheme;
+            SelectNav(_currentNav);
+        }
+
+        private static string GetThemeDictionaryKey(FrameworkElement root)
+        {
+            var theme = root.ActualTheme;
+            if (theme == ElementTheme.Default)
+            {
+                theme = ThemeService.Instance.CurrentElementTheme;
+            }
+
+            return theme == ElementTheme.Dark ? "Dark" : "Light";
+        }
+
+        private Brush GetThemeBrush(string key)
+        {
+            var dicts = Application.Current.Resources.ThemeDictionaries;
+            var rd = (ResourceDictionary)dicts[GetThemeDictionaryKey(this)];
+            return (Brush)rd[key];
         }
 
         private void LoadSite(WebsiteItem site)
@@ -56,7 +88,7 @@ namespace ScoopX.Pages
             RemarkTextBox.Text = site.Remark;
             RootPathTextBox.Text = site.RootPath;
             RunPathTextBox.Text = string.IsNullOrWhiteSpace(site.RunPath) ? site.RootPath : site.RunPath;
-            StatusComboBox.SelectedIndex = site.Status == "已停止" ? 1 : 0;
+            StatusComboBox.SelectedIndex = site.Status == WebsiteItem.StatusStopped ? 1 : 0;
             SelectPhpVersion(site.PhpVersion);
             ConfigTextBox.Text = BuildDefaultConfig(site);
             RefreshLogs();
@@ -109,10 +141,11 @@ namespace ScoopX.Pages
             PanelPhp.Visibility = tag == "Php" ? Visibility.Visible : Visibility.Collapsed;
             PanelLogs.Visibility = tag == "Logs" ? Visibility.Visible : Visibility.Collapsed;
 
-            var selectedBg = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0xEF, 0xF6, 0xFF));
+            // 浅色恢复原设计：选中底 #EFF6FF + 指示条/文字 #2563EB；深色用主题刷
+            var selectedBg = (SolidColorBrush)GetThemeBrush("ScoopNavSelectedBgBrush");
             var transparent = new SolidColorBrush(Windows.UI.Color.FromArgb(0x00, 0x00, 0x00, 0x00));
-            var accent = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x25, 0x63, 0xEB));
-            var normalFg = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x4B, 0x55, 0x63));
+            var accent = (SolidColorBrush)Application.Current.Resources["ScoopAccentBrush"];
+            var normalFg = (SolidColorBrush)GetThemeBrush("ScoopNavInactiveBrush");
 
             foreach (var child in NavPanel.Children.OfType<Button>())
             {
@@ -206,7 +239,9 @@ namespace ScoopX.Pages
                 LogsFullscreenTextBlock.Text = text;
             }
 
-            LogFullscreenTitle.Text = type == "error" ? "错误日志" : "访问日志";
+            LogFullscreenTitle.Text = type == "error"
+                ? _loader.GetString("EditSiteLogError.Content")
+                : _loader.GetString("EditSiteLogAccess.Content");
         }
 
         private void LogFullscreenButton_Click(object sender, RoutedEventArgs e)
@@ -282,7 +317,9 @@ namespace ScoopX.Pages
             _site.RunPath = string.IsNullOrWhiteSpace(RunPathTextBox.Text)
                 ? _site.RootPath
                 : RunPathTextBox.Text.Trim().TrimEnd('\\', '/');
-            _site.Status = StatusComboBox.SelectedIndex == 1 ? "已停止" : "运行中";
+            _site.Status = StatusComboBox.SelectedIndex == 1
+                ? WebsiteItem.StatusStopped
+                : WebsiteItem.StatusRunning;
             _site.PhpVersion = (PhpVersionComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? _site.PhpVersion;
             IsConfirmed = true;
             Hide();

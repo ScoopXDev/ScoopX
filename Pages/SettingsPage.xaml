@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="ScoopX.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:ScoopX.Controls"
+    Background="Transparent">
+
+    <Page.Resources>
+        <Style x:Key="ThemeOptionButtonStyle" TargetType="controls:HandCursorButton" BasedOn="{StaticResource SidebarNavButtonStyle}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="Padding" Value="4" />
+        </Style>
+    </Page.Resources>
+
+    <ScrollViewer Padding="20,16,24,24">
+        <StackPanel Spacing="14" HorizontalAlignment="Stretch">
+            <TextBlock
+                x:Uid="SettingsTitle"
+                FontSize="20"
+                FontWeight="SemiBold"
+                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+
+            <TextBlock
+                x:Uid="SettingsAppearanceHeader"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Foreground="{ThemeResource ScoopTextSecondaryBrush}"
+                Margin="0,4,0,0" />
+
+            <!-- 浅灰/深灰底板，与上方标题和主内容玻璃区分开（无描边） -->
+            <Border
+                Background="{ThemeResource ScoopSurfaceFillBrush}"
+                BorderThickness="0"
+                CornerRadius="10"
+                Padding="20,22,20,18">
+                <!-- 底板拉满；选项组靠左保持原先紧凑间距 -->
+                <Grid
+                    ColumnSpacing="20"
+                    HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- 浅色模式 -->
+                    <controls:HandCursorButton
+                        x:Name="ThemeLightButton"
+                        Grid.Column="0"
+                        Tag="Light"
+                        Style="{StaticResource ThemeOptionButtonStyle}"
+                        Click="ThemeOption_Click">
+                        <StackPanel Spacing="12" HorizontalAlignment="Center">
+                            <!-- 选中环底色与卡片同色，避免透明缝里出现白边/毛边 -->
+                            <Border
+                                x:Name="ThemeLightFrame"
+                                Width="118"
+                                Height="78"
+                                CornerRadius="10"
+                                BorderThickness="2"
+                                BorderBrush="Transparent"
+                                Padding="2"
+                                Background="{ThemeResource ScoopSurfaceFillBrush}">
+                                <Border CornerRadius="6" Background="#F4F5F7" BorderThickness="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="1.15*" />
+                                        </Grid.ColumnDefinitions>
+                                        <!-- 侧栏色用窄条，不铺满整列方底，减少圆角白边 -->
+                                        <Border Width="20" HorizontalAlignment="Left" Background="#E8EEF9" />
+                                        <StackPanel Grid.Column="0" VerticalAlignment="Center" Spacing="5">
+                                            <Ellipse Width="5" Height="5" Fill="#2563EB" HorizontalAlignment="Center" />
+                                            <Ellipse Width="5" Height="5" Fill="#C5CDD8" HorizontalAlignment="Center" />
+                                            <Ellipse Width="5" Height="5" Fill="#C5CDD8" HorizontalAlignment="Center" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Margin="5,8,4,8" Spacing="4" VerticalAlignment="Top">
+                                            <Border Height="4" CornerRadius="2" Background="#E0E2E6" />
+                                            <Border Height="4" Width="22" CornerRadius="2" HorizontalAlignment="Left" Background="#E0E2E6" />
+                                            <Border Height="4" CornerRadius="2" Background="#E8EAED" />
+                                            <Border Height="4" Width="18" CornerRadius="2" HorizontalAlignment="Left" Background="#E8EAED" />
+                                        </StackPanel>
+                                        <Border
+                                            Grid.Column="2"
+                                            Width="26"
+                                            Height="12"
+                                            Margin="0,14,8,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Background="#2563EB"
+                                            CornerRadius="6" />
+                                    </Grid>
+                                </Border>
+                            </Border>
+                            <TextBlock
+                                x:Uid="SettingsThemeLight"
+                                FontSize="13"
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                        </StackPanel>
+                    </controls:HandCursorButton>
+
+                    <!-- 深色模式 -->
+                    <controls:HandCursorButton
+                        x:Name="ThemeDarkButton"
+                        Grid.Column="1"
+                        Tag="Dark"
+                        Style="{StaticResource ThemeOptionButtonStyle}"
+                        Click="ThemeOption_Click">
+                        <StackPanel Spacing="12" HorizontalAlignment="Center">
+                            <Border
+                                x:Name="ThemeDarkFrame"
+                                Width="118"
+                                Height="78"
+                                CornerRadius="10"
+                                BorderThickness="2"
+                                BorderBrush="Transparent"
+                                Padding="2"
+                                Background="{ThemeResource ScoopSurfaceFillBrush}">
+                                <Border CornerRadius="6" Background="#1A1A1C" BorderThickness="0">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="20" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="1.15*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Width="20" HorizontalAlignment="Left" Background="#111113" />
+                                        <StackPanel Grid.Column="0" VerticalAlignment="Center" Spacing="5">
+                                            <Ellipse Width="5" Height="5" Fill="#2563EB" HorizontalAlignment="Center" />
+                                            <Ellipse Width="5" Height="5" Fill="#4B5563" HorizontalAlignment="Center" />
+                                            <Ellipse Width="5" Height="5" Fill="#4B5563" HorizontalAlignment="Center" />
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" Margin="5,8,4,8" Spacing="4" VerticalAlignment="Top">
+                                            <Border Height="4" CornerRadius="2" Background="#3A3A3E" />
+                                            <Border Height="4" Width="22" CornerRadius="2" HorizontalAlignment="Left" Background="#3A3A3E" />
+                                            <Border Height="4" CornerRadius="2" Background="#323236" />
+                                            <Border Height="4" Width="18" CornerRadius="2" HorizontalAlignment="Left" Background="#323236" />
+                                        </StackPanel>
+                                        <Border
+                                            Grid.Column="2"
+                                            Width="26"
+                                            Height="12"
+                                            Margin="0,14,8,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Background="#2563EB"
+                                            CornerRadius="6" />
+                                    </Grid>
+                                </Border>
+                            </Border>
+                            <TextBlock
+                                x:Uid="SettingsThemeDark"
+                                FontSize="13"
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                        </StackPanel>
+                    </controls:HandCursorButton>
+
+                    <!-- 跟随系统 -->
+                    <controls:HandCursorButton
+                        x:Name="ThemeSystemButton"
+                        Grid.Column="2"
+                        Tag="System"
+                        Style="{StaticResource ThemeOptionButtonStyle}"
+                        Click="ThemeOption_Click">
+                        <StackPanel Spacing="12" HorizontalAlignment="Center">
+                            <Border
+                                x:Name="ThemeSystemFrame"
+                                Width="118"
+                                Height="78"
+                                CornerRadius="10"
+                                BorderThickness="2"
+                                BorderBrush="Transparent"
+                                Padding="2"
+                                Background="{ThemeResource ScoopSurfaceFillBrush}">
+                                <!-- 单层圆角底 + 左右渐变：WinUI 不会裁切子元素圆角，分两块方底会在深色侧露出白边 -->
+                                <Border CornerRadius="6" BorderThickness="0">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#F4F5F7" Offset="0" />
+                                            <GradientStop Color="#F4F5F7" Offset="0.499" />
+                                            <GradientStop Color="#1A1A1C" Offset="0.501" />
+                                            <GradientStop Color="#1A1A1C" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <!-- 仅装饰，不铺满方底，避免圆角溢出 -->
+                                        <StackPanel
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Spacing="3"
+                                            HorizontalAlignment="Left">
+                                            <Ellipse Width="3.5" Height="3.5" Fill="#2563EB" />
+                                            <Ellipse Width="3.5" Height="3.5" Fill="#C5CDD8" />
+                                            <Ellipse Width="3.5" Height="3.5" Fill="#C5CDD8" />
+                                        </StackPanel>
+                                        <Border
+                                            Width="14"
+                                            Height="8"
+                                            Margin="0,12,8,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Background="#2563EB"
+                                            CornerRadius="3" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Margin="5,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Spacing="3"
+                                            HorizontalAlignment="Left">
+                                            <Ellipse Width="3.5" Height="3.5" Fill="#2563EB" />
+                                            <Ellipse Width="3.5" Height="3.5" Fill="#4B5563" />
+                                            <Ellipse Width="3.5" Height="3.5" Fill="#4B5563" />
+                                        </StackPanel>
+                                        <Border
+                                            Grid.Column="1"
+                                            Width="14"
+                                            Height="8"
+                                            Margin="0,12,8,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Background="#2563EB"
+                                            CornerRadius="3" />
+                                    </Grid>
+                                </Border>
+                            </Border>
+                            <TextBlock
+                                x:Uid="SettingsThemeSystem"
+                                FontSize="13"
+                                HorizontalAlignment="Center"
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                        </StackPanel>
+                    </controls:HandCursorButton>
+                </Grid>
+            </Border>
+
+            <!-- 语言设置 -->
+            <TextBlock
+                x:Uid="SettingsLanguageHeader"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Foreground="{ThemeResource ScoopTextSecondaryBrush}"
+                Margin="0,8,0,0" />
+            <Border
+                Background="{ThemeResource ScoopSurfaceFillBrush}"
+                BorderThickness="0"
+                CornerRadius="10"
+                Padding="16,12">
+                <StackPanel Orientation="Horizontal" Spacing="24">
+                    <RadioButton
+                        x:Name="LanguageZhRadio"
+                        x:Uid="SettingsLanguageZh"
+                        GroupName="AppLanguage"
+                        Tag="zh-CN"
+                        Checked="LanguageRadio_Checked" />
+                    <RadioButton
+                        x:Name="LanguageEnRadio"
+                        x:Uid="SettingsLanguageEn"
+                        GroupName="AppLanguage"
+                        Tag="en-US"
+                        Checked="LanguageRadio_Checked" />
+                </StackPanel>
+            </Border>
+
+            <!-- 常规 -->
+            <TextBlock
+                x:Uid="SettingsGeneralHeader"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Foreground="{ThemeResource ScoopTextSecondaryBrush}"
+                Margin="0,8,0,0" />
+            <Border
+                Background="{ThemeResource ScoopSurfaceFillBrush}"
+                BorderThickness="0"
+                CornerRadius="10"
+                Padding="16,8">
+                <StackPanel Spacing="4">
+                    <Grid ColumnSpacing="12" MinHeight="52">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <TextBlock
+                                x:Uid="SettingsCloseToTrayTitle"
+                                FontSize="14"
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                            <TextBlock
+                                x:Uid="SettingsCloseToTrayDesc"
+                                FontSize="12"
+                                TextWrapping="Wrap"
+                                Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
+                        </StackPanel>
+                        <ToggleSwitch
+                            x:Name="CloseToTrayToggle"
+                            Grid.Column="1"
+                            MinWidth="0"
+                            VerticalAlignment="Center"
+                            OnContent=""
+                            OffContent=""
+                            Toggled="CloseToTrayToggle_Toggled" />
+                    </Grid>
+                    <Grid ColumnSpacing="12" MinHeight="52">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <TextBlock
+                                x:Uid="SettingsStartWithWindowsTitle"
+                                FontSize="14"
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                            <TextBlock
+                                x:Uid="SettingsStartWithWindowsDesc"
+                                FontSize="12"
+                                TextWrapping="Wrap"
+                                Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
+                        </StackPanel>
+                        <ToggleSwitch
+                            x:Name="StartWithWindowsToggle"
+                            Grid.Column="1"
+                            MinWidth="0"
+                            VerticalAlignment="Center"
+                            OnContent=""
+                            OffContent=""
+                            Toggled="StartWithWindowsToggle_Toggled" />
+                    </Grid>
+                    <Grid ColumnSpacing="12" MinHeight="52">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel VerticalAlignment="Center" Spacing="2">
+                            <TextBlock
+                                x:Uid="SettingsStartHiddenTitle"
+                                FontSize="14"
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                            <TextBlock
+                                x:Uid="SettingsStartHiddenDesc"
+                                FontSize="12"
+                                TextWrapping="Wrap"
+                                Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
+                        </StackPanel>
+                        <ToggleSwitch
+                            x:Name="StartHiddenToggle"
+                            Grid.Column="1"
+                            MinWidth="0"
+                            VerticalAlignment="Center"
+                            OnContent=""
+                            OffContent=""
+                            Toggled="StartHiddenToggle_Toggled" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <!-- 路径 -->
+            <TextBlock
+                x:Uid="SettingsPathsHeader"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Foreground="{ThemeResource ScoopTextSecondaryBrush}"
+                Margin="0,8,0,0" />
+            <Border
+                Background="{ThemeResource ScoopSurfaceFillBrush}"
+                BorderThickness="0"
+                CornerRadius="10"
+                Padding="16,14">
+                <StackPanel Spacing="14">
+                    <StackPanel Spacing="6">
+                        <TextBlock
+                            x:Uid="SettingsScoopRootLabel"
+                            FontSize="13"
+                            Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                x:Name="ScoopRootTextBox"
+                                x:Uid="SettingsScoopRootPlaceholder"
+                                CornerRadius="6"
+                                LostFocus="ScoopRootTextBox_LostFocus" />
+                            <Button
+                                x:Name="BrowseScoopRootButton"
+                                x:Uid="SettingsBrowseScoop"
+                                Grid.Column="1"
+                                MinWidth="72"
+                                Style="{StaticResource SoftCancelButtonStyle}"
+                                Click="BrowseScoopRootButton_Click" />
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Spacing="6">
+                        <TextBlock
+                            x:Uid="SettingsWebsitesRootLabel"
+                            FontSize="13"
+                            Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                x:Name="WebsitesRootTextBox"
+                                x:Uid="SettingsWebsitesRootPlaceholder"
+                                CornerRadius="6"
+                                LostFocus="WebsitesRootTextBox_LostFocus" />
+                            <Button
+                                x:Name="BrowseWebsitesRootButton"
+                                x:Uid="SettingsBrowseWebsites"
+                                Grid.Column="1"
+                                MinWidth="72"
+                                Style="{StaticResource SoftCancelButtonStyle}"
+                                Click="BrowseWebsitesRootButton_Click" />
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- 关于 -->
+            <TextBlock
+                x:Uid="SettingsAboutHeader"
+                FontSize="13"
+                FontWeight="SemiBold"
+                Foreground="{ThemeResource ScoopTextSecondaryBrush}"
+                Margin="0,8,0,0" />
+            <Border
+                Background="{ThemeResource ScoopSurfaceFillBrush}"
+                BorderThickness="0"
+                CornerRadius="10"
+                Padding="16,14">
+                <Grid ColumnSpacing="16">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
+                        <Image
+                            Source="ms-appx:///Assets/ScoopX-icon.png"
+                            Width="40"
+                            Height="40"
+                            Stretch="Uniform"
+                            VerticalAlignment="Center" />
+                        <StackPanel Spacing="4" VerticalAlignment="Center">
+                            <TextBlock
+                                Text="ScoopX"
+                                FontSize="15"
+                                FontWeight="SemiBold"
+                                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
+                            <TextBlock
+                                x:Name="AboutVersionText"
+                                FontSize="12"
+                                Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <HyperlinkButton
+                        x:Uid="SettingsGitHub"
+                        Grid.Column="1"
+                        NavigateUri="https://github.com/ScoopXDev/ScoopX"
+                        VerticalAlignment="Center"
+                        FontSize="13"
+                        Padding="10,6"
+                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</Page>

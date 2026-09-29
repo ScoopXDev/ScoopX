@@ -6,9 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="添加站点"
-    PrimaryButtonText="取消"
-    SecondaryButtonText="确定"
+    x:Uid="AddSiteDialog"
     DefaultButton="Secondary"
     CornerRadius="12"
     PrimaryButtonStyle="{StaticResource SoftCancelButtonStyle}"
@@ -22,7 +20,7 @@
                 Text="{Binding}"
                 FontSize="17"
                 FontWeight="SemiBold"
-                Foreground="#111827" />
+                Foreground="{ThemeResource ScoopTextPrimaryBrush}" />
         </DataTemplate>
     </ContentDialog.TitleTemplate>
 
@@ -33,9 +31,6 @@
         <Thickness x:Key="ContentDialogCommandSpaceMargin">0,20,0,0</Thickness>
         <x:Double x:Key="ContentDialogMinWidth">480</x:Double>
         <x:Double x:Key="ContentDialogMaxWidth">520</x:Double>
-        <SolidColorBrush x:Key="ContentDialogBackground" Color="#FFFFFF" />
-        <SolidColorBrush x:Key="ContentDialogTopOverlay" Color="Transparent" />
-        <SolidColorBrush x:Key="ContentDialogBorderBrush" Color="#0F000000" />
         <Thickness x:Key="ContentDialogBorderThickness">0</Thickness>
         <SolidColorBrush x:Key="ContentDialogSmokeFill" Color="#99000000" />
     </ContentDialog.Resources>
@@ -45,13 +40,10 @@
         HorizontalScrollBarVisibility="Disabled"
         MaxHeight="520">
         <StackPanel Spacing="18">
-            <!-- 域名 -->
             <StackPanel Spacing="8">
                 <StackPanel Spacing="2">
-                    <TextBlock Text="域名" Style="{StaticResource DialogFieldLabelStyle}" />
-                    <TextBlock
-                        Text="每行一个域名，可一次添加多个站点"
-                        Style="{StaticResource DialogFieldHintStyle}" />
+                    <TextBlock x:Uid="AddSiteDomain" Style="{StaticResource DialogFieldLabelStyle}" />
+                    <TextBlock x:Uid="AddSiteDomainHint" Style="{StaticResource DialogFieldHintStyle}" />
                 </StackPanel>
                 <TextBox
                     x:Name="DomainsTextBox"
@@ -62,22 +54,18 @@
                     CornerRadius="6" />
             </StackPanel>
 
-            <!-- 备注 -->
             <StackPanel Spacing="8">
-                <TextBlock Text="备注" Style="{StaticResource DialogFieldLabelStyle}" />
+                <TextBlock x:Uid="AddSiteRemark" Style="{StaticResource DialogFieldLabelStyle}" />
                 <TextBox
                     x:Name="RemarkTextBox"
-                    PlaceholderText="可选"
+                    x:Uid="AddSiteRemarkPlaceholder"
                     CornerRadius="6" />
             </StackPanel>
 
-            <!-- 根目录 -->
             <StackPanel Spacing="8">
                 <StackPanel Spacing="2">
-                    <TextBlock Text="根目录" Style="{StaticResource DialogFieldLabelStyle}" />
-                    <TextBlock
-                        Text="站点文件将保存在此目录下"
-                        Style="{StaticResource DialogFieldHintStyle}" />
+                    <TextBlock x:Uid="AddSiteRoot" Style="{StaticResource DialogFieldLabelStyle}" />
+                    <TextBlock x:Uid="AddSiteRootHint" Style="{StaticResource DialogFieldHintStyle}" />
                 </StackPanel>
                 <Grid ColumnSpacing="8">
                     <Grid.ColumnDefinitions>
@@ -86,12 +74,12 @@
                     </Grid.ColumnDefinitions>
                     <TextBox
                         x:Name="RootPathTextBox"
+                        x:Uid="AddSiteRootPlaceholder"
                         Text="C:\ScoopX\wwwroot"
-                        PlaceholderText="选择网站根目录"
                         CornerRadius="6" />
                     <Button
                         Grid.Column="1"
-                        Content="浏览"
+                        x:Uid="AddSiteBrowse"
                         MinWidth="72"
                         CornerRadius="6"
                         VerticalAlignment="Stretch"
@@ -99,13 +87,10 @@
                 </Grid>
             </StackPanel>
 
-            <!-- 数据库 -->
             <StackPanel Spacing="8">
                 <StackPanel Spacing="2">
-                    <TextBlock Text="数据库" Style="{StaticResource DialogFieldLabelStyle}" />
-                    <TextBlock
-                        Text="可为站点同时创建数据库账号"
-                        Style="{StaticResource DialogFieldHintStyle}" />
+                    <TextBlock x:Uid="AddSiteDatabase" Style="{StaticResource DialogFieldLabelStyle}" />
+                    <TextBlock x:Uid="AddSiteDatabaseHint" Style="{StaticResource DialogFieldHintStyle}" />
                 </StackPanel>
                 <Border
                     Background="{ThemeResource SubtleFillColorSecondaryBrush}"
@@ -117,7 +102,7 @@
                         <StackPanel Orientation="Horizontal" Spacing="20">
                             <RadioButton
                                 x:Name="DbNoneRadio"
-                                Content="不创建"
+                                x:Uid="AddSiteDbNone"
                                 GroupName="Database"
                                 IsChecked="True"
                                 Checked="DatabaseOption_Changed" />
@@ -137,17 +122,17 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Spacing="6">
-                                <TextBlock Text="数据库账号" Style="{StaticResource DialogFieldHintStyle}" />
+                                <TextBlock x:Uid="AddSiteDbUser" Style="{StaticResource DialogFieldHintStyle}" />
                                 <TextBox
                                     x:Name="DbUserTextBox"
-                                    PlaceholderText="账号"
+                                    x:Uid="AddSiteDbUserPlaceholder"
                                     CornerRadius="6" />
                             </StackPanel>
                             <StackPanel Grid.Column="1" Spacing="6">
-                                <TextBlock Text="数据库密码" Style="{StaticResource DialogFieldHintStyle}" />
+                                <TextBlock x:Uid="AddSiteDbPassword" Style="{StaticResource DialogFieldHintStyle}" />
                                 <PasswordBox
                                     x:Name="DbPasswordBox"
-                                    PlaceholderText="密码"
+                                    x:Uid="AddSiteDbPasswordPlaceholder"
                                     CornerRadius="6" />
                             </StackPanel>
                         </Grid>
@@ -155,13 +140,10 @@
                 </Border>
             </StackPanel>
 
-            <!-- PHP 版本 -->
             <StackPanel Spacing="8">
                 <StackPanel Spacing="2">
-                    <TextBlock Text="PHP 版本" Style="{StaticResource DialogFieldLabelStyle}" />
-                    <TextBlock
-                        Text="站点运行时使用的 PHP 版本"
-                        Style="{StaticResource DialogFieldHintStyle}" />
+                    <TextBlock x:Uid="AddSitePhp" Style="{StaticResource DialogFieldLabelStyle}" />
+                    <TextBlock x:Uid="AddSitePhpHint" Style="{StaticResource DialogFieldHintStyle}" />
                 </StackPanel>
                 <ComboBox
                     x:Name="PhpVersionComboBox"

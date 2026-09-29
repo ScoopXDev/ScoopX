@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
+using ScoopX.Services;
 using Windows.Storage.Pickers;
 using WinRT.Interop;
 
@@ -21,6 +22,8 @@ namespace ScoopX.Pages
         public AddSiteDialog()
         {
             InitializeComponent();
+            // ContentDialog chrome follows Application.RequestedTheme unless set explicitly.
+            RequestedTheme = ThemeService.Instance.CurrentElementTheme;
             Opened += AddSiteDialog_Opened;
             Closed += AddSiteDialog_Closed;
         }
@@ -153,7 +156,7 @@ namespace ScoopX.Pages
             CreatedSites = domains.Select(domain => new WebsiteItem
             {
                 Name = domain,
-                Status = "运行中",
+                Status = WebsiteItem.StatusRunning,
                 RootPath = Path.Combine(rootInput, domain),
                 RunPath = Path.Combine(rootInput, domain),
                 Remark = remark,

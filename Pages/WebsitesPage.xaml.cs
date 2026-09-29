@@ -6,6 +6,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using ScoopX.Services;
+using Windows.ApplicationModel.Resources;
 using Windows.System;
 
 namespace ScoopX.Pages
@@ -42,10 +44,13 @@ namespace ScoopX.Pages
             }
         }
 
+        public const string StatusRunning = "running";
+        public const string StatusStopped = "stopped";
+
         public bool IsRunning
         {
-            get => _status == "运行中";
-            set => Status = value ? "运行中" : "已停止";
+            get => _status == StatusRunning;
+            set => Status = value ? StatusRunning : StatusStopped;
         }
 
         public string RootPath
@@ -102,6 +107,7 @@ namespace ScoopX.Pages
         private bool _suppressPageSizeEvent = true;
         private bool _suppressStatusToggle;
         private readonly DispatcherTimer _feedbackTimer = new() { Interval = TimeSpan.FromSeconds(2.4) };
+        private readonly ResourceLoader _loader = new();
 
         public WebsitesPage()
         {
@@ -111,6 +117,7 @@ namespace ScoopX.Pages
                 _feedbackTimer.Stop();
                 StatusFeedbackBar.IsOpen = false;
             };
+            InitLocalizedCombos();
             _suppressPageSizeEvent = false;
             if (PageSizeComboBox.SelectedItem is ComboBoxItem selected
                 && int.TryParse(selected.Tag?.ToString(), out var size)
@@ -122,22 +129,52 @@ namespace ScoopX.Pages
             RefreshPage();
         }
 
+        private void InitLocalizedCombos()
+        {
+            var phpFmt = _loader.GetString("SitesBatchPhpFormat");
+            BatchActionComboBox.Items.Clear();
+            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = _loader.GetString("SitesBatchStart.Content"), Tag = "start" });
+            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = _loader.GetString("SitesBatchStop.Content"), Tag = "stop" });
+            foreach (var version in new[] { "7.4", "8.0", "8.1", "8.2", "8.3" })
+            {
+                BatchActionComboBox.Items.Add(new ComboBoxItem
+                {
+                    Content = string.Format(phpFmt, version),
+                    Tag = $"php:{version}"
+                });
+            }
+
+            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = _loader.GetString("SitesBatchDelete.Content"), Tag = "delete" });
+
+            var pageFmt = _loader.GetString("SitesPageSizeFormat");
+            PageSizeComboBox.Items.Clear();
+            foreach (var size in new[] { 5, 10, 20, 50 })
+            {
+                PageSizeComboBox.Items.Add(new ComboBoxItem
+                {
+                    Content = string.Format(pageFmt, size),
+                    Tag = size.ToString(),
+                    IsSelected = size == 10
+                });
+            }
+        }
+
         private static List<WebsiteItem> CreateDemoData()
         {
             return new List<WebsiteItem>
             {
-                new() { Name = "example.com", Status = "运行中", RootPath = @"C:\www\example.com", RunPath = @"C:\www\example.com", Remark = "主站", PhpVersion = "8.2" },
-                new() { Name = "blog.local", Status = "运行中", RootPath = @"C:\www\blog", RunPath = @"C:\www\blog", Remark = "博客", PhpVersion = "8.1" },
-                new() { Name = "shop.test", Status = "已停止", RootPath = @"C:\www\shop", RunPath = @"C:\www\shop\public", Remark = "商城测试", PhpVersion = "8.0" },
-                new() { Name = "api.dev", Status = "运行中", RootPath = @"C:\www\api", RunPath = @"C:\www\api\public", Remark = "接口服务", PhpVersion = "8.3" },
-                new() { Name = "docs.local", Status = "运行中", RootPath = @"C:\www\docs", RunPath = @"C:\www\docs", Remark = "文档站", PhpVersion = "8.2" },
-                new() { Name = "admin.panel", Status = "已停止", RootPath = @"C:\www\admin", RunPath = @"C:\www\admin", Remark = "后台", PhpVersion = "7.4" },
-                new() { Name = "cdn.assets", Status = "运行中", RootPath = @"C:\www\cdn", RunPath = @"C:\www\cdn", Remark = "静态资源", PhpVersion = "8.1" },
-                new() { Name = "forum.local", Status = "运行中", RootPath = @"C:\www\forum", RunPath = @"C:\www\forum", Remark = "论坛", PhpVersion = "8.2" },
-                new() { Name = "mail.web", Status = "已停止", RootPath = @"C:\www\mail", RunPath = @"C:\www\mail", Remark = "邮箱面板", PhpVersion = "8.0" },
-                new() { Name = "demo.site", Status = "运行中", RootPath = @"C:\www\demo", RunPath = @"C:\www\demo\public", Remark = "演示环境", PhpVersion = "8.3" },
-                new() { Name = "old.legacy", Status = "已停止", RootPath = @"C:\www\legacy", RunPath = @"C:\www\legacy", Remark = "旧项目", PhpVersion = "7.4" },
-                new() { Name = "portal.app", Status = "运行中", RootPath = @"C:\www\portal", RunPath = @"C:\www\portal", Remark = "门户", PhpVersion = "8.2" },
+                new() { Name = "example.com", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\example.com", RunPath = @"C:\www\example.com", Remark = "主站", PhpVersion = "8.2" },
+                new() { Name = "blog.local", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\blog", RunPath = @"C:\www\blog", Remark = "博客", PhpVersion = "8.1" },
+                new() { Name = "shop.test", Status = WebsiteItem.StatusStopped, RootPath = @"C:\www\shop", RunPath = @"C:\www\shop\public", Remark = "商城测试", PhpVersion = "8.0" },
+                new() { Name = "api.dev", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\api", RunPath = @"C:\www\api\public", Remark = "接口服务", PhpVersion = "8.3" },
+                new() { Name = "docs.local", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\docs", RunPath = @"C:\www\docs", Remark = "文档站", PhpVersion = "8.2" },
+                new() { Name = "admin.panel", Status = WebsiteItem.StatusStopped, RootPath = @"C:\www\admin", RunPath = @"C:\www\admin", Remark = "后台", PhpVersion = "7.4" },
+                new() { Name = "cdn.assets", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\cdn", RunPath = @"C:\www\cdn", Remark = "静态资源", PhpVersion = "8.1" },
+                new() { Name = "forum.local", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\forum", RunPath = @"C:\www\forum", Remark = "论坛", PhpVersion = "8.2" },
+                new() { Name = "mail.web", Status = WebsiteItem.StatusStopped, RootPath = @"C:\www\mail", RunPath = @"C:\www\mail", Remark = "邮箱面板", PhpVersion = "8.0" },
+                new() { Name = "demo.site", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\demo", RunPath = @"C:\www\demo\public", Remark = "演示环境", PhpVersion = "8.3" },
+                new() { Name = "old.legacy", Status = WebsiteItem.StatusStopped, RootPath = @"C:\www\legacy", RunPath = @"C:\www\legacy", Remark = "旧项目", PhpVersion = "7.4" },
+                new() { Name = "portal.app", Status = WebsiteItem.StatusRunning, RootPath = @"C:\www\portal", RunPath = @"C:\www\portal", Remark = "门户", PhpVersion = "8.2" },
             };
         }
 
@@ -146,6 +183,7 @@ namespace ScoopX.Pages
             var dialog = new AddSiteDialog
             {
                 XamlRoot = XamlRoot,
+                RequestedTheme = ThemeService.Instance.CurrentElementTheme,
             };
 
             var result = await dialog.ShowAsync();
@@ -169,6 +207,7 @@ namespace ScoopX.Pages
             var dialog = new EditSiteDialog(site)
             {
                 XamlRoot = XamlRoot,
+                RequestedTheme = ThemeService.Instance.CurrentElementTheme,
             };
 
             await dialog.ShowAsync();
@@ -193,10 +232,11 @@ namespace ScoopX.Pages
             {
                 var missingDialog = new ContentDialog
                 {
-                    Title = "无法打开",
-                    Content = $"目录不存在：\n{path}",
-                    CloseButtonText = "确定",
+                    Title = _loader.GetString("SitesOpenFailedTitle"),
+                    Content = string.Format(_loader.GetString("SitesOpenFailedMessage"), path),
+                    CloseButtonText = _loader.GetString("SitesOpenFailedOk"),
                     XamlRoot = XamlRoot,
+                    RequestedTheme = ThemeService.Instance.CurrentElementTheme,
                 };
                 await missingDialog.ShowAsync();
                 return;
@@ -215,8 +255,8 @@ namespace ScoopX.Pages
             {
                 query = tag switch
                 {
-                    "running" => query.Where(item => item.Status == "运行中"),
-                    "stopped" => query.Where(item => item.Status == "已停止"),
+                    "running" => query.Where(item => item.Status == WebsiteItem.StatusRunning),
+                    "stopped" => query.Where(item => item.Status == WebsiteItem.StatusStopped),
                     _ => query
                 };
             }
@@ -268,7 +308,7 @@ namespace ScoopX.Pages
                 _suppressStatusToggle = false;
             }
 
-            TotalCountText.Text = $"共 {filteredCount} 条";
+            TotalCountText.Text = string.Format(_loader.GetString("SitesTotalFormat"), filteredCount);
             JumpPageTextBox.Text = _currentPage.ToString();
             PrevPageButton.IsEnabled = _currentPage > 1;
             NextPageButton.IsEnabled = _currentPage < _totalPages;
@@ -287,11 +327,17 @@ namespace ScoopX.Pages
             {
                 if (toggle.IsOn)
                 {
-                    ShowStatusFeedback("已启动", $"站点 {site.Name} 已启动", InfoBarSeverity.Success);
+                    ShowStatusFeedback(
+                        _loader.GetString("SitesStartedTitle"),
+                        string.Format(_loader.GetString("SitesStartedMessage"), site.Name),
+                        InfoBarSeverity.Success);
                 }
                 else
                 {
-                    ShowStatusFeedback("已停止", $"站点 {site.Name} 已停止", InfoBarSeverity.Informational);
+                    ShowStatusFeedback(
+                        _loader.GetString("SitesStoppedTitle"),
+                        string.Format(_loader.GetString("SitesStoppedMessage"), site.Name),
+                        InfoBarSeverity.Informational);
                 }
             }
 
@@ -483,7 +529,9 @@ namespace ScoopX.Pages
             SelectAllCheckBox.IsChecked = state;
             _suppressSelectionEvents = false;
 
-            BatchActionButton.Content = $"批量操作 (已选中{selectedTotal}项)";
+            BatchActionButton.Content = string.Format(
+                _loader.GetString("SitesBatchSelectedFormat"),
+                selectedTotal);
             BatchActionButton.IsEnabled = selectedTotal > 0 && BatchActionComboBox.SelectedItem != null;
         }
 
@@ -537,14 +585,14 @@ namespace ScoopX.Pages
             {
                 foreach (var item in items)
                 {
-                    item.Status = "运行中";
+                    item.Status = WebsiteItem.StatusRunning;
                 }
             }
             else if (action == "stop")
             {
                 foreach (var item in items)
                 {
-                    item.Status = "已停止";
+                    item.Status = WebsiteItem.StatusStopped;
                 }
             }
             else if (action.StartsWith("php:", StringComparison.Ordinal))

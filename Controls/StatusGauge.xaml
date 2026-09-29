@@ -18,7 +18,7 @@
             SizeChanged="RingHost_SizeChanged">
             <Ellipse
                 x:Name="TrackEllipse"
-                Stroke="#E5E7EB"
+                Stroke="{ThemeResource ScoopGaugeTrackBrush}"
                 StrokeThickness="7"
                 Fill="Transparent" />
             <Path
@@ -43,7 +43,7 @@
                 x:Name="DetailText"
                 Text="—"
                 FontSize="14"
-                Foreground="#374151"
+                Foreground="{ThemeResource ScoopTextBodyBrush}"
                 HorizontalAlignment="Center" />
             <StackPanel
                 x:Name="UsagePanel"
@@ -52,14 +52,14 @@
                 Visibility="Collapsed"
                 Spacing="0">
                 <TextBlock x:Name="UsedText" FontSize="14" FontWeight="SemiBold" />
-                <TextBlock Text=" / " FontSize="14" Foreground="#6B7280" />
-                <TextBlock x:Name="TotalText" FontSize="14" Foreground="#6B7280" />
+                <TextBlock Text=" / " FontSize="14" Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
+                <TextBlock x:Name="TotalText" FontSize="14" Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
             </StackPanel>
             <TextBlock
                 x:Name="LabelText"
                 Text=""
                 FontSize="13"
-                Foreground="#9CA3AF"
+                Foreground="{ThemeResource ScoopTextTertiaryBrush}"
                 HorizontalAlignment="Center"
                 Margin="0,2,0,0" />
         </StackPanel>

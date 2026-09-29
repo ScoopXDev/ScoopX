@@ -1,4 +1,5 @@
 ﻿using Microsoft.UI.Xaml;
+using ScoopX.Services;
 
 namespace ScoopX
 {
@@ -10,6 +11,9 @@ namespace ScoopX
 
         public App()
         {
+            // Application.RequestedTheme must be set before InitializeComponent.
+            ThemeService.Instance.ApplyApplicationThemeBeforeInit(this);
+            LanguageService.Instance.ApplyBeforeUi();
             InitializeComponent();
         }
 
@@ -17,6 +21,7 @@ namespace ScoopX
         {
             _window = new MainWindow();
             MainWindow = _window;
+            ThemeService.Instance.Initialize(_window.DispatcherQueue);
             _window.Activate();
         }
     }

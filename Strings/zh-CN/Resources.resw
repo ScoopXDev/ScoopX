@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SettingsAppearanceHeader.Text" xml:space="preserve">
+    <value>外观设置</value>
+  </data>
+  <data name="SettingsThemeLight.Text" xml:space="preserve">
+    <value>浅色模式</value>
+  </data>
+  <data name="SettingsThemeDark.Text" xml:space="preserve">
+    <value>深色模式</value>
+  </data>
+  <data name="SettingsThemeSystem.Text" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="SettingsLanguageHeader.Text" xml:space="preserve">
+    <value>语言设置</value>
+  </data>
+  <data name="SettingsLanguageZh.Content" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="SettingsLanguageEn.Content" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="SettingsGeneralHeader.Text" xml:space="preserve">
+    <value>常规设置</value>
+  </data>
+  <data name="SettingsCloseToTrayTitle.Text" xml:space="preserve">
+    <value>关闭时最小化到托盘</value>
+  </data>
+  <data name="SettingsCloseToTrayDesc.Text" xml:space="preserve">
+    <value>关闭窗口时隐藏到系统托盘，而不是退出</value>
+  </data>
+  <data name="SettingsStartWithWindowsTitle.Text" xml:space="preserve">
+    <value>开机时启动</value>
+  </data>
+  <data name="SettingsStartWithWindowsDesc.Text" xml:space="preserve">
+    <value>登录 Windows 后自动启动 ScoopX</value>
+  </data>
+  <data name="SettingsStartHiddenTitle.Text" xml:space="preserve">
+    <value>启动时隐藏到托盘</value>
+  </data>
+  <data name="SettingsStartHiddenDesc.Text" xml:space="preserve">
+    <value>启动后不显示主窗口，仅显示托盘图标</value>
+  </data>
+  <data name="SettingsPathsHeader.Text" xml:space="preserve">
+    <value>路径设置</value>
+  </data>
+  <data name="SettingsScoopRootLabel.Text" xml:space="preserve">
+    <value>Scoop 根目录</value>
+  </data>
+  <data name="SettingsScoopRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>选择 Scoop 根目录</value>
+  </data>
+  <data name="SettingsWebsitesRootLabel.Text" xml:space="preserve">
+    <value>网站默认根目录</value>
+  </data>
+  <data name="SettingsWebsitesRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>选择网站默认根目录</value>
+  </data>
+  <data name="SettingsBrowseScoop.Content" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="SettingsBrowseWebsites.Content" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="SettingsAboutHeader.Text" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="SettingsGitHub.Content" xml:space="preserve">
+    <value>GitHub 仓库</value>
+  </data>
+  <data name="SettingsVersionFormat" xml:space="preserve">
+    <value>版本 {0}</value>
+  </data>
+  <data name="SettingsLanguageRestartTitle" xml:space="preserve">
+    <value>切换语言</value>
+  </data>
+  <data name="SettingsLanguageRestartMessage" xml:space="preserve">
+    <value>语言将在重启应用后生效。是否立即重启？</value>
+  </data>
+  <data name="SettingsLanguageRestartNow" xml:space="preserve">
+    <value>立即重启</value>
+  </data>
+  <data name="SettingsLanguageLater" xml:space="preserve">
+    <value>稍后</value>
+  </data>
+  <data name="SettingsLanguageRestartFailedTitle" xml:space="preserve">
+    <value>无法自动重启</value>
+  </data>
+  <data name="SettingsLanguageRestartFailedMessage" xml:space="preserve">
+    <value>无法启动新进程。请手动关闭并重新打开 ScoopX，以使语言设置生效。</value>
+  </data>
+  <data name="SettingsLanguageRestartFailedOk" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="SettingsStartupFailedTitle" xml:space="preserve">
+    <value>无法更改开机自启</value>
+  </data>
+  <data name="SettingsStartupFailedOk" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="TitleSlogan.Text" xml:space="preserve">
+    <value>为每一位PHP开发者打造高效开发环境，专注每一次创造。</value>
+  </data>
+  <data name="NavHome.Text" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="NavWebsites.Text" xml:space="preserve">
+    <value>网站</value>
+  </data>
+  <data name="NavDatabase.Text" xml:space="preserve">
+    <value>数据库</value>
+  </data>
+  <data name="NavStore.Text" xml:space="preserve">
+    <value>应用商店</value>
+  </data>
+  <data name="NavSettings.Text" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="TrayShow.Text" xml:space="preserve">
+    <value>显示主窗口</value>
+  </data>
+  <data name="TrayExit.Text" xml:space="preserve">
+    <value>退出 ScoopX</value>
+  </data>
+  <data name="CaptionMinimize.ToolTipService.ToolTip" xml:space="preserve">
+    <value>最小化</value>
+  </data>
+  <data name="CaptionClose.ToolTipService.ToolTip" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="HomeStatusTitle.Text" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="HomeDiskIoTitle.Text" xml:space="preserve">
+    <value>磁盘IO</value>
+  </data>
+  <data name="HomeDiskFilterLabel.Text" xml:space="preserve">
+    <value>磁盘</value>
+  </data>
+  <data name="HomeDiskFilterAll" xml:space="preserve">
+    <value>所有</value>
+  </data>
+  <data name="HomeDiskReadLabel.Text" xml:space="preserve">
+    <value>读取</value>
+  </data>
+  <data name="HomeDiskWriteLabel.Text" xml:space="preserve">
+    <value>写入</value>
+  </data>
+  <data name="HomeDiskOpsFormat" xml:space="preserve">
+    <value>每秒读写 {0} 次</value>
+  </data>
+  <data name="HomeDiskLatencyLabel.Text" xml:space="preserve">
+    <value>IO延迟</value>
+  </data>
+  <data name="HomeGaugeLoad" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="HomeGaugeMemory" xml:space="preserve">
+    <value>内存</value>
+  </data>
+  <data name="HomeCpuCoresFormat" xml:space="preserve">
+    <value>{0}核心</value>
+  </data>
+  <data name="HomeLoadSmooth" xml:space="preserve">
+    <value>运行流畅</value>
+  </data>
+  <data name="HomeLoadModerate" xml:space="preserve">
+    <value>负载适中</value>
+  </data>
+  <data name="HomeLoadHigh" xml:space="preserve">
+    <value>负载偏高</value>
+  </data>
+  <data name="HomeLoadCritical" xml:space="preserve">
+    <value>负载过高</value>
+  </data>
+  <data name="SitesAdd.Content" xml:space="preserve">
+    <value>添加站点</value>
+  </data>
+  <data name="SitesAdvanced.Content" xml:space="preserve">
+    <value>高级设置</value>
+  </data>
+  <data name="SitesDefaultPage.Text" xml:space="preserve">
+    <value>修改默认页面</value>
+  </data>
+  <data name="SitesPhpCli.Text" xml:space="preserve">
+    <value>PHP命令行版本</value>
+  </data>
+  <data name="SitesFilterAll.Content" xml:space="preserve">
+    <value>全部分类</value>
+  </data>
+  <data name="SitesFilterRunning.Content" xml:space="preserve">
+    <value>运行中</value>
+  </data>
+  <data name="SitesFilterStopped.Content" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="SitesSearch.PlaceholderText" xml:space="preserve">
+    <value>请输入域名或备注</value>
+  </data>
+  <data name="SitesColName.Text" xml:space="preserve">
+    <value>网站名称</value>
+  </data>
+  <data name="SitesColStatus.Text" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="SitesColRoot.Text" xml:space="preserve">
+    <value>根目录</value>
+  </data>
+  <data name="SitesColRemark.Text" xml:space="preserve">
+    <value>备注信息</value>
+  </data>
+  <data name="SitesColPhp.Text" xml:space="preserve">
+    <value>PHP版本</value>
+  </data>
+  <data name="SitesColActions.Text" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="SitesActionSettings.Content" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="SitesActionDelete.Content" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="SitesEditTooltip.ToolTipService.ToolTip" xml:space="preserve">
+    <value>点击编辑站点</value>
+  </data>
+  <data name="SitesToggleTooltip.ToolTipService.ToolTip" xml:space="preserve">
+    <value>点击启停站点</value>
+  </data>
+  <data name="SitesBatchPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>请选择批量操作</value>
+  </data>
+  <data name="SitesBatchStart.Content" xml:space="preserve">
+    <value>启动站点</value>
+  </data>
+  <data name="SitesBatchStop.Content" xml:space="preserve">
+    <value>停用站点</value>
+  </data>
+  <data name="SitesBatchPhpFormat" xml:space="preserve">
+    <value>设置PHP版本 {0}</value>
+  </data>
+  <data name="SitesBatchDelete.Content" xml:space="preserve">
+    <value>删除站点</value>
+  </data>
+  <data name="SitesBatchSelectedFormat" xml:space="preserve">
+    <value>批量操作 (已选中{0}项)</value>
+  </data>
+  <data name="SitesPrevPage.ToolTipService.ToolTip" xml:space="preserve">
+    <value>上一页</value>
+  </data>
+  <data name="SitesNextPage.ToolTipService.ToolTip" xml:space="preserve">
+    <value>下一页</value>
+  </data>
+  <data name="SitesPageSizeFormat" xml:space="preserve">
+    <value>{0}条/页</value>
+  </data>
+  <data name="SitesTotalFormat" xml:space="preserve">
+    <value>共 {0} 条</value>
+  </data>
+  <data name="SitesGoto.Text" xml:space="preserve">
+    <value>前往</value>
+  </data>
+  <data name="SitesPageUnit.Text" xml:space="preserve">
+    <value>页</value>
+  </data>
+  <data name="SitesOpenFailedTitle" xml:space="preserve">
+    <value>无法打开</value>
+  </data>
+  <data name="SitesOpenFailedMessage" xml:space="preserve">
+    <value>目录不存在：
+{0}</value>
+  </data>
+  <data name="SitesOpenFailedOk" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="SitesStartedTitle" xml:space="preserve">
+    <value>已启动</value>
+  </data>
+  <data name="SitesStartedMessage" xml:space="preserve">
+    <value>站点 {0} 已启动</value>
+  </data>
+  <data name="SitesStoppedTitle" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="SitesStoppedMessage" xml:space="preserve">
+    <value>站点 {0} 已停止</value>
+  </data>
+  <data name="AddSiteDialog.Title" xml:space="preserve">
+    <value>添加站点</value>
+  </data>
+  <data name="AddSiteDialog.PrimaryButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="AddSiteDialog.SecondaryButtonText" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="AddSiteDomain.Text" xml:space="preserve">
+    <value>域名</value>
+  </data>
+  <data name="AddSiteDomainHint.Text" xml:space="preserve">
+    <value>每行一个域名，可一次添加多个站点</value>
+  </data>
+  <data name="AddSiteRemark.Text" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="AddSiteRemarkPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>可选</value>
+  </data>
+  <data name="AddSiteRoot.Text" xml:space="preserve">
+    <value>根目录</value>
+  </data>
+  <data name="AddSiteRootHint.Text" xml:space="preserve">
+    <value>站点文件将保存在此目录下</value>
+  </data>
+  <data name="AddSiteRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>选择网站根目录</value>
+  </data>
+  <data name="AddSiteBrowse.Content" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="AddSiteDatabase.Text" xml:space="preserve">
+    <value>数据库</value>
+  </data>
+  <data name="AddSiteDatabaseHint.Text" xml:space="preserve">
+    <value>可为站点同时创建数据库账号</value>
+  </data>
+  <data name="AddSiteDbNone.Content" xml:space="preserve">
+    <value>不创建</value>
+  </data>
+  <data name="AddSiteDbUser.Text" xml:space="preserve">
+    <value>数据库账号</value>
+  </data>
+  <data name="AddSiteDbUserPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>账号</value>
+  </data>
+  <data name="AddSiteDbPassword.Text" xml:space="preserve">
+    <value>数据库密码</value>
+  </data>
+  <data name="AddSiteDbPasswordPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="AddSitePhp.Text" xml:space="preserve">
+    <value>PHP 版本</value>
+  </data>
+  <data name="AddSitePhpHint.Text" xml:space="preserve">
+    <value>站点运行时使用的 PHP 版本</value>
+  </data>
+  <data name="EditSiteDialog.Title" xml:space="preserve">
+    <value>编辑站点</value>
+  </data>
+  <data name="EditSiteNavDomains.Text" xml:space="preserve">
+    <value>域名管理</value>
+  </data>
+  <data name="EditSiteNavDirectory.Text" xml:space="preserve">
+    <value>网站目录</value>
+  </data>
+  <data name="EditSiteNavRewrite.Text" xml:space="preserve">
+    <value>伪静态设置</value>
+  </data>
+  <data name="EditSiteNavDefaultDoc.Text" xml:space="preserve">
+    <value>默认文档</value>
+  </data>
+  <data name="EditSiteNavConfig.Text" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="EditSiteNavPhp.Text" xml:space="preserve">
+    <value>PHP 版本</value>
+  </data>
+  <data name="EditSiteNavLogs.Text" xml:space="preserve">
+    <value>网站日志</value>
+  </data>
+  <data name="EditSiteDomainsTitle.Text" xml:space="preserve">
+    <value>域名管理</value>
+  </data>
+  <data name="EditSiteBasicInfo.Text" xml:space="preserve">
+    <value>基本信息</value>
+  </data>
+  <data name="EditSiteDomain.Text" xml:space="preserve">
+    <value>网站域名</value>
+  </data>
+  <data name="EditSiteRemark.Text" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="EditSiteRemarkPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>可选</value>
+  </data>
+  <data name="EditSiteStatus.Text" xml:space="preserve">
+    <value>运行状态</value>
+  </data>
+  <data name="EditSiteStatusRunning.Content" xml:space="preserve">
+    <value>运行中</value>
+  </data>
+  <data name="EditSiteStatusStopped.Content" xml:space="preserve">
+    <value>已停止</value>
+  </data>
+  <data name="EditSiteDirectoryTitle.Text" xml:space="preserve">
+    <value>网站目录</value>
+  </data>
+  <data name="EditSiteStorage.Text" xml:space="preserve">
+    <value>存储</value>
+  </data>
+  <data name="EditSiteRoot.Text" xml:space="preserve">
+    <value>根目录</value>
+  </data>
+  <data name="EditSiteRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>选择网站根目录</value>
+  </data>
+  <data name="EditSiteBrowseRoot.Content" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="EditSiteRunPath.Text" xml:space="preserve">
+    <value>运行目录</value>
+  </data>
+  <data name="EditSiteRunPathPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>选择网站运行目录</value>
+  </data>
+  <data name="EditSiteBrowseRun.Content" xml:space="preserve">
+    <value>浏览</value>
+  </data>
+  <data name="EditSiteRewriteTitle.Text" xml:space="preserve">
+    <value>伪静态设置</value>
+  </data>
+  <data name="EditSiteRules.Text" xml:space="preserve">
+    <value>规则</value>
+  </data>
+  <data name="EditSiteRuleTemplate.Text" xml:space="preserve">
+    <value>规则模板</value>
+  </data>
+  <data name="EditSiteRewriteNone.Content" xml:space="preserve">
+    <value>不使用</value>
+  </data>
+  <data name="EditSiteRewriteCustom.Content" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="EditSiteRewriteRules.Text" xml:space="preserve">
+    <value>伪静态规则</value>
+  </data>
+  <data name="EditSiteRewriteRulesPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>在此填写伪静态规则</value>
+  </data>
+  <data name="EditSiteDefaultDocTitle.Text" xml:space="preserve">
+    <value>默认文档</value>
+  </data>
+  <data name="EditSiteDocList.Text" xml:space="preserve">
+    <value>文档列表</value>
+  </data>
+  <data name="EditSiteDocListHint.Text" xml:space="preserve">
+    <value>每行一个，按优先级从上到下匹配</value>
+  </data>
+  <data name="EditSiteConfigTitle.Text" xml:space="preserve">
+    <value>配置文件</value>
+  </data>
+  <data name="EditSiteConfigGroup.Text" xml:space="preserve">
+    <value>站点配置</value>
+  </data>
+  <data name="EditSiteConfigHint.Text" xml:space="preserve">
+    <value>可直接编辑站点虚拟主机配置</value>
+  </data>
+  <data name="EditSitePhpTitle.Text" xml:space="preserve">
+    <value>PHP 版本</value>
+  </data>
+  <data name="EditSiteRuntime.Text" xml:space="preserve">
+    <value>运行环境</value>
+  </data>
+  <data name="EditSitePhpVersion.Text" xml:space="preserve">
+    <value>运行版本</value>
+  </data>
+  <data name="EditSitePhpHint.Text" xml:space="preserve">
+    <value>切换后对该站点立即生效</value>
+  </data>
+  <data name="EditSiteLogsTitle.Text" xml:space="preserve">
+    <value>网站日志</value>
+  </data>
+  <data name="EditSiteLogType.Text" xml:space="preserve">
+    <value>日志类型</value>
+  </data>
+  <data name="EditSiteLogAccess.Content" xml:space="preserve">
+    <value>访问日志</value>
+  </data>
+  <data name="EditSiteLogError.Content" xml:space="preserve">
+    <value>错误日志</value>
+  </data>
+  <data name="EditSiteLogRefresh.Content" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="EditSiteLogFullscreen.Content" xml:space="preserve">
+    <value>全屏展示</value>
+  </data>
+  <data name="EditSiteCancel.Content" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="EditSiteConfirm.Content" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="EditSiteLogExitFullscreen.Content" xml:space="preserve">
+    <value>退出全屏</value>
+  </data>
+</root>

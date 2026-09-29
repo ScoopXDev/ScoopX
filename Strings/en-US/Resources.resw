@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SettingsTitle.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsAppearanceHeader.Text" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="SettingsThemeLight.Text" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="SettingsThemeDark.Text" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="SettingsThemeSystem.Text" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="SettingsLanguageHeader.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingsLanguageZh.Content" xml:space="preserve">
+    <value>简体中文</value>
+  </data>
+  <data name="SettingsLanguageEn.Content" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="SettingsGeneralHeader.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SettingsCloseToTrayTitle.Text" xml:space="preserve">
+    <value>Minimize to tray on close</value>
+  </data>
+  <data name="SettingsCloseToTrayDesc.Text" xml:space="preserve">
+    <value>Hide to the system tray instead of quitting</value>
+  </data>
+  <data name="SettingsStartWithWindowsTitle.Text" xml:space="preserve">
+    <value>Start with Windows</value>
+  </data>
+  <data name="SettingsStartWithWindowsDesc.Text" xml:space="preserve">
+    <value>Launch ScoopX automatically after signing in to Windows</value>
+  </data>
+  <data name="SettingsStartHiddenTitle.Text" xml:space="preserve">
+    <value>Hide to tray on startup</value>
+  </data>
+  <data name="SettingsStartHiddenDesc.Text" xml:space="preserve">
+    <value>Don't show the main window on startup—tray icon only</value>
+  </data>
+  <data name="SettingsPathsHeader.Text" xml:space="preserve">
+    <value>Paths</value>
+  </data>
+  <data name="SettingsScoopRootLabel.Text" xml:space="preserve">
+    <value>Scoop root</value>
+  </data>
+  <data name="SettingsScoopRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Choose Scoop root folder</value>
+  </data>
+  <data name="SettingsWebsitesRootLabel.Text" xml:space="preserve">
+    <value>Default websites root</value>
+  </data>
+  <data name="SettingsWebsitesRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Choose default websites root folder</value>
+  </data>
+  <data name="SettingsBrowseScoop.Content" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="SettingsBrowseWebsites.Content" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="SettingsAboutHeader.Text" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="SettingsGitHub.Content" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="SettingsVersionFormat" xml:space="preserve">
+    <value>Version {0}</value>
+  </data>
+  <data name="SettingsLanguageRestartTitle" xml:space="preserve">
+    <value>Change language</value>
+  </data>
+  <data name="SettingsLanguageRestartMessage" xml:space="preserve">
+    <value>Language applies after restart. Restart now?</value>
+  </data>
+  <data name="SettingsLanguageRestartNow" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="SettingsLanguageLater" xml:space="preserve">
+    <value>Later</value>
+  </data>
+  <data name="SettingsLanguageRestartFailedTitle" xml:space="preserve">
+    <value>Could not restart</value>
+  </data>
+  <data name="SettingsLanguageRestartFailedMessage" xml:space="preserve">
+    <value>Could not start a new process. Please close and reopen ScoopX manually for the language change to take effect.</value>
+  </data>
+  <data name="SettingsLanguageRestartFailedOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SettingsStartupFailedTitle" xml:space="preserve">
+    <value>Could not change startup setting</value>
+  </data>
+  <data name="SettingsStartupFailedOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="TitleSlogan.Text" xml:space="preserve">
+    <value>An efficient PHP development environment for every creator.</value>
+  </data>
+  <data name="NavHome.Text" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="NavWebsites.Text" xml:space="preserve">
+    <value>Sites</value>
+  </data>
+  <data name="NavDatabase.Text" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="NavStore.Text" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="NavSettings.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="TrayShow.Text" xml:space="preserve">
+    <value>Show window</value>
+  </data>
+  <data name="TrayExit.Text" xml:space="preserve">
+    <value>Exit ScoopX</value>
+  </data>
+  <data name="CaptionMinimize.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
+  <data name="CaptionClose.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="HomeStatusTitle.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="HomeDiskIoTitle.Text" xml:space="preserve">
+    <value>Disk IO</value>
+  </data>
+  <data name="HomeDiskFilterLabel.Text" xml:space="preserve">
+    <value>Disk</value>
+  </data>
+  <data name="HomeDiskFilterAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="HomeDiskReadLabel.Text" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="HomeDiskWriteLabel.Text" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="HomeDiskOpsFormat" xml:space="preserve">
+    <value>{0} ops/s</value>
+  </data>
+  <data name="HomeDiskLatencyLabel.Text" xml:space="preserve">
+    <value>IO latency</value>
+  </data>
+  <data name="HomeGaugeLoad" xml:space="preserve">
+    <value>Load</value>
+  </data>
+  <data name="HomeGaugeMemory" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="HomeCpuCoresFormat" xml:space="preserve">
+    <value>{0} cores</value>
+  </data>
+  <data name="HomeLoadSmooth" xml:space="preserve">
+    <value>Running smoothly</value>
+  </data>
+  <data name="HomeLoadModerate" xml:space="preserve">
+    <value>Moderate load</value>
+  </data>
+  <data name="HomeLoadHigh" xml:space="preserve">
+    <value>High load</value>
+  </data>
+  <data name="HomeLoadCritical" xml:space="preserve">
+    <value>Critical load</value>
+  </data>
+  <data name="SitesAdd.Content" xml:space="preserve">
+    <value>Add site</value>
+  </data>
+  <data name="SitesAdvanced.Content" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="SitesDefaultPage.Text" xml:space="preserve">
+    <value>Default page</value>
+  </data>
+  <data name="SitesPhpCli.Text" xml:space="preserve">
+    <value>PHP CLI version</value>
+  </data>
+  <data name="SitesFilterAll.Content" xml:space="preserve">
+    <value>All categories</value>
+  </data>
+  <data name="SitesFilterRunning.Content" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="SitesFilterStopped.Content" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="SitesSearch.PlaceholderText" xml:space="preserve">
+    <value>Search domain or remark</value>
+  </data>
+  <data name="SitesColName.Text" xml:space="preserve">
+    <value>Site name</value>
+  </data>
+  <data name="SitesColStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="SitesColRoot.Text" xml:space="preserve">
+    <value>Root path</value>
+  </data>
+  <data name="SitesColRemark.Text" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="SitesColPhp.Text" xml:space="preserve">
+    <value>PHP</value>
+  </data>
+  <data name="SitesColActions.Text" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="SitesActionSettings.Content" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SitesActionDelete.Content" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="SitesEditTooltip.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Edit site</value>
+  </data>
+  <data name="SitesToggleTooltip.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Start or stop site</value>
+  </data>
+  <data name="SitesBatchPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Select batch action</value>
+  </data>
+  <data name="SitesBatchStart.Content" xml:space="preserve">
+    <value>Start sites</value>
+  </data>
+  <data name="SitesBatchStop.Content" xml:space="preserve">
+    <value>Stop sites</value>
+  </data>
+  <data name="SitesBatchPhpFormat" xml:space="preserve">
+    <value>Set PHP {0}</value>
+  </data>
+  <data name="SitesBatchDelete.Content" xml:space="preserve">
+    <value>Delete sites</value>
+  </data>
+  <data name="SitesBatchSelectedFormat" xml:space="preserve">
+    <value>Batch ({0} selected)</value>
+  </data>
+  <data name="SitesPrevPage.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Previous page</value>
+  </data>
+  <data name="SitesNextPage.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Next page</value>
+  </data>
+  <data name="SitesPageSizeFormat" xml:space="preserve">
+    <value>{0} / page</value>
+  </data>
+  <data name="SitesTotalFormat" xml:space="preserve">
+    <value>{0} total</value>
+  </data>
+  <data name="SitesGoto.Text" xml:space="preserve">
+    <value>Go</value>
+  </data>
+  <data name="SitesPageUnit.Text" xml:space="preserve">
+    <value>page</value>
+  </data>
+  <data name="SitesOpenFailedTitle" xml:space="preserve">
+    <value>Cannot open</value>
+  </data>
+  <data name="SitesOpenFailedMessage" xml:space="preserve">
+    <value>Folder does not exist:
+{0}</value>
+  </data>
+  <data name="SitesOpenFailedOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="SitesStartedTitle" xml:space="preserve">
+    <value>Started</value>
+  </data>
+  <data name="SitesStartedMessage" xml:space="preserve">
+    <value>Site {0} started</value>
+  </data>
+  <data name="SitesStoppedTitle" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="SitesStoppedMessage" xml:space="preserve">
+    <value>Site {0} stopped</value>
+  </data>
+  <data name="AddSiteDialog.Title" xml:space="preserve">
+    <value>Add site</value>
+  </data>
+  <data name="AddSiteDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AddSiteDialog.SecondaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AddSiteDomain.Text" xml:space="preserve">
+    <value>Domain</value>
+  </data>
+  <data name="AddSiteDomainHint.Text" xml:space="preserve">
+    <value>One domain per line; you can add multiple sites at once</value>
+  </data>
+  <data name="AddSiteRemark.Text" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="AddSiteRemarkPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="AddSiteRoot.Text" xml:space="preserve">
+    <value>Root path</value>
+  </data>
+  <data name="AddSiteRootHint.Text" xml:space="preserve">
+    <value>Site files will be stored under this folder</value>
+  </data>
+  <data name="AddSiteRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Choose site root folder</value>
+  </data>
+  <data name="AddSiteBrowse.Content" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="AddSiteDatabase.Text" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="AddSiteDatabaseHint.Text" xml:space="preserve">
+    <value>Optionally create a database account for the site</value>
+  </data>
+  <data name="AddSiteDbNone.Content" xml:space="preserve">
+    <value>Do not create</value>
+  </data>
+  <data name="AddSiteDbUser.Text" xml:space="preserve">
+    <value>Database user</value>
+  </data>
+  <data name="AddSiteDbUserPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="AddSiteDbPassword.Text" xml:space="preserve">
+    <value>Database password</value>
+  </data>
+  <data name="AddSiteDbPasswordPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="AddSitePhp.Text" xml:space="preserve">
+    <value>PHP version</value>
+  </data>
+  <data name="AddSitePhpHint.Text" xml:space="preserve">
+    <value>PHP version used when the site is running</value>
+  </data>
+  <data name="EditSiteDialog.Title" xml:space="preserve">
+    <value>Edit site</value>
+  </data>
+  <data name="EditSiteNavDomains.Text" xml:space="preserve">
+    <value>Domains</value>
+  </data>
+  <data name="EditSiteNavDirectory.Text" xml:space="preserve">
+    <value>Site directory</value>
+  </data>
+  <data name="EditSiteNavRewrite.Text" xml:space="preserve">
+    <value>Rewrite rules</value>
+  </data>
+  <data name="EditSiteNavDefaultDoc.Text" xml:space="preserve">
+    <value>Default documents</value>
+  </data>
+  <data name="EditSiteNavConfig.Text" xml:space="preserve">
+    <value>Config file</value>
+  </data>
+  <data name="EditSiteNavPhp.Text" xml:space="preserve">
+    <value>PHP version</value>
+  </data>
+  <data name="EditSiteNavLogs.Text" xml:space="preserve">
+    <value>Site logs</value>
+  </data>
+  <data name="EditSiteDomainsTitle.Text" xml:space="preserve">
+    <value>Domains</value>
+  </data>
+  <data name="EditSiteBasicInfo.Text" xml:space="preserve">
+    <value>Basic info</value>
+  </data>
+  <data name="EditSiteDomain.Text" xml:space="preserve">
+    <value>Site domain</value>
+  </data>
+  <data name="EditSiteRemark.Text" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="EditSiteRemarkPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="EditSiteStatus.Text" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="EditSiteStatusRunning.Content" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="EditSiteStatusStopped.Content" xml:space="preserve">
+    <value>Stopped</value>
+  </data>
+  <data name="EditSiteDirectoryTitle.Text" xml:space="preserve">
+    <value>Site directory</value>
+  </data>
+  <data name="EditSiteStorage.Text" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="EditSiteRoot.Text" xml:space="preserve">
+    <value>Root path</value>
+  </data>
+  <data name="EditSiteRootPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Choose site root folder</value>
+  </data>
+  <data name="EditSiteBrowseRoot.Content" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="EditSiteRunPath.Text" xml:space="preserve">
+    <value>Run path</value>
+  </data>
+  <data name="EditSiteRunPathPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Choose site run folder</value>
+  </data>
+  <data name="EditSiteBrowseRun.Content" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="EditSiteRewriteTitle.Text" xml:space="preserve">
+    <value>Rewrite rules</value>
+  </data>
+  <data name="EditSiteRules.Text" xml:space="preserve">
+    <value>Rules</value>
+  </data>
+  <data name="EditSiteRuleTemplate.Text" xml:space="preserve">
+    <value>Rule template</value>
+  </data>
+  <data name="EditSiteRewriteNone.Content" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="EditSiteRewriteCustom.Content" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="EditSiteRewriteRules.Text" xml:space="preserve">
+    <value>Rewrite rules</value>
+  </data>
+  <data name="EditSiteRewriteRulesPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Enter rewrite rules here</value>
+  </data>
+  <data name="EditSiteDefaultDocTitle.Text" xml:space="preserve">
+    <value>Default documents</value>
+  </data>
+  <data name="EditSiteDocList.Text" xml:space="preserve">
+    <value>Document list</value>
+  </data>
+  <data name="EditSiteDocListHint.Text" xml:space="preserve">
+    <value>One per line, matched top to bottom by priority</value>
+  </data>
+  <data name="EditSiteConfigTitle.Text" xml:space="preserve">
+    <value>Config file</value>
+  </data>
+  <data name="EditSiteConfigGroup.Text" xml:space="preserve">
+    <value>Site config</value>
+  </data>
+  <data name="EditSiteConfigHint.Text" xml:space="preserve">
+    <value>Edit the site virtual host configuration directly</value>
+  </data>
+  <data name="EditSitePhpTitle.Text" xml:space="preserve">
+    <value>PHP version</value>
+  </data>
+  <data name="EditSiteRuntime.Text" xml:space="preserve">
+    <value>Runtime</value>
+  </data>
+  <data name="EditSitePhpVersion.Text" xml:space="preserve">
+    <value>Runtime version</value>
+  </data>
+  <data name="EditSitePhpHint.Text" xml:space="preserve">
+    <value>Takes effect for this site immediately after switching</value>
+  </data>
+  <data name="EditSiteLogsTitle.Text" xml:space="preserve">
+    <value>Site logs</value>
+  </data>
+  <data name="EditSiteLogType.Text" xml:space="preserve">
+    <value>Log type</value>
+  </data>
+  <data name="EditSiteLogAccess.Content" xml:space="preserve">
+    <value>Access log</value>
+  </data>
+  <data name="EditSiteLogError.Content" xml:space="preserve">
+    <value>Error log</value>
+  </data>
+  <data name="EditSiteLogRefresh.Content" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="EditSiteLogFullscreen.Content" xml:space="preserve">
+    <value>Fullscreen</value>
+  </data>
+  <data name="EditSiteCancel.Content" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="EditSiteConfirm.Content" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="EditSiteLogExitFullscreen.Content" xml:space="preserve">
+    <value>Exit fullscreen</value>
+  </data>
+</root>
