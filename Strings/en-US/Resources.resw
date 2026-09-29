@@ -578,4 +578,92 @@
   <data name="EditSiteLogExitFullscreen.Content" xml:space="preserve">
     <value>Exit fullscreen</value>
   </data>
+  <data name="DbMySqlAddDatabase.Content" xml:space="preserve">
+    <value>Add database</value>
+  </data>
+  <data name="DbMySqlRootPassword.Content" xml:space="preserve">
+    <value>root password</value>
+  </data>
+  <data name="DbMySqlRemoteDatabase.Content" xml:space="preserve">
+    <value>Remote database</value>
+  </data>
+  <data name="DbMySqlPhpMyAdmin.Content" xml:space="preserve">
+    <value>phpMyAdmin</value>
+  </data>
+  <data name="DbMySqlStop.Content" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="DbMySqlRestart.Content" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="DbMySqlReload.Content" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="AddDatabaseDialog.Title" xml:space="preserve">
+    <value>Add database</value>
+  </data>
+  <data name="AddDatabaseDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="AddDatabaseDialog.SecondaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="AddDatabaseName.Text" xml:space="preserve">
+    <value>Database name</value>
+  </data>
+  <data name="AddDatabaseNamePlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Enter database name</value>
+  </data>
+  <data name="AddDatabaseCharset.Text" xml:space="preserve">
+    <value>Character set</value>
+  </data>
+  <data name="AddDatabaseUsername.Text" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="AddDatabaseUsernamePlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Enter username</value>
+  </data>
+  <data name="AddDatabasePassword.Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="AddDatabasePasswordPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>Enter password</value>
+  </data>
+  <data name="DbColName.Text" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="DbColUsername.Text" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="DbColPassword.Text" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="DbColRemark.Text" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="DbColActions.Text" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="DbActionManage.Content" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="DbActionChangePassword.Content" xml:space="preserve">
+    <value>Change pwd</value>
+  </data>
+  <data name="DbActionDelete.Content" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DbListEmpty.Text" xml:space="preserve">
+    <value>No databases yet. Click “Add database” to create one.</value>
+  </data>
+  <data name="DbDeleteConfirm" xml:space="preserve">
+    <value>Delete this database?</value>
+  </data>
+  <data name="DbDeleteCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="DbDeleteOk" xml:space="preserve">
+    <value>Delete</value>
+  </data>
 </root>
+ 

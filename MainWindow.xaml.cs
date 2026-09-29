@@ -249,6 +249,9 @@ namespace ScoopX
                 case "Websites":
                     ContentFrame.Navigate(typeof(WebsitesPage));
                     break;
+                case "Database":
+                    ContentFrame.Navigate(typeof(DatabasePage));
+                    break;
                 case "Settings":
                     ContentFrame.Navigate(typeof(SettingsPage));
                     break;

@@ -23,13 +23,17 @@ if (-not (Test-Path (Join-Path $PublishOut "ScoopX.exe"))) {
 }
 
 $iscc = @(
+  "D:\Program Files\Inno Setup 7\ISCC.exe",
+  "${env:LocalAppData}\Programs\Inno Setup 7\ISCC.exe",
+  "${env:ProgramFiles}\Inno Setup 7\ISCC.exe",
+  "${env:ProgramFiles(x86)}\Inno Setup 7\ISCC.exe",
   "${env:LocalAppData}\Programs\Inno Setup 6\ISCC.exe",
   "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
   "${env:ProgramFiles}\Inno Setup 6\ISCC.exe"
 ) | Where-Object { Test-Path $_ } | Select-Object -First 1
 
 if (-not $iscc) {
-  throw "Inno Setup 6 (ISCC.exe) not found. Install from https://jrsoftware.org/isinfo.php"
+  throw "Inno Setup (ISCC.exe) not found. Install from https://jrsoftware.org/isinfo.php"
 }
 
 Write-Host "==> Building installer with $iscc ..."

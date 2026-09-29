@@ -578,4 +578,91 @@
   <data name="EditSiteLogExitFullscreen.Content" xml:space="preserve">
     <value>退出全屏</value>
   </data>
+  <data name="DbMySqlAddDatabase.Content" xml:space="preserve">
+    <value>添加数据库</value>
+  </data>
+  <data name="DbMySqlRootPassword.Content" xml:space="preserve">
+    <value>root密码</value>
+  </data>
+  <data name="DbMySqlRemoteDatabase.Content" xml:space="preserve">
+    <value>远程数据库</value>
+  </data>
+  <data name="DbMySqlPhpMyAdmin.Content" xml:space="preserve">
+    <value>phpMyAdmin</value>
+  </data>
+  <data name="DbMySqlStop.Content" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="DbMySqlRestart.Content" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="DbMySqlReload.Content" xml:space="preserve">
+    <value>重载</value>
+  </data>
+  <data name="AddDatabaseDialog.Title" xml:space="preserve">
+    <value>添加数据库</value>
+  </data>
+  <data name="AddDatabaseDialog.PrimaryButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="AddDatabaseDialog.SecondaryButtonText" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="AddDatabaseName.Text" xml:space="preserve">
+    <value>数据库名</value>
+  </data>
+  <data name="AddDatabaseNamePlaceholder.PlaceholderText" xml:space="preserve">
+    <value>请输入数据库名</value>
+  </data>
+  <data name="AddDatabaseCharset.Text" xml:space="preserve">
+    <value>数据库编码</value>
+  </data>
+  <data name="AddDatabaseUsername.Text" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="AddDatabaseUsernamePlaceholder.PlaceholderText" xml:space="preserve">
+    <value>请输入用户名</value>
+  </data>
+  <data name="AddDatabasePassword.Text" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="AddDatabasePasswordPlaceholder.PlaceholderText" xml:space="preserve">
+    <value>请输入密码</value>
+  </data>
+  <data name="DbColName.Text" xml:space="preserve">
+    <value>数据库名</value>
+  </data>
+  <data name="DbColUsername.Text" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="DbColPassword.Text" xml:space="preserve">
+    <value>密码</value>
+  </data>
+  <data name="DbColRemark.Text" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="DbColActions.Text" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="DbActionManage.Content" xml:space="preserve">
+    <value>管理</value>
+  </data>
+  <data name="DbActionChangePassword.Content" xml:space="preserve">
+    <value>改密</value>
+  </data>
+  <data name="DbActionDelete.Content" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="DbListEmpty.Text" xml:space="preserve">
+    <value>暂无数据库，点击「添加数据库」创建</value>
+  </data>
+  <data name="DbDeleteConfirm" xml:space="preserve">
+    <value>确定删除该数据库吗？</value>
+  </data>
+  <data name="DbDeleteCancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="DbDeleteOk" xml:space="preserve">
+    <value>删除</value>
+  </data>
 </root>
