@@ -1,7 +1,10 @@
 using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.Win32;
+using Microsoft.Windows.ApplicationModel.Resources;
 using Windows.ApplicationModel;
-using Windows.Storage;
 
 namespace ScoopX.Services
 {
@@ -13,6 +16,8 @@ namespace ScoopX.Services
         private const string KeyStartHiddenToTray = "StartHiddenToTray";
         private const string KeyScoopRootPath = "ScoopRootPath";
         private const string KeyWebsitesRootPath = "WebsitesRootPath";
+        private const string RunKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
+        private const string RunValueName = "ScoopX";
 
         private static readonly Lazy<AppSettings> Lazy = new(() => new AppSettings());
         public static AppSettings Instance => Lazy.Value;
@@ -23,31 +28,31 @@ namespace ScoopX.Services
 
         public bool CloseToTray
         {
-            get => ReadBool(KeyCloseToTray, defaultValue: true);
-            set { WriteBool(KeyCloseToTray, value); RaiseChanged(); }
+            get => LocalSettingsStore.TryGetBool(KeyCloseToTray, out var v) ? v : true;
+            set { LocalSettingsStore.SetBool(KeyCloseToTray, value); RaiseChanged(); }
         }
 
         public bool StartHiddenToTray
         {
-            get => ReadBool(KeyStartHiddenToTray, defaultValue: false);
-            set { WriteBool(KeyStartHiddenToTray, value); RaiseChanged(); }
+            get => LocalSettingsStore.TryGetBool(KeyStartHiddenToTray, out var v) ? v : false;
+            set { LocalSettingsStore.SetBool(KeyStartHiddenToTray, value); RaiseChanged(); }
         }
 
         public string ScoopRootPath
         {
-            get => ReadString(KeyScoopRootPath);
-            set { WriteString(KeyScoopRootPath, value ?? ""); RaiseChanged(); }
+            get => LocalSettingsStore.TryGetString(KeyScoopRootPath, out var v) ? v : "";
+            set { LocalSettingsStore.SetString(KeyScoopRootPath, value ?? ""); RaiseChanged(); }
         }
 
         public string WebsitesRootPath
         {
-            get => ReadString(KeyWebsitesRootPath);
-            set { WriteString(KeyWebsitesRootPath, value ?? ""); RaiseChanged(); }
+            get => LocalSettingsStore.TryGetString(KeyWebsitesRootPath, out var v) ? v : "";
+            set { LocalSettingsStore.SetString(KeyWebsitesRootPath, value ?? ""); RaiseChanged(); }
         }
 
         public bool StartWithWindows
         {
-            get => ReadBool(KeyStartWithWindows, defaultValue: false);
+            get => LocalSettingsStore.TryGetBool(KeyStartWithWindows, out var v) ? v : false;
             set => _ = SetStartWithWindowsAsync(value);
         }
 
@@ -63,9 +68,9 @@ namespace ScoopX.Services
                         or StartupTaskState.DisabledByUser
                         or StartupTaskState.DisabledByPolicy)
                     {
-                        WriteBool(KeyStartWithWindows, false);
+                        LocalSettingsStore.SetBool(KeyStartWithWindows, false);
                         RaiseChanged();
-                        return (false, "未能启用开机自启（可能被系统或用户策略禁用）。");
+                        return (false, GetStartupString("SettingsStartupDisabled"));
                     }
                 }
                 else
@@ -73,39 +78,66 @@ namespace ScoopX.Services
                     task.Disable();
                 }
 
-                WriteBool(KeyStartWithWindows, enabled);
+                LocalSettingsStore.SetBool(KeyStartWithWindows, enabled);
+                RaiseChanged();
+                return (true, null);
+            }
+            catch (Exception)
+            {
+                return SetStartWithWindowsViaRunKey(enabled);
+            }
+        }
+
+        private (bool ok, string? error) SetStartWithWindowsViaRunKey(bool enabled)
+        {
+            try
+            {
+                using var key = Registry.CurrentUser.CreateSubKey(RunKeyPath);
+                if (key is null)
+                {
+                    LocalSettingsStore.SetBool(KeyStartWithWindows, false);
+                    RaiseChanged();
+                    return (false, GetStartupString("SettingsStartupRegistryOpenFailed"));
+                }
+
+                if (enabled)
+                {
+                    var exe = Environment.ProcessPath
+                        ?? Process.GetCurrentProcess().MainModule?.FileName
+                        ?? Assembly.GetExecutingAssembly().Location;
+
+                    if (string.IsNullOrWhiteSpace(exe) || !System.IO.File.Exists(exe))
+                    {
+                        LocalSettingsStore.SetBool(KeyStartWithWindows, false);
+                        RaiseChanged();
+                        return (false, GetStartupString("SettingsStartupExeMissing"));
+                    }
+
+                    key.SetValue(RunValueName, $"\"{exe}\"");
+                }
+                else
+                {
+                    key.DeleteValue(RunValueName, throwOnMissingValue: false);
+                }
+
+                LocalSettingsStore.SetBool(KeyStartWithWindows, enabled);
                 RaiseChanged();
                 return (true, null);
             }
             catch (Exception ex)
             {
-                // unpackaged / missing extension
-                WriteBool(KeyStartWithWindows, false);
+                LocalSettingsStore.SetBool(KeyStartWithWindows, false);
                 RaiseChanged();
-                return (false, $"开机自启不可用（需安装包版本）：{ex.Message}");
+                return (false, FormatStartupString("SettingsStartupRegistryFailed", ex.Message));
             }
         }
 
+        private static string GetStartupString(string key) =>
+            new ResourceLoader().GetString(key);
+
+        private static string FormatStartupString(string key, string arg0) =>
+            string.Format(GetStartupString(key), arg0);
+
         private void RaiseChanged() => Changed?.Invoke(this, EventArgs.Empty);
-
-        private static bool ReadBool(string key, bool defaultValue)
-        {
-            if (ApplicationData.Current.LocalSettings.Values.TryGetValue(key, out var v) && v is bool b)
-                return b;
-            return defaultValue;
-        }
-
-        private static void WriteBool(string key, bool value) =>
-            ApplicationData.Current.LocalSettings.Values[key] = value;
-
-        private static string ReadString(string key)
-        {
-            if (ApplicationData.Current.LocalSettings.Values.TryGetValue(key, out var v) && v is string s)
-                return s;
-            return "";
-        }
-
-        private static void WriteString(string key, string value) =>
-            ApplicationData.Current.LocalSettings.Values[key] = value;
     }
 }

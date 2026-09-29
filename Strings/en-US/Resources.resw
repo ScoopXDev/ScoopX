@@ -160,6 +160,27 @@
   <data name="SettingsStartupFailedOk" xml:space="preserve">
     <value>OK</value>
   </data>
+  <data name="SettingsStartupDisabled" xml:space="preserve">
+    <value>Could not enable start with Windows (it may be disabled by policy or the user).</value>
+  </data>
+  <data name="SettingsStartupExeMissing" xml:space="preserve">
+    <value>Could not locate ScoopX.exe. Start with Windows was not enabled.</value>
+  </data>
+  <data name="SettingsStartupRegistryOpenFailed" xml:space="preserve">
+    <value>Could not open the Run registry key.</value>
+  </data>
+  <data name="SettingsStartupRegistryFailed" xml:space="preserve">
+    <value>Could not change start with Windows: {0}</value>
+  </data>
+  <data name="SettingsLanguageApplyFailedTitle" xml:space="preserve">
+    <value>Could not change language</value>
+  </data>
+  <data name="SettingsLanguageApplyFailedMessage" xml:space="preserve">
+    <value>Your language preference was saved, but it could not be applied now. Restart the app or check system language settings.</value>
+  </data>
+  <data name="SettingsLanguageApplyFailedOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
   <data name="TitleSlogan.Text" xml:space="preserve">
     <value>An efficient PHP development environment for every creator.</value>
   </data>

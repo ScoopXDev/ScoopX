@@ -8,7 +8,6 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Windows.Storage.Pickers;
-using Windows.ApplicationModel.Resources;
 using ScoopX.Services;
 using WinRT.Interop;
 
@@ -17,7 +16,6 @@ namespace ScoopX.Pages
     public sealed partial class EditSiteDialog : ContentDialog
     {
         private readonly WebsiteItem _site;
-        private readonly ResourceLoader _loader = new();
         private UIElement? _smokeLayer;
         private string _currentNav = "Domains";
 
@@ -240,8 +238,8 @@ namespace ScoopX.Pages
             }
 
             LogFullscreenTitle.Text = type == "error"
-                ? _loader.GetString("EditSiteLogError.Content")
-                : _loader.GetString("EditSiteLogAccess.Content");
+                ? Res.Get("EditSiteLogError.Content")
+                : Res.Get("EditSiteLogAccess.Content");
         }
 
         private void LogFullscreenButton_Click(object sender, RoutedEventArgs e)

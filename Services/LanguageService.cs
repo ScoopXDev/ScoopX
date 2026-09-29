@@ -1,6 +1,7 @@
 using System;
-using Windows.Globalization;
-using Windows.Storage;
+using System.Diagnostics;
+using System.Globalization;
+using WasdkLanguages = Microsoft.Windows.Globalization.ApplicationLanguages;
 
 namespace ScoopX.Services
 {
@@ -20,21 +21,62 @@ namespace ScoopX.Services
         public void ApplyBeforeUi()
         {
             CurrentTag = ReadTag();
-            ApplicationLanguages.PrimaryLanguageOverride = CurrentTag;
+            TrySetPrimaryLanguageOverride(CurrentTag);
         }
 
-        public void SetLanguage(string tag)
+        /// <summary>
+        /// Persists language preference. Override may only take effect after restart
+        /// once MRT has already loaded (typical for unpackaged).
+        /// </summary>
+        public bool SetLanguage(string tag)
         {
-            var normalized = Normalize(tag);
-            CurrentTag = normalized;
-            ApplicationData.Current.LocalSettings.Values[SettingsKey] = normalized;
-            ApplicationLanguages.PrimaryLanguageOverride = normalized;
+            try
+            {
+                var normalized = Normalize(tag);
+                CurrentTag = normalized;
+                LocalSettingsStore.SetString(SettingsKey, normalized);
+                TrySetPrimaryLanguageOverride(normalized);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ScoopX: SetLanguage failed: {ex.Message}");
+                return false;
+            }
+        }
+
+        private static bool TrySetPrimaryLanguageOverride(string tag)
+        {
+            try
+            {
+                var culture = CultureInfo.GetCultureInfo(tag);
+                CultureInfo.DefaultThreadCurrentCulture = culture;
+                CultureInfo.DefaultThreadCurrentUICulture = culture;
+                CultureInfo.CurrentCulture = culture;
+                CultureInfo.CurrentUICulture = culture;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ScoopX: CultureInfo failed for '{tag}': {ex.Message}");
+            }
+
+            try
+            {
+                // 未打包应用必须用 WASDK 的 Globalization API；
+                // Windows.Globalization.ApplicationLanguages 需要包标识，会抛 0x80073D54。
+                WasdkLanguages.PrimaryLanguageOverride = tag;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"ScoopX: PrimaryLanguageOverride failed for '{tag}': {ex.Message}");
+                return false;
+            }
         }
 
         private static string ReadTag()
         {
-            if (ApplicationData.Current.LocalSettings.Values.TryGetValue(SettingsKey, out var v)
-                && v is string s)
+            if (LocalSettingsStore.TryGetString(SettingsKey, out var s))
             {
                 return Normalize(s);
             }
@@ -54,3 +96,4 @@ namespace ScoopX.Services
         }
     }
 }
+

@@ -7,7 +7,6 @@ using System.Runtime.CompilerServices;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ScoopX.Services;
-using Windows.ApplicationModel.Resources;
 using Windows.System;
 
 namespace ScoopX.Pages
@@ -106,17 +105,10 @@ namespace ScoopX.Pages
         private bool _suppressSelectionEvents;
         private bool _suppressPageSizeEvent = true;
         private bool _suppressStatusToggle;
-        private readonly DispatcherTimer _feedbackTimer = new() { Interval = TimeSpan.FromSeconds(2.4) };
-        private readonly ResourceLoader _loader = new();
 
         public WebsitesPage()
         {
             InitializeComponent();
-            _feedbackTimer.Tick += (_, _) =>
-            {
-                _feedbackTimer.Stop();
-                StatusFeedbackBar.IsOpen = false;
-            };
             InitLocalizedCombos();
             _suppressPageSizeEvent = false;
             if (PageSizeComboBox.SelectedItem is ComboBoxItem selected
@@ -131,10 +123,10 @@ namespace ScoopX.Pages
 
         private void InitLocalizedCombos()
         {
-            var phpFmt = _loader.GetString("SitesBatchPhpFormat");
+            var phpFmt = Res.Get("SitesBatchPhpFormat");
             BatchActionComboBox.Items.Clear();
-            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = _loader.GetString("SitesBatchStart.Content"), Tag = "start" });
-            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = _loader.GetString("SitesBatchStop.Content"), Tag = "stop" });
+            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = Res.Get("SitesBatchStart.Content"), Tag = "start" });
+            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = Res.Get("SitesBatchStop.Content"), Tag = "stop" });
             foreach (var version in new[] { "7.4", "8.0", "8.1", "8.2", "8.3" })
             {
                 BatchActionComboBox.Items.Add(new ComboBoxItem
@@ -144,9 +136,9 @@ namespace ScoopX.Pages
                 });
             }
 
-            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = _loader.GetString("SitesBatchDelete.Content"), Tag = "delete" });
+            BatchActionComboBox.Items.Add(new ComboBoxItem { Content = Res.Get("SitesBatchDelete.Content"), Tag = "delete" });
 
-            var pageFmt = _loader.GetString("SitesPageSizeFormat");
+            var pageFmt = Res.Get("SitesPageSizeFormat");
             PageSizeComboBox.Items.Clear();
             foreach (var size in new[] { 5, 10, 20, 50 })
             {
@@ -232,9 +224,9 @@ namespace ScoopX.Pages
             {
                 var missingDialog = new ContentDialog
                 {
-                    Title = _loader.GetString("SitesOpenFailedTitle"),
-                    Content = string.Format(_loader.GetString("SitesOpenFailedMessage"), path),
-                    CloseButtonText = _loader.GetString("SitesOpenFailedOk"),
+                    Title = Res.Get("SitesOpenFailedTitle"),
+                    Content = string.Format(Res.Get("SitesOpenFailedMessage"), path),
+                    CloseButtonText = Res.Get("SitesOpenFailedOk"),
                     XamlRoot = XamlRoot,
                     RequestedTheme = ThemeService.Instance.CurrentElementTheme,
                 };
@@ -308,7 +300,7 @@ namespace ScoopX.Pages
                 _suppressStatusToggle = false;
             }
 
-            TotalCountText.Text = string.Format(_loader.GetString("SitesTotalFormat"), filteredCount);
+            TotalCountText.Text = string.Format(Res.Get("SitesTotalFormat"), filteredCount);
             JumpPageTextBox.Text = _currentPage.ToString();
             PrevPageButton.IsEnabled = _currentPage > 1;
             NextPageButton.IsEnabled = _currentPage < _totalPages;
@@ -328,16 +320,14 @@ namespace ScoopX.Pages
                 if (toggle.IsOn)
                 {
                     ShowStatusFeedback(
-                        _loader.GetString("SitesStartedTitle"),
-                        string.Format(_loader.GetString("SitesStartedMessage"), site.Name),
-                        InfoBarSeverity.Success);
+                        Res.Get("SitesStartedTitle"),
+                        string.Format(Res.Get("SitesStartedMessage"), site.Name));
                 }
                 else
                 {
                     ShowStatusFeedback(
-                        _loader.GetString("SitesStoppedTitle"),
-                        string.Format(_loader.GetString("SitesStoppedMessage"), site.Name),
-                        InfoBarSeverity.Informational);
+                        Res.Get("SitesStoppedTitle"),
+                        string.Format(Res.Get("SitesStoppedMessage"), site.Name));
                 }
             }
 
@@ -348,14 +338,9 @@ namespace ScoopX.Pages
             }
         }
 
-        private void ShowStatusFeedback(string title, string message, InfoBarSeverity severity)
+        private static void ShowStatusFeedback(string title, string message)
         {
-            StatusFeedbackBar.Title = title;
-            StatusFeedbackBar.Message = message;
-            StatusFeedbackBar.Severity = severity;
-            StatusFeedbackBar.IsOpen = true;
-            _feedbackTimer.Stop();
-            _feedbackTimer.Start();
+            ToastService.Show(title, message);
         }
 
         private void CategoryFilterComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -530,7 +515,7 @@ namespace ScoopX.Pages
             _suppressSelectionEvents = false;
 
             BatchActionButton.Content = string.Format(
-                _loader.GetString("SitesBatchSelectedFormat"),
+                Res.Get("SitesBatchSelectedFormat"),
                 selectedTotal);
             BatchActionButton.IsEnabled = selectedTotal > 0 && BatchActionComboBox.SelectedItem != null;
         }

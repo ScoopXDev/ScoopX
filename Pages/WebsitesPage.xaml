@@ -266,15 +266,5 @@
             </Border>
         </Grid>
         </ScrollViewer>
-
-        <InfoBar
-            x:Name="StatusFeedbackBar"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Margin="0,12,24,0"
-            MaxWidth="360"
-            IsOpen="False"
-            IsClosable="True"
-            Severity="Success" />
     </Grid>
 </Page>

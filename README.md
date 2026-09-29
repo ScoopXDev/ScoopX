@@ -46,7 +46,22 @@ Check the [Releases](../../releases) page for available builds and install instr
 
 ## Build from source
 
-On Windows 11, install Visual Studio, the .NET 10 SDK, and the Windows App SDK / WinUI workload required by this project. Clone the repository, open the solution in Visual Studio, pick a target architecture, then build and run.
+Two independent workflows:
+
+| Goal | How |
+| --- | --- |
+| **Debug** | Open the project in Visual Studio, set platform to **x64**, select the **ScoopX** launch profile, press F5. This is unpackaged — no Deploy / MSIX step. |
+| **Installer for users** | Do not use Visual Studio “Package and Publish”. From the repo root run: |
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/publish-setup.ps1
+```
+
+Output: `artifacts/ScoopX-Setup-x64.exe`.
+
+Requires the [.NET 8 SDK](https://dotnet.microsoft.com/download), Windows App SDK build tools, and [Inno Setup 6](https://jrsoftware.org/isinfo.php).
+
+> The installer is **not code-signed**. SmartScreen may show “Unknown publisher”; choose **Run anyway**.
 
 ## Contributing
 

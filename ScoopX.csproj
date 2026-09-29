@@ -14,6 +14,15 @@
     <WinUISDKReferences>false</WinUISDKReferences>
     <EnableMsixTooling>true</EnableMsixTooling>
     <Nullable>enable</Nullable>
+    <!-- Debug/F5 走未打包进程，避免 VS「必须先 Deploy」拦截。安装包仍用 pubxml 的 unpackaged 发布。 -->
+    <WindowsPackageType>None</WindowsPackageType>
+    <WindowsAppSDKSelfContained Condition="'$(WindowsPackageType)'=='None' and '$(Configuration)'!='Debug'">true</WindowsAppSDKSelfContained>
+    <!-- 未打包 PRI 需要用语言文件夹作为逻辑路径，否则 en-US/zh-CN 会被压成一种语言。 -->
+    <DefaultLanguage>zh-CN</DefaultLanguage>
+    <!-- 未打包应用不要按语言拆 PRI，否则 en-US 会进卫星包且不会复制到输出目录。 -->
+    <AppxBundleAutoResourcePackageQualifiers></AppxBundleAutoResourcePackageQualifiers>
+    <!-- Prefer our Program.Main so unpackaged startup can be diagnosed/controlled. -->
+    <DefineConstants>$(DefineConstants);DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -33,13 +42,20 @@
     <Content Include="Assets\Wide310x150Logo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\ScoopX-icon.png" />
-    <Content Include="Assets\ScoopX.ico">
+    <Content Include="Assets\ScoopX.ico" />
+    <!-- Unpackaged publish must copy assets next to the exe (ms-appx resolves from disk). -->
+    <Content Update="Assets\**\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <PropertyGroup>
     <ApplicationIcon>Assets\ScoopX.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PRIResource Update="Strings\zh-CN\Resources.resw" Link="zh-CN\Resources.resw" />
+    <PRIResource Update="Strings\en-US\Resources.resw" Link="en-US\Resources.resw" />
+  </ItemGroup>
 
   <ItemGroup>
     <Manifest Include="$(ApplicationManifest)" />
@@ -73,7 +89,6 @@
   <PropertyGroup>
     <PublishReadyToRun Condition="'$(Configuration)' == 'Debug'">False</PublishReadyToRun>
     <PublishReadyToRun Condition="'$(Configuration)' != 'Debug'">True</PublishReadyToRun>
-    <PublishTrimmed Condition="'$(Configuration)' == 'Debug'">False</PublishTrimmed>
-    <PublishTrimmed Condition="'$(Configuration)' != 'Debug'">True</PublishTrimmed>
+    <PublishTrimmed>False</PublishTrimmed>
   </PropertyGroup>
 </Project>

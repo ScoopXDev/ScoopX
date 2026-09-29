@@ -19,6 +19,7 @@ namespace ScoopX
 
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            ToastService.Initialize();
             _window = new MainWindow();
             MainWindow = _window;
             ThemeService.Instance.Initialize(_window.DispatcherQueue);

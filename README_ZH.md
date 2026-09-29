@@ -46,7 +46,22 @@
 
 ## 从源码构建
 
-在 Windows 11 上安装 Visual Studio、.NET 10 SDK 和项目所需的 Windows App SDK / WinUI 开发组件。克隆本仓库后，使用 Visual Studio 打开解决方案，选择目标架构并编译运行。
+本项目有两条独立路径，互不影响：
+
+| 目的 | 怎么做 |
+| --- | --- |
+| **日常调试** | Visual Studio 打开项目，平台选 **x64**，启动配置选 **ScoopX**，按 F5。这是未打包进程，不需要 Deploy / MSIX。 |
+| **给用户的安装包** | 不要用 VS 的「打包并发布」。在仓库根目录运行下面的脚本，生成免签 Setup。 |
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/publish-setup.ps1
+```
+
+产物：`artifacts/ScoopX-Setup-x64.exe`。
+
+需要 [.NET 8 SDK](https://dotnet.microsoft.com/download)、Windows App SDK 构建组件，以及 [Inno Setup 6](https://jrsoftware.org/isinfo.php)。
+
+> 安装包**未做代码签名**。从网络下载时可能出现 SmartScreen「未知发布者」，选择「仍要运行」即可。
 
 ## 参与贡献
 

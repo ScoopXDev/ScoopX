@@ -160,6 +160,27 @@
   <data name="SettingsStartupFailedOk" xml:space="preserve">
     <value>确定</value>
   </data>
+  <data name="SettingsStartupDisabled" xml:space="preserve">
+    <value>未能启用开机自启（可能被系统或用户策略禁用）。</value>
+  </data>
+  <data name="SettingsStartupExeMissing" xml:space="preserve">
+    <value>无法定位 ScoopX.exe，未能启用开机自启。</value>
+  </data>
+  <data name="SettingsStartupRegistryOpenFailed" xml:space="preserve">
+    <value>无法打开注册表 Run 键。</value>
+  </data>
+  <data name="SettingsStartupRegistryFailed" xml:space="preserve">
+    <value>无法设置开机自启：{0}</value>
+  </data>
+  <data name="SettingsLanguageApplyFailedTitle" xml:space="preserve">
+    <value>无法切换语言</value>
+  </data>
+  <data name="SettingsLanguageApplyFailedMessage" xml:space="preserve">
+    <value>语言偏好已保存，但当前无法应用。请重启应用或检查系统语言设置。</value>
+  </data>
+  <data name="SettingsLanguageApplyFailedOk" xml:space="preserve">
+    <value>确定</value>
+  </data>
   <data name="TitleSlogan.Text" xml:space="preserve">
     <value>为每一位PHP开发者打造高效开发环境，专注每一次创造。</value>
   </data>

@@ -1,7 +1,6 @@
 using System;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
-using Windows.Storage;
 using Windows.UI.ViewManagement;
 
 namespace ScoopX.Services
@@ -55,7 +54,7 @@ namespace ScoopX.Services
         public void SetPreference(AppThemePreference preference)
         {
             Preference = preference;
-            ApplicationData.Current.LocalSettings.Values[SettingsKey] = preference.ToString();
+            LocalSettingsStore.SetString(SettingsKey, preference.ToString());
             // Never touch Application.RequestedTheme after startup — WinUI throws COMException.
             Apply();
             EnsureSystemListener();
@@ -91,8 +90,7 @@ namespace ScoopX.Services
 
         private static AppThemePreference ReadPreference()
         {
-            if (ApplicationData.Current.LocalSettings.Values.TryGetValue(SettingsKey, out var value)
-                && value is string s
+            if (LocalSettingsStore.TryGetString(SettingsKey, out var s)
                 && Enum.TryParse<AppThemePreference>(s, ignoreCase: true, out var parsed))
             {
                 return parsed;

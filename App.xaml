@@ -13,13 +13,6 @@
 
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Light">
-                    <Color x:Key="SystemAccentColor">#2563EB</Color>
-                    <Color x:Key="SystemAccentColorLight1">#3B82F6</Color>
-                    <Color x:Key="SystemAccentColorLight2">#60A5FA</Color>
-                    <Color x:Key="SystemAccentColorLight3">#93C5FD</Color>
-                    <Color x:Key="SystemAccentColorDark1">#1D4ED8</Color>
-                    <Color x:Key="SystemAccentColorDark2">#1E40AF</Color>
-                    <Color x:Key="SystemAccentColorDark3">#1E3A8A</Color>
                     <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="#2563EB" />
                     <SolidColorBrush x:Key="AccentFillColorDefaultBrush" Color="#2563EB" />
                     <SolidColorBrush x:Key="AccentFillColorSecondaryBrush" Color="#CC2563EB" />
@@ -67,13 +60,6 @@
                 </ResourceDictionary>
                 <ResourceDictionary x:Key="Dark">
                     <!-- 强调色与侧栏选中色 ScoopAccentBrush #2563EB 一致 -->
-                    <Color x:Key="SystemAccentColor">#2563EB</Color>
-                    <Color x:Key="SystemAccentColorLight1">#3B82F6</Color>
-                    <Color x:Key="SystemAccentColorLight2">#60A5FA</Color>
-                    <Color x:Key="SystemAccentColorLight3">#93C5FD</Color>
-                    <Color x:Key="SystemAccentColorDark1">#1D4ED8</Color>
-                    <Color x:Key="SystemAccentColorDark2">#1E40AF</Color>
-                    <Color x:Key="SystemAccentColorDark3">#1E3A8A</Color>
                     <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="#2563EB" />
                     <SolidColorBrush x:Key="AccentFillColorDefaultBrush" Color="#2563EB" />
                     <SolidColorBrush x:Key="AccentFillColorSecondaryBrush" Color="#CC2563EB" />
@@ -139,8 +125,7 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <!-- 全局主色 = 侧栏选中色 #2563EB -->
-            <Color x:Key="ScoopAccentColor">#2563EB</Color>
-            <SolidColorBrush x:Key="ScoopAccentBrush" Color="{StaticResource ScoopAccentColor}" />
+            <SolidColorBrush x:Key="ScoopAccentBrush" Color="#2563EB" />
 
             <Style x:Key="ScoopGlassCardStyle" TargetType="Border">
                 <Setter Property="Background" Value="{ThemeResource ScoopGlassAcrylicBrush}" />

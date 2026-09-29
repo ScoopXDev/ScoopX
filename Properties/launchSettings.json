@@ -1,9 +1,6 @@
 {
   "profiles": {
-    "ScoopX (Package)": {
-      "commandName": "MsixPackage"
-    },
-    "ScoopX (Unpackaged)": {
+    "ScoopX": {
       "commandName": "Project"
     }
   }

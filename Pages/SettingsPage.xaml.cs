@@ -7,7 +7,7 @@ using Microsoft.UI.Xaml.Media;
 using ScoopX.Controls;
 using ScoopX.Services;
 using Windows.ApplicationModel;
-using Windows.ApplicationModel.Resources;
+using Microsoft.Windows.ApplicationModel.Resources;
 using Windows.Storage.Pickers;
 using Windows.UI;
 using WinRT.Interop;
@@ -110,9 +110,22 @@ namespace ScoopX.Pages
                 return;
             }
 
-            LanguageService.Instance.SetLanguage(tag);
-
             var loader = new ResourceLoader();
+            if (!LanguageService.Instance.SetLanguage(tag))
+            {
+                LoadLanguageSelection();
+                var failedDialog = new ContentDialog
+                {
+                    Title = loader.GetString("SettingsLanguageApplyFailedTitle"),
+                    Content = loader.GetString("SettingsLanguageApplyFailedMessage"),
+                    CloseButtonText = loader.GetString("SettingsLanguageApplyFailedOk"),
+                    XamlRoot = XamlRoot,
+                    RequestedTheme = ThemeService.Instance.CurrentElementTheme,
+                };
+                await failedDialog.ShowAsync();
+                return;
+            }
+
             var dialog = new ContentDialog
             {
                 Title = loader.GetString("SettingsLanguageRestartTitle"),
