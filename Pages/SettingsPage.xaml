@@ -306,6 +306,7 @@
                             VerticalAlignment="Center"
                             OnContent=""
                             OffContent=""
+                            controls:ScoopToggleAccent.Apply="True"
                             Toggled="CloseToTrayToggle_Toggled" />
                     </Grid>
                     <Grid ColumnSpacing="12" MinHeight="52">
@@ -331,6 +332,7 @@
                             VerticalAlignment="Center"
                             OnContent=""
                             OffContent=""
+                            controls:ScoopToggleAccent.Apply="True"
                             Toggled="StartWithWindowsToggle_Toggled" />
                     </Grid>
                     <Grid ColumnSpacing="12" MinHeight="52">
@@ -356,6 +358,7 @@
                             VerticalAlignment="Center"
                             OnContent=""
                             OffContent=""
+                            controls:ScoopToggleAccent.Apply="True"
                             Toggled="StartHiddenToggle_Toggled" />
                     </Grid>
                 </StackPanel>

@@ -73,7 +73,7 @@ namespace ScoopX.Pages
 
     public sealed partial class DatabasePage : Page
     {
-        private readonly List<DatabaseItem> _mysqlDatabases = new();
+        private readonly List<DatabaseItem> _mysqlDatabases = CreateMySqlDemoData();
         private int _mysqlPageSize = 10;
         private int _mysqlCurrentPage = 1;
         private int _mysqlTotalPages = 1;
@@ -119,6 +119,21 @@ namespace ScoopX.Pages
                     IsSelected = size == 10,
                 });
             }
+        }
+
+        private static List<DatabaseItem> CreateMySqlDemoData()
+        {
+            return new List<DatabaseItem>
+            {
+                new() { Name = "wordpress_blog", Username = "wp_user", Password = "Wp#8f2c1a9", Charset = "utf8mb4", Remark = "公司官网 WordPress" },
+                new() { Name = "laravel_shop", Username = "shop_app", Password = "Sh0p!e4b7d2", Charset = "utf8mb4", Remark = "商城 Laravel" },
+                new() { Name = "thinkphp_crm", Username = "crm_admin", Password = "Crm@9d3e6f1", Charset = "utf8mb4", Remark = "客户管理 ThinkPHP" },
+                new() { Name = "discuz_forum", Username = "forum_user", Password = "Frum#2a7c88", Charset = "utf8mb4", Remark = "内部论坛 Discuz" },
+                new() { Name = "api_gateway", Username = "api_rw", Password = "Api$5c1b90e", Charset = "utf8mb4", Remark = "接口服务库" },
+                new() { Name = "mall_order", Username = "order_svc", Password = "Ord!7e2a4b6", Charset = "utf8mb4", Remark = "订单子系统" },
+                new() { Name = "cms_docs", Username = "docs_user", Password = "Docs#3f9a12", Charset = "utf8mb4", Remark = "文档站 CMS" },
+                new() { Name = "test_sandbox", Username = "tester", Password = "Test@1b8d44", Charset = "utf8mb4", Remark = "联调沙箱" },
+            };
         }
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
@@ -186,6 +201,19 @@ namespace ScoopX.Pages
             });
             _mysqlCurrentPage = 1;
             RefreshMySqlPage();
+        }
+
+        private async void MySqlRootPasswordButton_Click(object sender, RoutedEventArgs e)
+        {
+            HideMySqlServiceHoverMenu(animate: false);
+
+            var dialog = new RootPasswordDialog
+            {
+                XamlRoot = XamlRoot,
+                RequestedTheme = ThemeService.Instance.CurrentElementTheme,
+            };
+
+            await dialog.ShowAsync();
         }
 
         private void DatabaseManage_Click(object sender, RoutedEventArgs e)
@@ -273,7 +301,7 @@ namespace ScoopX.Pages
                 }
 
                 var pageNumber = page;
-                var button = new Button
+                var button = new HandCursorButton
                 {
                     Content = pageNumber.ToString(),
                     MinWidth = 32,
@@ -282,9 +310,9 @@ namespace ScoopX.Pages
                 };
 
                 if (pageNumber == _mysqlCurrentPage
-                    && Application.Current.Resources.ContainsKey("AccentButtonStyle"))
+                    && Application.Current.Resources.ContainsKey("SoftAccentButtonStyle"))
                 {
-                    button.Style = (Style)Application.Current.Resources["AccentButtonStyle"];
+                    button.Style = (Style)Application.Current.Resources["SoftAccentButtonStyle"];
                 }
 
                 button.Click += MySqlPageNumberButton_Click;

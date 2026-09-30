@@ -20,6 +20,31 @@
                     <SolidColorBrush x:Key="AccentTextFillColorPrimaryBrush" Color="#2563EB" />
                     <SolidColorBrush x:Key="AccentTextFillColorSecondaryBrush" Color="#CC2563EB" />
                     <SolidColorBrush x:Key="AccentTextFillColorTertiaryBrush" Color="#992563EB" />
+                    <SolidColorBrush x:Key="TextOnAccentFillColorPrimaryBrush" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="TextOnAccentFillColorSecondaryBrush" Color="#E6FFFFFF" />
+                    <SolidColorBrush x:Key="TextOnAccentFillColorTertiaryBrush" Color="#B3FFFFFF" />
+                    <SolidColorBrush x:Key="TextOnAccentFillColorDisabledBrush" Color="#5CFFFFFF" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOn" Color="#2563EB" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOnPointerOver" Color="#3B82F6" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOnPressed" Color="#1D4ED8" />
+                    <SolidColorBrush x:Key="ToggleSwitchFillOnDisabled" Color="#662563EB" />
+                    <SolidColorBrush x:Key="ToggleSwitchStrokeOn" Color="#2563EB" />
+                    <SolidColorBrush x:Key="ToggleSwitchStrokeOnPointerOver" Color="#3B82F6" />
+                    <SolidColorBrush x:Key="ToggleSwitchStrokeOnPressed" Color="#1D4ED8" />
+                    <SolidColorBrush x:Key="ToggleSwitchStrokeOnDisabled" Color="#662563EB" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOn" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPointerOver" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnPressed" Color="#F3F4F6" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOnDisabled" Color="#9CA3AF" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOff" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPointerOver" Color="#FFFFFF" />
+                    <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPressed" Color="#F3F4F6" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedFill" Color="#2563EB" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStroke" Color="#2563EB" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedFillPointerOver" Color="#3B82F6" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStrokePointerOver" Color="#3B82F6" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedFillPressed" Color="#1D4ED8" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStrokePressed" Color="#1D4ED8" />
                     <LinearGradientBrush x:Key="ScoopAmbientGradient" StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#EEF2FF" Offset="0" />
                         <GradientStop Color="#F5F3FF" Offset="0.38" />
@@ -86,6 +111,12 @@
                     <SolidColorBrush x:Key="ToggleSwitchKnobFillOff" Color="#FFFFFF" />
                     <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPointerOver" Color="#FFFFFF" />
                     <SolidColorBrush x:Key="ToggleSwitchKnobFillOffPressed" Color="#F3F4F6" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedFill" Color="#2563EB" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStroke" Color="#2563EB" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedFillPointerOver" Color="#3B82F6" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStrokePointerOver" Color="#3B82F6" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedFillPressed" Color="#1D4ED8" />
+                    <SolidColorBrush x:Key="RadioButtonOuterEllipseCheckedStrokePressed" Color="#1D4ED8" />
                     <LinearGradientBrush x:Key="ScoopAmbientGradient" StartPoint="0,0" EndPoint="1,1">
                         <GradientStop Color="#0B1220" Offset="0" />
                         <GradientStop Color="#15101F" Offset="0.38" />
@@ -124,8 +155,41 @@
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
 
-            <!-- 全局主色 = 侧栏选中色 #2563EB -->
+            <!-- 全局主色 #2563EB：覆盖系统强调色，保证 AccentButton / 链接一致 -->
+            <Color x:Key="SystemAccentColor">#2563EB</Color>
+            <Color x:Key="SystemAccentColorLight1">#3B82F6</Color>
+            <!-- 暗色主题开关开态走 Light2，必须与主色一致，否则会变成浅蓝 -->
+            <Color x:Key="SystemAccentColorLight2">#2563EB</Color>
+            <Color x:Key="SystemAccentColorLight3">#60A5FA</Color>
+            <Color x:Key="SystemAccentColorDark1">#1D4ED8</Color>
+            <Color x:Key="SystemAccentColorDark2">#1E40AF</Color>
+            <Color x:Key="SystemAccentColorDark3">#1E3A8A</Color>
             <SolidColorBrush x:Key="ScoopAccentBrush" Color="#2563EB" />
+            <SolidColorBrush x:Key="SystemControlHighlightAccentBrush" Color="#2563EB" />
+            <SolidColorBrush x:Key="AccentFillColorDefaultBrush" Color="#2563EB" />
+            <SolidColorBrush x:Key="AccentFillColorSecondaryBrush" Color="#3B82F6" />
+            <SolidColorBrush x:Key="AccentFillColorTertiaryBrush" Color="#1D4ED8" />
+            <SolidColorBrush x:Key="AccentTextFillColorPrimaryBrush" Color="#2563EB" />
+            <SolidColorBrush x:Key="AccentTextFillColorSecondaryBrush" Color="#CC2563EB" />
+            <SolidColorBrush x:Key="AccentTextFillColorTertiaryBrush" Color="#992563EB" />
+            <SolidColorBrush x:Key="TextOnAccentFillColorPrimaryBrush" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="TextOnAccentFillColorSecondaryBrush" Color="#E6FFFFFF" />
+            <SolidColorBrush x:Key="TextOnAccentFillColorTertiaryBrush" Color="#B3FFFFFF" />
+            <SolidColorBrush x:Key="TextOnAccentFillColorDisabledBrush" Color="#5CFFFFFF" />
+
+            <!-- 系统 AccentButtonStyle 各态色刷：蓝底白字；边框透明，避免圆角毛边 -->
+            <SolidColorBrush x:Key="AccentButtonBackground" Color="#2563EB" />
+            <SolidColorBrush x:Key="AccentButtonBackgroundPointerOver" Color="#3B82F6" />
+            <SolidColorBrush x:Key="AccentButtonBackgroundPressed" Color="#1D4ED8" />
+            <SolidColorBrush x:Key="AccentButtonBackgroundDisabled" Color="#992563EB" />
+            <SolidColorBrush x:Key="AccentButtonForeground" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AccentButtonForegroundPointerOver" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AccentButtonForegroundPressed" Color="#FFFFFF" />
+            <SolidColorBrush x:Key="AccentButtonForegroundDisabled" Color="#5CFFFFFF" />
+            <SolidColorBrush x:Key="AccentButtonBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="AccentButtonBorderBrushPointerOver" Color="Transparent" />
+            <SolidColorBrush x:Key="AccentButtonBorderBrushPressed" Color="Transparent" />
+            <SolidColorBrush x:Key="AccentButtonBorderBrushDisabled" Color="Transparent" />
 
             <Style x:Key="ScoopGlassCardStyle" TargetType="Border">
                 <Setter Property="Background" Value="{ThemeResource ScoopGlassAcrylicBrush}" />
@@ -146,7 +210,7 @@
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="HorizontalContentAlignment" Value="Left" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Foreground" Value="{ThemeResource AccentTextFillColorPrimaryBrush}" />
+                <Setter Property="Foreground" Value="{StaticResource ScoopAccentBrush}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="HyperlinkButton">
@@ -187,6 +251,60 @@
                 <Setter Property="Padding" Value="20,8" />
             </Style>
 
+            <!-- 工具栏主色按钮：Border 圆角模板去毛边，手掌光标，尺寸对齐普通工具栏按钮 -->
+            <Style x:Key="SoftAccentButtonStyle" TargetType="controls:HandCursorButton">
+                <Setter Property="Background" Value="{StaticResource ScoopAccentBrush}" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="CornerRadius" Value="4" />
+                <Setter Property="MinHeight" Value="32" />
+                <Setter Property="Padding" Value="12,5" />
+                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="UseSystemFocusVisuals" Value="False" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="controls:HandCursorButton">
+                            <Border
+                                x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                CornerRadius="{TemplateBinding CornerRadius}"
+                                Padding="{TemplateBinding Padding}">
+                                <ContentPresenter
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    Foreground="{TemplateBinding Foreground}" />
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <VisualState.Setters>
+                                                <Setter Target="Root.Background" Value="#3B82F6" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <VisualState.Setters>
+                                                <Setter Target="Root.Background" Value="#1D4ED8" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <VisualState.Setters>
+                                                <Setter Target="Root.Background" Value="#992563EB" />
+                                                <Setter Target="Root.Opacity" Value="1" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- 对话框确认按钮：沿用系统 Accent，去掉描边 -->
             <Style x:Key="SoftConfirmButtonStyle" TargetType="Button" BasedOn="{StaticResource AccentButtonStyle}">
                 <Setter Property="CornerRadius" Value="6" />
                 <Setter Property="MinHeight" Value="36" />

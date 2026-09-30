@@ -3,40 +3,297 @@
     x:Class="ScoopX.Pages.WebsitesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:ScoopX.Controls"
     xmlns:local="using:ScoopX.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="Transparent">
 
+    <Page.Resources>
+        <Style x:Key="SitesTabButtonStyle" TargetType="controls:HandCursorButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="4,12,4,14" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="CornerRadius" Value="0" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="UseSystemFocusVisuals" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:HandCursorButton">
+                        <ContentPresenter
+                            Background="Transparent"
+                            Padding="{TemplateBinding Padding}"
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="Center"
+                            Content="{TemplateBinding Content}"
+                            ContentTemplate="{TemplateBinding ContentTemplate}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SitesServiceChipStyle" TargetType="controls:HandCursorButton">
+            <Setter Property="Background" Value="{ThemeResource ButtonBackground}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource ButtonBorderBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="MinHeight" Value="32" />
+            <Setter Property="Padding" Value="12,5" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="UseSystemFocusVisuals" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:HandCursorButton">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            Padding="{TemplateBinding Padding}">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Foreground="{TemplateBinding Foreground}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SitesHoverMenuItemStyle" TargetType="controls:HandCursorButton">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10,6" />
+            <Setter Property="MinWidth" Value="0" />
+            <Setter Property="MinHeight" Value="0" />
+            <Setter Property="CornerRadius" Value="4" />
+            <Setter Property="FontSize" Value="13" />
+            <Setter Property="Foreground" Value="{ThemeResource ScoopTextBodyBrush}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="UseSystemFocusVisuals" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:HandCursorButton">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            Padding="{TemplateBinding Padding}"
+                            CornerRadius="{TemplateBinding CornerRadius}">
+                            <ContentPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{TemplateBinding Content}"
+                                Foreground="{TemplateBinding Foreground}" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+
     <Grid Background="Transparent">
-        <ScrollViewer
-            VerticalScrollBarVisibility="Auto"
-            HorizontalScrollBarVisibility="Disabled"
-            Background="Transparent">
-            <Grid Padding="20,16,24,24" RowSpacing="16" VerticalAlignment="Top" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Padding="24,10,24,0" HorizontalAlignment="Left">
+            <Grid
+                x:Name="TabBarHost"
+                HorizontalAlignment="Left"
+                Loaded="TabBarHost_Loaded"
+                SizeChanged="TabBarHost_SizeChanged">
+                <StackPanel
+                    x:Name="TabButtonsPanel"
+                    Orientation="Horizontal"
+                    Spacing="28"
+                    HorizontalAlignment="Left">
+                    <controls:HandCursorButton
+                        x:Name="PhpTabButton"
+                        Tag="php"
+                        Style="{StaticResource SitesTabButtonStyle}"
+                        Click="SitesTab_Click">
+                        <TextBlock
+                            x:Name="PhpTabText"
+                            x:Uid="SitesTabPhp"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Foreground="{StaticResource ScoopAccentBrush}" />
+                    </controls:HandCursorButton>
+
+                    <controls:HandCursorButton
+                        x:Name="ProxyTabButton"
+                        Tag="proxy"
+                        Style="{StaticResource SitesTabButtonStyle}"
+                        Click="SitesTab_Click">
+                        <TextBlock
+                            x:Name="ProxyTabText"
+                            x:Uid="SitesTabProxy"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
+                    </controls:HandCursorButton>
+
+                    <controls:HandCursorButton
+                        x:Name="HtmlTabButton"
+                        Tag="html"
+                        Style="{StaticResource SitesTabButtonStyle}"
+                        Click="SitesTab_Click">
+                        <TextBlock
+                            x:Name="HtmlTabText"
+                            x:Uid="SitesTabHtml"
+                            FontSize="15"
+                            FontWeight="SemiBold"
+                            Foreground="{ThemeResource ScoopTextSecondaryBrush}" />
+                    </controls:HandCursorButton>
+                </StackPanel>
+
+                <Border
+                    x:Name="TabIndicator"
+                    Width="36"
+                    Height="3"
+                    CornerRadius="1.5"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="{StaticResource ScoopAccentBrush}">
+                    <Border.RenderTransform>
+                        <TranslateTransform x:Name="TabIndicatorTransform" />
+                    </Border.RenderTransform>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Padding="24,12,24,24">
+            <Grid
+                x:Name="PhpPanel"
+                Visibility="Visible"
+                RowSpacing="16"
+                Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-            <Grid ColumnSpacing="12">
+            <Grid ColumnSpacing="12" Canvas.ZIndex="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" Spacing="12" VerticalAlignment="Center">
-                    <Button x:Name="AddSiteButton" x:Uid="SitesAdd" Style="{StaticResource AccentButtonStyle}" Click="AddSiteButton_Click" />
+                    <controls:HandCursorButton x:Name="AddSiteButton" x:Uid="SitesAdd" Style="{StaticResource SoftAccentButtonStyle}" Click="AddSiteButton_Click" />
 
-                    <DropDownButton x:Uid="SitesAdvanced">
-                        <DropDownButton.Flyout>
+                    <controls:HandCursorDropDownButton x:Uid="SitesAdvanced">
+                        <controls:HandCursorDropDownButton.Flyout>
                             <MenuFlyout Placement="Bottom">
                                 <MenuFlyoutItem x:Uid="SitesDefaultPage" />
                                 <MenuFlyoutItem x:Uid="SitesPhpCli" />
                             </MenuFlyout>
-                        </DropDownButton.Flyout>
-                    </DropDownButton>
+                        </controls:HandCursorDropDownButton.Flyout>
+                    </controls:HandCursorDropDownButton>
+
+                    <Grid
+                        x:Name="NginxServiceChipHost"
+                        VerticalAlignment="Top"
+                        Canvas.ZIndex="2"
+                        PointerEntered="NginxServiceChipHost_PointerEntered"
+                        PointerExited="NginxServiceChipHost_PointerExited">
+                        <controls:HandCursorButton
+                            x:Name="NginxServiceChipButton"
+                            Style="{StaticResource SitesServiceChipStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <Viewbox Width="16" Height="16" VerticalAlignment="Center">
+                                    <Path
+                                        Fill="#269539"
+                                        Data="M512 0L68.48 256v512L512 1024l443.52-256V256L512 0z m256 707.84c0 30.08-27.552 55.04-65.248 55.04-26.912 0-57.632-10.88-76.832-34.56l-256-304.672v284.16c0 30.752-24.32 55.04-54.368 55.04H312.32c-30.752 0-55.04-25.6-55.04-55.04V316.16c0-30.08 26.88-55.04 64-55.04 27.552 0 58.88 10.88 78.08 34.56l254.72 304.672V316.16c0-30.752 25.6-55.04 55.04-55.04h3.2c30.72 0 55.04 25.6 55.04 55.04v391.68H768z" />
+                                </Viewbox>
+                                <TextBlock
+                                    x:Name="NginxServiceVersionText"
+                                    Text="Nginx 1.24.0"
+                                    FontSize="13"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource ScoopTextBodyBrush}" />
+                                <Path
+                                    x:Name="NginxServiceStatusIcon"
+                                    Width="8"
+                                    Height="9"
+                                    Stretch="Uniform"
+                                    VerticalAlignment="Center"
+                                    Fill="#22C55E"
+                                    Data="M0,0 L8,4.5 L0,9 Z" />
+                            </StackPanel>
+                        </controls:HandCursorButton>
+
+                        <!-- 与数据库 MySQL 芯片一致：菜单上浮，尖角朝下 -->
+                        <StackPanel
+                            x:Name="NginxServiceHoverMenu"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            Opacity="0"
+                            IsHitTestVisible="False"
+                            PointerEntered="NginxServiceHoverMenu_PointerEntered"
+                            PointerExited="NginxServiceHoverMenu_PointerExited">
+                            <StackPanel.RenderTransform>
+                                <TranslateTransform Y="-52" />
+                            </StackPanel.RenderTransform>
+                            <Border
+                                Background="{ThemeResource ScoopCardFillBrush}"
+                                BorderThickness="0"
+                                CornerRadius="8"
+                                Padding="6,2"
+                                Translation="0,0,32">
+                                <Border.Shadow>
+                                    <ThemeShadow />
+                                </Border.Shadow>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <controls:HandCursorButton
+                                        x:Uid="SitesNginxStop"
+                                        Style="{StaticResource SitesHoverMenuItemStyle}"
+                                        Click="NginxServiceAction_Click"
+                                        Tag="Stop" />
+                                    <Border
+                                        Width="1"
+                                        Height="14"
+                                        Margin="2,0"
+                                        VerticalAlignment="Center"
+                                        Background="{ThemeResource ScoopTextTertiaryBrush}"
+                                        Opacity="0.55" />
+                                    <controls:HandCursorButton
+                                        x:Uid="SitesNginxRestart"
+                                        Style="{StaticResource SitesHoverMenuItemStyle}"
+                                        Click="NginxServiceAction_Click"
+                                        Tag="Restart" />
+                                    <Border
+                                        Width="1"
+                                        Height="14"
+                                        Margin="2,0"
+                                        VerticalAlignment="Center"
+                                        Background="{ThemeResource ScoopTextTertiaryBrush}"
+                                        Opacity="0.55" />
+                                    <controls:HandCursorButton
+                                        x:Uid="SitesNginxReload"
+                                        Style="{StaticResource SitesHoverMenuItemStyle}"
+                                        Click="NginxServiceAction_Click"
+                                        Tag="Reload" />
+                                </StackPanel>
+                            </Border>
+                            <Path
+                                Width="12"
+                                Height="7"
+                                Margin="0,-1,0,0"
+                                HorizontalAlignment="Center"
+                                Stretch="Fill"
+                                Fill="{ThemeResource ScoopCardFillBrush}"
+                                Data="M0,0 L6,7 L12,0 Z" />
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel
@@ -67,14 +324,13 @@
 
             <Border
                 Grid.Row="1"
-                VerticalAlignment="Top"
                 Style="{StaticResource ScoopGlassCardStyle}"
                 CornerRadius="14"
                 Background="{ThemeResource ScoopGlassStrongAcrylicBrush}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -105,91 +361,95 @@
                         <TextBlock Grid.Column="6" x:Uid="SitesColActions" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" />
                     </Grid>
 
-                    <ItemsControl
-                        x:Name="WebsiteList"
-                        Grid.Row="1">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate x:DataType="local:WebsiteItem">
-                                <Grid
-                                    Padding="16,10"
-                                    MinHeight="48"
-                                    ColumnSpacing="12"
-                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                    BorderThickness="0,0,0,1">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40" />
-                                        <ColumnDefinition Width="1.2*" />
-                                        <ColumnDefinition Width="1.1*" />
-                                        <ColumnDefinition Width="1.8*" />
-                                        <ColumnDefinition Width="1.1*" />
-                                        <ColumnDefinition Width="0.8*" />
-                                        <ColumnDefinition Width="1*" />
-                                    </Grid.ColumnDefinitions>
-                                    <CheckBox
-                                        MinWidth="0"
-                                        VerticalAlignment="Center"
-                                        IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
-                                        Checked="ItemCheckBox_Changed"
-                                        Unchecked="ItemCheckBox_Changed" />
-                                    <HyperlinkButton
-                                        Grid.Column="1"
-                                        x:Uid="SitesEditTooltip"
-                                        Style="{StaticResource TableLinkButtonStyle}"
-                                        Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                        Tag="{x:Bind}"
-                                        Click="SiteName_Click">
-                                        <TextBlock
-                                            Text="{x:Bind Name}"
-                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                            TextWrapping="NoWrap"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </HyperlinkButton>
-                                    <ToggleSwitch
-                                        Grid.Column="2"
-                                        x:Uid="SitesToggleTooltip"
-                                        MinWidth="0"
-                                        VerticalAlignment="Center"
-                                        OnContent=""
-                                        OffContent=""
-                                        IsOn="{x:Bind IsRunning, Mode=TwoWay}"
-                                        Tag="{x:Bind}"
-                                        Toggled="StatusToggle_Toggled" />
-                                    <HyperlinkButton
-                                        Grid.Column="3"
-                                        Style="{StaticResource TableLinkButtonStyle}"
-                                        Foreground="{ThemeResource ScoopTextSecondaryBrush}"
-                                        Tag="{x:Bind RootPath}"
-                                        Click="RootPath_Click"
-                                        ToolTipService.ToolTip="{x:Bind RootPath}">
-                                        <TextBlock
-                                            Text="{x:Bind RootPath}"
-                                            Foreground="{ThemeResource ScoopTextSecondaryBrush}"
-                                            TextWrapping="NoWrap"
-                                            TextTrimming="CharacterEllipsis" />
-                                    </HyperlinkButton>
-                                    <TextBlock Grid.Column="4" Text="{x:Bind Remark}" Foreground="{ThemeResource ScoopTextPrimaryBrush}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
-                                    <TextBlock Grid.Column="5" Text="{x:Bind PhpVersion}" Foreground="{ThemeResource ScoopTextPrimaryBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
-                                    <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
-                                        <HyperlinkButton
-                                            x:Uid="SitesActionSettings"
-                                            Style="{StaticResource TableLinkButtonStyle}"
-                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
-                                            Tag="{x:Bind}"
-                                            Click="SiteName_Click" />
-                                        <Border
-                                            Width="1"
-                                            Height="12"
+                    <ScrollViewer
+                        Grid.Row="1"
+                        VerticalScrollBarVisibility="Auto"
+                        HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl x:Name="WebsiteList">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="local:WebsiteItem">
+                                    <Grid
+                                        Padding="16,10"
+                                        MinHeight="48"
+                                        ColumnSpacing="12"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="0,0,0,1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="1.2*" />
+                                            <ColumnDefinition Width="1.1*" />
+                                            <ColumnDefinition Width="1.8*" />
+                                            <ColumnDefinition Width="1.1*" />
+                                            <ColumnDefinition Width="0.8*" />
+                                            <ColumnDefinition Width="1*" />
+                                        </Grid.ColumnDefinitions>
+                                        <CheckBox
+                                            MinWidth="0"
                                             VerticalAlignment="Center"
-                                            Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                            IsChecked="{x:Bind IsSelected, Mode=TwoWay}"
+                                            Checked="ItemCheckBox_Changed"
+                                            Unchecked="ItemCheckBox_Changed" />
                                         <HyperlinkButton
-                                            x:Uid="SitesActionDelete"
+                                            Grid.Column="1"
+                                            x:Uid="SitesEditTooltip"
                                             Style="{StaticResource TableLinkButtonStyle}"
-                                            Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}" />
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                                            Foreground="{StaticResource ScoopAccentBrush}"
+                                            Tag="{x:Bind}"
+                                            Click="SiteName_Click">
+                                            <TextBlock
+                                                Text="{x:Bind Name}"
+                                                Foreground="{StaticResource ScoopAccentBrush}"
+                                                TextWrapping="NoWrap"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </HyperlinkButton>
+                                        <ToggleSwitch
+                                            Grid.Column="2"
+                                            x:Uid="SitesToggleTooltip"
+                                            MinWidth="0"
+                                            VerticalAlignment="Center"
+                                            OnContent=""
+                                            OffContent=""
+                                            IsOn="{x:Bind IsRunning, Mode=TwoWay}"
+                                            Tag="{x:Bind}"
+                                            controls:ScoopToggleAccent.Apply="True"
+                                            Toggled="StatusToggle_Toggled" />
+                                        <HyperlinkButton
+                                            Grid.Column="3"
+                                            Style="{StaticResource TableLinkButtonStyle}"
+                                            Foreground="{ThemeResource ScoopTextSecondaryBrush}"
+                                            Tag="{x:Bind RootPath}"
+                                            Click="RootPath_Click"
+                                            ToolTipService.ToolTip="{x:Bind RootPath}">
+                                            <TextBlock
+                                                Text="{x:Bind RootPath}"
+                                                Foreground="{ThemeResource ScoopTextSecondaryBrush}"
+                                                TextWrapping="NoWrap"
+                                                TextTrimming="CharacterEllipsis" />
+                                        </HyperlinkButton>
+                                        <TextBlock Grid.Column="4" Text="{x:Bind Remark}" Foreground="{ThemeResource ScoopTextPrimaryBrush}" VerticalAlignment="Center" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Grid.Column="5" Text="{x:Bind PhpVersion}" Foreground="{ThemeResource ScoopTextPrimaryBrush}" VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" />
+                                        <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                            <HyperlinkButton
+                                                x:Uid="SitesActionSettings"
+                                                Style="{StaticResource TableLinkButtonStyle}"
+                                                Foreground="{StaticResource ScoopAccentBrush}"
+                                                Tag="{x:Bind}"
+                                                Click="SiteName_Click" />
+                                            <Border
+                                                Width="1"
+                                                Height="12"
+                                                VerticalAlignment="Center"
+                                                Background="{ThemeResource DividerStrokeColorDefaultBrush}" />
+                                            <HyperlinkButton
+                                                x:Uid="SitesActionDelete"
+                                                Style="{StaticResource TableLinkButtonStyle}"
+                                                Foreground="{StaticResource ScoopAccentBrush}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
 
                     <Grid
                         Grid.Row="2"
@@ -214,9 +474,9 @@
                                 Width="180"
                                 VerticalAlignment="Center"
                                 SelectionChanged="BatchActionComboBox_SelectionChanged" />
-                            <Button
+                            <controls:HandCursorButton
                                 x:Name="BatchActionButton"
-                                Style="{StaticResource AccentButtonStyle}"
+                                Style="{StaticResource SoftAccentButtonStyle}"
                                 IsEnabled="False"
                                 Click="BatchActionButton_Click" />
                         </StackPanel>
@@ -264,7 +524,10 @@
                     </Grid>
                 </Grid>
             </Border>
+            </Grid>
+
+            <Grid x:Name="ProxyPanel" Visibility="Collapsed" />
+            <Grid x:Name="HtmlPanel" Visibility="Collapsed" />
         </Grid>
-        </ScrollViewer>
     </Grid>
 </Page>

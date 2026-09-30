@@ -259,6 +259,15 @@
   <data name="SitesAdd.Content" xml:space="preserve">
     <value>Add site</value>
   </data>
+  <data name="SitesTabPhp.Text" xml:space="preserve">
+    <value>PHP projects</value>
+  </data>
+  <data name="SitesTabProxy.Text" xml:space="preserve">
+    <value>Reverse proxy</value>
+  </data>
+  <data name="SitesTabHtml.Text" xml:space="preserve">
+    <value>HTML projects</value>
+  </data>
   <data name="SitesAdvanced.Content" xml:space="preserve">
     <value>Advanced</value>
   </data>
@@ -367,6 +376,33 @@
   </data>
   <data name="SitesStoppedMessage" xml:space="preserve">
     <value>Site {0} stopped</value>
+  </data>
+  <data name="SitesNginxStop.Content" xml:space="preserve">
+    <value>Stop</value>
+  </data>
+  <data name="SitesNginxRestart.Content" xml:space="preserve">
+    <value>Restart</value>
+  </data>
+  <data name="SitesNginxReload.Content" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="SitesNginxStoppedTitle" xml:space="preserve">
+    <value>Nginx</value>
+  </data>
+  <data name="SitesNginxStoppedMessage" xml:space="preserve">
+    <value>Nginx stopped</value>
+  </data>
+  <data name="SitesNginxRestartedTitle" xml:space="preserve">
+    <value>Nginx</value>
+  </data>
+  <data name="SitesNginxRestartedMessage" xml:space="preserve">
+    <value>Nginx restarted</value>
+  </data>
+  <data name="SitesNginxReloadedTitle" xml:space="preserve">
+    <value>Nginx</value>
+  </data>
+  <data name="SitesNginxReloadedMessage" xml:space="preserve">
+    <value>Nginx reloaded</value>
   </data>
   <data name="AddSiteDialog.Title" xml:space="preserve">
     <value>Add site</value>
@@ -598,6 +634,27 @@
   </data>
   <data name="DbMySqlReload.Content" xml:space="preserve">
     <value>Reload</value>
+  </data>
+  <data name="RootPasswordDialog.Title" xml:space="preserve">
+    <value>Root password</value>
+  </data>
+  <data name="RootPasswordDialog.PrimaryButtonText" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RootPasswordDialog.SecondaryButtonText" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="RootPasswordLabel.Text" xml:space="preserve">
+    <value>Database password</value>
+  </data>
+  <data name="RootPasswordRegenerateTooltip" xml:space="preserve">
+    <value>Regenerate</value>
+  </data>
+  <data name="RootPasswordSavedTitle" xml:space="preserve">
+    <value>Root password</value>
+  </data>
+  <data name="RootPasswordSavedMessage" xml:space="preserve">
+    <value>Password saved</value>
   </data>
   <data name="AddDatabaseDialog.Title" xml:space="preserve">
     <value>Add database</value>

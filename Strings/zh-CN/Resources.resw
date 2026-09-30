@@ -259,6 +259,15 @@
   <data name="SitesAdd.Content" xml:space="preserve">
     <value>添加站点</value>
   </data>
+  <data name="SitesTabPhp.Text" xml:space="preserve">
+    <value>PHP项目</value>
+  </data>
+  <data name="SitesTabProxy.Text" xml:space="preserve">
+    <value>反向代理</value>
+  </data>
+  <data name="SitesTabHtml.Text" xml:space="preserve">
+    <value>HTML项目</value>
+  </data>
   <data name="SitesAdvanced.Content" xml:space="preserve">
     <value>高级设置</value>
   </data>
@@ -367,6 +376,33 @@
   </data>
   <data name="SitesStoppedMessage" xml:space="preserve">
     <value>站点 {0} 已停止</value>
+  </data>
+  <data name="SitesNginxStop.Content" xml:space="preserve">
+    <value>停止</value>
+  </data>
+  <data name="SitesNginxRestart.Content" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="SitesNginxReload.Content" xml:space="preserve">
+    <value>重载</value>
+  </data>
+  <data name="SitesNginxStoppedTitle" xml:space="preserve">
+    <value>Nginx</value>
+  </data>
+  <data name="SitesNginxStoppedMessage" xml:space="preserve">
+    <value>Nginx 已停止</value>
+  </data>
+  <data name="SitesNginxRestartedTitle" xml:space="preserve">
+    <value>Nginx</value>
+  </data>
+  <data name="SitesNginxRestartedMessage" xml:space="preserve">
+    <value>Nginx 已重启</value>
+  </data>
+  <data name="SitesNginxReloadedTitle" xml:space="preserve">
+    <value>Nginx</value>
+  </data>
+  <data name="SitesNginxReloadedMessage" xml:space="preserve">
+    <value>Nginx 已重载</value>
   </data>
   <data name="AddSiteDialog.Title" xml:space="preserve">
     <value>添加站点</value>
@@ -598,6 +634,27 @@
   </data>
   <data name="DbMySqlReload.Content" xml:space="preserve">
     <value>重载</value>
+  </data>
+  <data name="RootPasswordDialog.Title" xml:space="preserve">
+    <value>root 密码</value>
+  </data>
+  <data name="RootPasswordDialog.PrimaryButtonText" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="RootPasswordDialog.SecondaryButtonText" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="RootPasswordLabel.Text" xml:space="preserve">
+    <value>数据库密码</value>
+  </data>
+  <data name="RootPasswordRegenerateTooltip" xml:space="preserve">
+    <value>重新生成</value>
+  </data>
+  <data name="RootPasswordSavedTitle" xml:space="preserve">
+    <value>root 密码</value>
+  </data>
+  <data name="RootPasswordSavedMessage" xml:space="preserve">
+    <value>密码已保存</value>
   </data>
   <data name="AddDatabaseDialog.Title" xml:space="preserve">
     <value>添加数据库</value>

@@ -239,15 +239,16 @@
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Top">
-                    <Button
+                    <controls:HandCursorButton
                         x:Name="MySqlAddDatabaseButton"
                         x:Uid="DbMySqlAddDatabase"
-                        Style="{StaticResource AccentButtonStyle}"
+                        Style="{StaticResource SoftAccentButtonStyle}"
                         Click="MySqlAddDatabaseButton_Click" />
                     <controls:HandCursorButton
                         x:Name="MySqlRootPasswordButton"
                         x:Uid="DbMySqlRootPassword"
-                        Style="{StaticResource DatabaseToolbarButtonStyle}" />
+                        Style="{StaticResource DatabaseToolbarButtonStyle}"
+                        Click="MySqlRootPasswordButton_Click" />
                     <controls:HandCursorButton
                         x:Name="MySqlPhpMyAdminButton"
                         x:Uid="DbMySqlPhpMyAdmin"
@@ -350,14 +351,13 @@
 
                 <Border
                     Grid.Row="1"
-                    VerticalAlignment="Top"
                     Style="{StaticResource ScoopGlassCardStyle}"
                     CornerRadius="14"
                     Background="{ThemeResource ScoopGlassStrongAcrylicBrush}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
@@ -380,7 +380,11 @@
                             <TextBlock Grid.Column="4" x:Uid="DbColActions" FontWeight="SemiBold" Foreground="{ThemeResource ScoopTextSecondaryBrush}" VerticalAlignment="Center" />
                         </Grid>
 
-                        <Grid Grid.Row="1" MinHeight="48">
+                        <ScrollViewer
+                            Grid.Row="1"
+                            VerticalScrollBarVisibility="Auto"
+                            HorizontalScrollBarVisibility="Disabled">
+                            <Grid MinHeight="48">
                             <ItemsControl x:Name="MySqlDatabaseList">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="local:DatabaseItem">
@@ -432,7 +436,7 @@
                                                 <HyperlinkButton
                                                     x:Uid="DbActionManage"
                                                     Style="{StaticResource TableLinkButtonStyle}"
-                                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                                    Foreground="{StaticResource ScoopAccentBrush}"
                                                     Tag="{x:Bind}"
                                                     Click="DatabaseManage_Click" />
                                                 <Border
@@ -443,7 +447,7 @@
                                                 <HyperlinkButton
                                                     x:Uid="DbActionChangePassword"
                                                     Style="{StaticResource TableLinkButtonStyle}"
-                                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                                    Foreground="{StaticResource ScoopAccentBrush}"
                                                     Tag="{x:Bind}"
                                                     Click="DatabaseChangePassword_Click" />
                                                 <Border
@@ -454,7 +458,7 @@
                                                 <HyperlinkButton
                                                     x:Uid="DbActionDelete"
                                                     Style="{StaticResource TableLinkButtonStyle}"
-                                                    Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                                    Foreground="{StaticResource ScoopAccentBrush}"
                                                     Tag="{x:Bind}"
                                                     Click="DatabaseDelete_Click" />
                                             </StackPanel>
@@ -470,7 +474,8 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Foreground="{ThemeResource ScoopTextTertiaryBrush}" />
-                        </Grid>
+                            </Grid>
+                        </ScrollViewer>
 
                         <StackPanel
                             Grid.Row="2"
